@@ -378,9 +378,9 @@ body{
     display:grid;
 
     grid-template-columns:
-        repeat(auto-fit,minmax(320px,1fr));
+        repeat(3, 1fr);
 
-    gap:30px;
+    gap:25px;
 
 }
 
