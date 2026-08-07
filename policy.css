@@ -1359,3 +1359,55 @@ button:focus{
 /* ===========================
    End of policy.css
 =========================== */
+.social-text{
+
+    color:#cfcfcf;
+
+    margin-bottom:20px;
+
+}
+
+.social-icons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+
+}
+
+.social-icons a{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    background:#1d1d1d;
+
+    color:#ffffff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+    transition:.35s ease;
+
+}
+
+.social-icons a:hover{
+
+    background:var(--primary);
+
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 25px rgba(22,119,255,.35);
+
+}
+
