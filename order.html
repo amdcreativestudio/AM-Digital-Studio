@@ -1,1 +1,869 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Service | AM Digital Studio</title>
+
+    <meta name="description"
+        content="Place your order for professional digital services from AM Digital Studio.">
+
+    <meta name="author" content="AM Digital Studio">
+
+    <!-- Favicon -->
+
+    <link rel="icon" type="image/png" href="wdf.png">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="order.css">
+
+</head>
+
+<body>
+
+    <!-- ==========================
+            Navbar
+    =========================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <a href="index.html">
+
+                AM Digital Studio
+
+            </a>
+
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="index.html">Home</a></li>
+
+            <li><a href="index.html#services">Services</a></li>
+
+            <li><a href="video.html">Videos</a></li>
+
+            <li><a href="index.html#contact">Contact</a></li>
+
+        </ul>
+
+        <div class="menu-toggle">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </nav>
+
+    <!-- ==========================
+            Hero Section
+    =========================== -->
+
+    <section class="order-hero">
+
+        <div class="container">
+
+            <h1>
+
+                Complete Your Order
+
+            </h1>
+
+            <p>
+
+                Fill in your project details below to place your order.
+                We'll review your request and begin working as soon as your payment is confirmed.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ==========================
+          Order Progress
+    =========================== -->
+
+    <section class="order-progress">
+
+        <div class="container progress-wrapper">
+
+            <div class="step active">
+
+                <div class="step-number">
+
+                    1
+
+                </div>
+
+                <span>
+
+                    Service
+
+                </span>
+
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="step active">
+
+                <div class="step-number">
+
+                    2
+
+                </div>
+
+                <span>
+
+                    Order Details
+
+                </span>
+
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="step">
+
+                <div class="step-number">
+
+                    3
+
+                </div>
+
+                <span>
+
+                    Payment
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==========================
+        Order Form Starts Here
+    =========================== -->
+          <section class="order-section">
+
+    <div class="container">
+
+        <div class="order-grid">
+
+            <!-- ==========================
+                    Order Form
+            =========================== -->
+
+            <div class="order-form">
+
+                <h2>
+
+                    Customer Information
+
+                </h2>
+
+                <form id="orderForm">
+
+                    <!-- Full Name -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            Full Name
+
+                        </label>
+
+                        <input type="text"
+                               id="fullName"
+                               placeholder="Enter your full name"
+                               required>
+
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            Email Address
+
+                        </label>
+
+                        <input type="email"
+                               id="email"
+                               placeholder="example@gmail.com"
+                               required>
+
+                    </div>
+
+                    <!-- Phone -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            WhatsApp Number
+
+                        </label>
+
+                        <input type="tel"
+                               id="phone"
+                               placeholder="+94 77 123 4567"
+                               required>
+
+                    </div>
+
+                    <!-- Country -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            Country
+
+                        </label>
+
+                        <input type="text"
+                               id="country"
+                               placeholder="Your country"
+                               required>
+
+                    </div>
+
+                    <!-- Project Title -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            Project Title
+
+                        </label>
+
+                        <input type="text"
+                               id="projectTitle"
+                               placeholder="Example: YouTube Video Editing"
+                               required>
+
+                    </div>
+
+                    <!-- Project Description -->
+
+                    <div class="input-group">
+
+                        <label>
+
+                            Project Description
+
+                        </label>
+
+                        <textarea
+                            id="description"
+                            rows="7"
+                            placeholder="Describe your project in detail..."
+                            required></textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+                        <!-- ==========================
+                 Service Information
+            =========================== -->
+
+            <div class="service-details">
+
+                <h2>
+
+                    Service Details
+
+                </h2>
+
+                <!-- Service Name -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Selected Service
+
+                    </label>
+
+                    <input type="text"
+                           id="serviceName"
+                           value="Video Editing"
+                           readonly>
+
+                </div>
+
+                <!-- Package -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Select Package
+
+                    </label>
+
+                    <select id="package">
+
+                        <option value="Basic">
+
+                            Basic Package
+
+                        </option>
+
+                        <option value="Standard">
+
+                            Standard Package
+
+                        </option>
+
+                        <option value="Premium">
+
+                            Premium Package
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Delivery -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Delivery Time
+
+                    </label>
+
+                    <select id="delivery">
+
+                        <option>
+
+                            Standard Delivery
+
+                        </option>
+
+                        <option>
+
+                            Express Delivery (+ Extra Fee)
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Video Duration -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Video Duration
+
+                    </label>
+
+                    <input type="text"
+                           id="duration"
+                           placeholder="Example: 10 Minutes">
+
+                </div>
+
+                <!-- Upload Files -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Upload Project Files
+
+                    </label>
+
+                    <input type="file"
+                           id="projectFiles"
+                           multiple>
+
+                </div>
+
+                <!-- Additional Notes -->
+
+                <div class="input-group">
+
+                    <label>
+
+                        Additional Notes
+
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        rows="5"
+                        placeholder="Anything else we should know?"></textarea>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ==========================
+        Order Summary
+========================== -->
+
+<section class="summary-section">
+
+    <div class="container">
+
+        <div class="summary-card">
+
+            <h2>
+
+                Order Summary
+
+            </h2>
+
+            <div class="summary-item">
+
+                <span>
+
+                    Service
+
+                </span>
+
+                <strong id="summaryService">
+
+                    Video Editing
+
+                </strong>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span>
+
+                    Package
+
+                </span>
+
+                <strong id="summaryPackage">
+
+                    Basic Package
+
+                </strong>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span>
+
+                    Delivery
+
+                </span>
+
+                <strong id="summaryDelivery">
+
+                    Standard Delivery
+
+                </strong>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span>
+
+                    Estimated Price
+
+                </span>
+
+                <strong id="summaryPrice">
+
+                    $10
+
+                </strong>
+
+            </div>
+
+            <hr>
+
+            <div class="summary-total">
+
+                <span>
+
+                    Total
+
+                </span>
+
+                <strong id="totalPrice">
+
+                    $10
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================
+        Coupon Code
+========================== -->
+
+<section class="coupon-section">
+
+    <div class="container">
+
+        <div class="coupon-box">
+
+            <h2>
+
+                Have a Coupon?
+
+            </h2>
+
+            <div class="coupon-input">
+
+                <input
+                    type="text"
+                    id="coupon"
+                    placeholder="Enter coupon code">
+
+                <button type="button">
+
+                    Apply
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ==========================
+        Terms & Checkout
+========================== -->
+
+<section class="checkout-section">
+
+    <div class="container">
+
+        <div class="checkout-card">
+
+            <div class="terms-box">
+
+                <label class="checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="agreeTerms"
+                        required>
+
+                    <span>
+
+                        I have read and agree to the
+                        <a href="terms.html" target="_blank">
+                            Terms & Conditions
+                        </a>
+                        and
+                        <a href="policy.html" target="_blank">
+                            Privacy Policy
+                        </a>.
+
+                    </span>
+
+                </label>
+
+            </div>
+
+            <button
+                type="submit"
+                id="checkoutBtn"
+                class="checkout-btn">
+
+                <i class="fa-solid fa-lock"></i>
+
+                Proceed to Payment
+
+            </button>
+
+            <p class="secure-payment">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Your payment will be processed securely.
+                We never store your card information.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================
+            Footer
+========================== -->
+
+<footer>
+
+    <div class="container footer-grid">
+
+        <!-- About -->
+
+        <div class="footer-box">
+
+            <h3>
+
+                AM Digital Studio
+
+            </h3>
+
+            <p>
+
+                Learn • Create • Grow
+
+            </p>
+
+            <p>
+
+                Helping creators master YouTube,
+                AI, Web Development,
+                Video Editing and Digital Skills.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- Quick Links -->
+
+        <div class="footer-box">
+
+            <h3>
+
+                Quick Links
+
+            </h3>
+
+            <a href="index.html">Home</a>
+
+            <a href="index.html#services">Services</a>
+
+            <a href="index.html#about">About Us</a>
+
+            <a href="index.html#contact">Contact Us</a>
+
+        </div>
+
+
+
+        <!-- Resources -->
+
+        <div class="footer-box">
+
+            <h3>
+
+                Resources
+
+            </h3>
+
+            <a href="video.html">Videos</a>
+
+            <a href="policy.html">Privacy Policy</a>
+
+            <a href="terms.html">Terms & Conditions</a>
+
+        </div>
+
+
+
+        <!-- Social -->
+
+        <div class="footer-box">
+
+            <h3>
+
+                Follow Us
+
+            </h3>
+
+            <p class="social-text">
+
+                Follow us on our official social media platforms.
+
+            </p>
+
+            <div class="social-icons">
+
+                <a href="https://youtube.com/@amdigitalstudios1?si=Yq-9OmFsia5Wphch" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+
+                <a href="https://www.facebook.com/share/1DPgTCT6yb/" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="https://www.instagram.com/amdigitalstudio1?igsh=MWoyazZ4Mm9zYmgwag==" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://www.linkedin.com/in/arunalu-mayura-702777421/" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+
+                <a href="https://github.com/amdcreativestudio" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="copyright">
+
+        © 2026 AM Digital Studio. All Rights Reserved.
+
+        <br><br>
+
+        Made with ❤️ in Sri Lanka
+
+    </div>
+
+</footer>
+<!-- ==========================
+        Loading Overlay
+========================== -->
+
+<div class="payment-loading" id="paymentLoading">
+
+    <div class="loading-box">
+
+        <div class="loader"></div>
+
+        <h3>
+
+            Preparing Secure Checkout...
+
+        </h3>
+
+        <p>
+
+            Please wait while we securely process your order.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==========================
+        Success Modal
+========================== -->
+
+<div class="success-modal" id="successModal">
+
+    <div class="success-card">
+
+        <div class="success-icon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+        <h2>
+
+            Order Ready!
+
+        </h2>
+
+        <p>
+
+            Your order information has been prepared successfully.
+
+            Click the button below to continue to secure payment.
+
+        </p>
+
+        <div class="success-buttons">
+
+            <button id="continuePayment"
+                    class="checkout-btn">
+
+                Continue to Payment
+
+            </button>
+
+            <button id="closeSuccess"
+                    class="secondary-btn">
+
+                Continue Editing
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="order.js"></script>
+
+</body>
+
+</html>
