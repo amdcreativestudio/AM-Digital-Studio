@@ -2293,3 +2293,56 @@ footer hr{
     transform:translateY(-5px);
 
 }
+/* ==========================
+   Watch Now Button Center
+========================== */
+
+.watch-buttons{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-top:35px;
+
+}
+
+.watch-buttons a{
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:18px 45px;
+
+    background:#3DB7FF;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    border-radius:50px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    transition:.3s;
+
+    box-shadow:0 10px 25px rgba(61,183,255,.35);
+
+}
+
+.watch-buttons a:hover{
+
+    background:#1897FF;
+
+    transform:translateY(-5px);
+
+}
