@@ -1,1 +1,1361 @@
 
+/* =========================================
+   AM Digital Studio
+   policy.css - Part 1
+   Reset + Global Styles
+========================================= */
+
+/* Google Font */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+/* Reset */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:#ffffff;
+    color:#111111;
+    line-height:1.8;
+    overflow-x:hidden;
+
+}
+
+
+/* Root Variables */
+
+:root{
+
+    --primary:#1677ff;
+    --primary-dark:#005fe0;
+
+    --text:#111111;
+    --text-light:#666666;
+
+    --white:#ffffff;
+
+    --border:#ececec;
+
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+
+    --shadow-hover:0 20px 45px rgba(0,0,0,.12);
+
+    --radius:18px;
+
+}
+
+
+/* Selection */
+
+::selection{
+
+    background:var(--primary);
+    color:#ffffff;
+
+}
+
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f5f5f5;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+    border-radius:100px;
+
+}
+
+
+/* Links */
+
+a{
+
+    text-decoration:none;
+    color:inherit;
+    transition:.3s;
+
+}
+
+
+/* Lists */
+
+ul{
+
+    list-style:none;
+
+}
+
+
+/* Images */
+
+img{
+
+    max-width:100%;
+    display:block;
+
+}
+
+
+/* Container */
+
+.container{
+
+    width:min(92%,1200px);
+    margin:auto;
+
+}
+
+
+/* Sections */
+
+section{
+
+    padding:100px 0;
+
+}
+
+
+/* Headings */
+
+h1{
+
+    font-size:clamp(2.8rem,6vw,4.5rem);
+    font-weight:800;
+
+}
+
+h2{
+
+    font-size:1.8rem;
+    font-weight:700;
+    margin-bottom:18px;
+
+}
+
+p{
+
+    color:#666666;
+    font-size:1rem;
+
+}
+
+
+/* Divider */
+
+hr{
+
+    border:none;
+    height:1px;
+    background:#333;
+}
+
+
+/* Utility */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+
+/* =========================================
+   policy.css - Part 2
+   Header + Navbar + Hero
+========================================= */
+
+
+/* ===========================
+   Header
+=========================== */
+
+header{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+
+    background:#ffffff;
+
+    z-index:9999;
+
+    transition:.35s ease;
+
+}
+
+
+/* Sticky */
+
+.navbar.sticky{
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+/* ===========================
+   Navbar
+=========================== */
+
+.navbar{
+
+    width:min(94%,1250px);
+
+    height:85px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+/* ===========================
+   Logo
+=========================== */
+
+.logo a{
+
+    font-size:1.8rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+
+/* ===========================
+   Navigation
+=========================== */
+
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:40px;
+
+}
+
+.nav-links li{
+
+    position:relative;
+
+}
+
+.nav-links a{
+
+    font-weight:600;
+
+    color:#222;
+
+}
+
+
+/* Hover */
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:3px;
+
+    background:var(--primary);
+
+    border-radius:30px;
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+    color:var(--primary);
+
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
+
+/* ===========================
+   Mobile Menu
+=========================== */
+
+.menu-toggle{
+
+    display:none;
+
+    flex-direction:column;
+
+    cursor:pointer;
+
+}
+
+.menu-toggle span{
+
+    width:28px;
+
+    height:3px;
+
+    margin:3px;
+
+    background:#111;
+
+    border-radius:20px;
+
+    transition:.35s;
+
+}
+
+
+/* Animation */
+
+.menu-toggle.active span:nth-child(1){
+
+    transform:rotate(45deg) translate(6px,6px);
+
+}
+
+.menu-toggle.active span:nth-child(2){
+
+    opacity:0;
+
+}
+
+.menu-toggle.active span:nth-child(3){
+
+    transform:rotate(-45deg) translate(7px,-7px);
+
+}
+
+
+/* ===========================
+   Hero Section
+=========================== */
+
+.policy-hero{
+
+    padding-top:180px;
+
+    padding-bottom:110px;
+
+    text-align:center;
+
+    background:#ffffff;
+
+}
+
+
+.policy-hero h1{
+
+    color:#111;
+
+    margin-bottom:25px;
+
+}
+
+
+.policy-hero p{
+
+    max-width:760px;
+
+    margin:auto;
+
+    font-size:1.1rem;
+
+    line-height:1.9;
+
+}
+
+
+/* Last Updated */
+
+.policy-info{
+
+    margin-top:35px;
+
+}
+
+.policy-info span{
+
+    display:inline-block;
+
+    padding:12px 25px;
+
+    border-radius:50px;
+
+    background:#eef5ff;
+
+    color:var(--primary);
+
+    font-weight:600;
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:900px){
+
+    .menu-toggle{
+
+        display:flex;
+
+    }
+
+    .nav-links{
+
+        position:fixed;
+
+        top:85px;
+
+        right:-100%;
+
+        width:280px;
+
+        height:calc(100vh - 85px);
+
+        background:#ffffff;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        padding:45px 30px;
+
+        gap:28px;
+
+        transition:.35s;
+
+        box-shadow:-10px 0 30px rgba(0,0,0,.08);
+
+    }
+
+    .nav-links.active{
+
+        right:0;
+
+    }
+
+}
+
+
+/* Body Padding */
+
+body{
+
+    padding-top:85px;
+
+}
+
+/* =========================================
+   policy.css - Part 3
+   Policy Content
+========================================= */
+
+
+/* ===========================
+   Policy Section
+=========================== */
+
+.policy-content{
+
+    background:#f8f9fc;
+
+    padding:100px 0;
+
+}
+
+
+/* ===========================
+   Policy Card
+=========================== */
+
+.policy-card{
+
+    background:#ffffff;
+
+    border:1px solid #ececec;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    margin-bottom:35px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+    transition:.35s ease;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+/* Top Border */
+
+.policy-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:linear-gradient(
+        90deg,
+        #1677ff,
+        #00bfff,
+        #7b61ff
+    );
+
+}
+
+
+/* Hover */
+
+.policy-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.12);
+
+}
+
+
+/* ===========================
+   Heading
+=========================== */
+
+.policy-card h2{
+
+    color:#111;
+
+    font-size:1.6rem;
+
+    margin-bottom:18px;
+
+    font-weight:700;
+
+}
+
+
+/* ===========================
+   Paragraph
+=========================== */
+
+.policy-card p{
+
+    color:#666;
+
+    line-height:1.9;
+
+    font-size:1rem;
+
+}
+
+
+/* ===========================
+   List Support
+=========================== */
+
+.policy-card ul{
+
+    margin-top:18px;
+
+    padding-left:22px;
+
+    list-style:disc;
+
+}
+
+.policy-card ul li{
+
+    color:#666;
+
+    margin-bottom:10px;
+
+    line-height:1.8;
+
+}
+
+
+/* ===========================
+   Highlight Box
+=========================== */
+
+.policy-note{
+
+    margin-top:25px;
+
+    padding:18px 22px;
+
+    border-left:5px solid var(--primary);
+
+    background:#eef5ff;
+
+    border-radius:12px;
+
+    color:#333;
+
+    font-weight:500;
+
+}
+
+
+/* ===========================
+   Card Animation
+=========================== */
+
+.policy-card{
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:.8s ease;
+
+}
+
+.policy-card.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+    .policy-card{
+
+        padding:28px;
+
+        border-radius:16px;
+
+    }
+
+    .policy-card h2{
+
+        font-size:1.35rem;
+
+    }
+
+    .policy-card p{
+
+        font-size:.96rem;
+
+    }
+
+}
+/* =========================================
+   policy.css - Part 4
+   Footer
+========================================= */
+
+
+/* ===========================
+   Footer
+=========================== */
+
+footer{
+
+    background:#111111;
+
+    color:#ffffff;
+
+    padding:80px 0 30px;
+
+}
+
+
+/* ===========================
+   Footer Grid
+=========================== */
+
+.footer-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:45px;
+
+}
+
+
+/* ===========================
+   Footer Box
+=========================== */
+
+.footer-box h3{
+
+    color:#ffffff;
+
+    font-size:1.4rem;
+
+    margin-bottom:20px;
+
+    font-weight:700;
+
+}
+
+.footer-box p{
+
+    color:#cfcfcf;
+
+    line-height:1.9;
+
+    margin-bottom:12px;
+
+}
+
+
+/* ===========================
+   Footer Links
+=========================== */
+
+.footer-box a{
+
+    display:block;
+
+    color:#d6d6d6;
+
+    margin:12px 0;
+
+    transition:.3s;
+
+}
+
+.footer-box a:hover{
+
+    color:var(--primary);
+
+    padding-left:8px;
+
+}
+
+
+/* ===========================
+   Footer Divider
+=========================== */
+
+footer hr{
+
+    margin:50px 0 25px;
+
+    background:#2b2b2b;
+
+}
+
+
+/* ===========================
+   Copyright
+=========================== */
+
+.copyright{
+
+    text-align:center;
+
+    color:#bdbdbd;
+
+    font-size:.95rem;
+
+    line-height:1.9;
+
+}
+
+
+/* ===========================
+   Hover Effect
+=========================== */
+
+.footer-box{
+
+    transition:.3s;
+
+}
+
+.footer-box:hover{
+
+    transform:translateY(-5px);
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+    footer{
+
+        text-align:center;
+
+    }
+
+    .footer-grid{
+
+        gap:35px;
+
+    }
+
+    .footer-box a:hover{
+
+        padding-left:0;
+
+    }
+
+}
+
+/* =========================================
+   policy.css - Part 5
+   Animations & Effects
+========================================= */
+
+
+/* ===========================
+   Fade Up Animation
+=========================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* ===========================
+   Fade Class
+=========================== */
+
+.show{
+
+    animation:fadeUp .8s ease forwards;
+
+}
+
+
+/* ===========================
+   Hero Animation
+=========================== */
+
+.policy-hero h1{
+
+    animation:fadeUp .8s ease;
+
+}
+
+.policy-hero p{
+
+    animation:fadeUp 1s ease;
+
+}
+
+.policy-info{
+
+    animation:fadeUp 1.2s ease;
+
+}
+
+
+/* ===========================
+   Policy Cards Animation
+=========================== */
+
+.policy-card{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:.8s ease;
+
+}
+
+.policy-card.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* ===========================
+   Smooth Hover
+=========================== */
+
+.policy-card,
+.footer-box,
+.nav-links a{
+
+    transition:all .35s ease;
+
+}
+
+
+/* ===========================
+   Link Hover
+=========================== */
+
+.policy-card a{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+}
+
+.policy-card a:hover{
+
+    color:var(--primary-dark);
+
+    text-decoration:underline;
+
+}
+
+
+/* ===========================
+   Scroll Progress Bar
+=========================== */
+
+.progress-bar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:0;
+
+    height:4px;
+
+    background:linear-gradient(
+        90deg,
+        #1677ff,
+        #00bfff,
+        #7b61ff
+    );
+
+    z-index:99999;
+
+}
+
+
+/* ===========================
+   Back To Top
+=========================== */
+
+.back-to-top{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    box-shadow:0 12px 25px rgba(0,0,0,.15);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s;
+
+}
+
+.back-to-top:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-5px);
+
+}
+
+.show-top{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+
+/* ===========================
+   Ripple Effect
+=========================== */
+
+.ripple{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.45);
+
+    transform:scale(0);
+
+    animation:ripple .6s linear;
+
+}
+
+@keyframes ripple{
+
+    to{
+
+        transform:scale(4);
+
+        opacity:0;
+
+    }
+
+}
+
+
+/* ===========================
+   Page Loaded
+=========================== */
+
+body{
+
+    opacity:0;
+
+    transition:.5s;
+
+}
+
+body.page-loaded{
+
+    opacity:1;
+
+}
+
+
+/* =========================================
+   End Part 5
+========================================= */
+/* =========================================
+   policy.css - Part 6
+   Responsive & Final Polish
+========================================= */
+
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width:992px){
+
+    .container{
+
+        width:92%;
+
+    }
+
+    .policy-hero{
+
+        padding-top:160px;
+
+    }
+
+    .policy-card{
+
+        padding:35px;
+
+    }
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:768px){
+
+    .navbar{
+
+        height:75px;
+
+    }
+
+    .logo a{
+
+        font-size:1.5rem;
+
+    }
+
+    .nav-links{
+
+        width:100%;
+
+    }
+
+    .policy-hero h1{
+
+        font-size:2.7rem;
+
+    }
+
+    .policy-hero p{
+
+        font-size:1rem;
+
+    }
+
+    .policy-card{
+
+        padding:25px;
+
+        border-radius:16px;
+
+    }
+
+    .policy-card h2{
+
+        font-size:1.35rem;
+
+    }
+
+    .footer-grid{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+}
+
+
+/* ===========================
+   Small Phones
+=========================== */
+
+@media (max-width:480px){
+
+    .policy-hero{
+
+        padding-top:140px;
+
+    }
+
+    .policy-hero h1{
+
+        font-size:2.2rem;
+
+    }
+
+    .policy-card{
+
+        padding:20px;
+
+    }
+
+    .policy-card h2{
+
+        font-size:1.2rem;
+
+    }
+
+    .policy-card p{
+
+        font-size:.95rem;
+
+    }
+
+}
+
+
+/* ===========================
+   Utility Classes
+=========================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.hidden{
+
+    display:none !important;
+
+}
+
+.mt-1{margin-top:10px;}
+.mt-2{margin-top:20px;}
+.mt-3{margin-top:30px;}
+.mt-4{margin-top:40px;}
+.mt-5{margin-top:50px;}
+
+.mb-1{margin-bottom:10px;}
+.mb-2{margin-bottom:20px;}
+.mb-3{margin-bottom:30px;}
+.mb-4{margin-bottom:40px;}
+.mb-5{margin-bottom:50px;}
+
+
+/* ===========================
+   Focus Styles
+=========================== */
+
+a:focus,
+button:focus{
+
+    outline:3px solid rgba(22,119,255,.25);
+
+    outline-offset:4px;
+
+}
+
+
+/* ===========================
+   Reduce Motion
+=========================== */
+
+@media (prefers-reduced-motion: reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
+}
+
+
+/* ===========================
+   Print
+=========================== */
+
+@media print{
+
+    header,
+    footer,
+    .menu-toggle,
+    .back-to-top,
+    .progress-bar{
+
+        display:none !important;
+
+    }
+
+    body{
+
+        background:#fff;
+
+        color:#000;
+
+    }
+
+}
+
+
+/* ===========================
+   End of policy.css
+=========================== */
