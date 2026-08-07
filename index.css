@@ -1,1 +1,2157 @@
 
+/* =========================================
+   AM Digital Studio
+   style.css - Part 1
+   Reset + Global Styles
+========================================= */
+
+
+/* ===========================
+   Google Font
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+/* ===========================
+   CSS Reset
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#ffffff;
+    color:#111111;
+    overflow-x:hidden;
+    line-height:1.7;
+}
+
+
+/* ===========================
+   Root Variables
+=========================== */
+
+:root{
+
+    --primary:#1677ff;
+    --primary-dark:#0056d6;
+
+    --secondary:#00b8ff;
+
+    --text:#111111;
+    --text-light:#666666;
+
+    --white:#ffffff;
+
+    --border:#e8e8e8;
+
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+
+    --shadow-hover:0 20px 45px rgba(0,0,0,.12);
+
+    --radius:18px;
+
+    --transition:.35s ease;
+
+}
+
+
+/* ===========================
+   Selection
+=========================== */
+
+::selection{
+
+    background:var(--primary);
+    color:#ffffff;
+
+}
+
+
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f5f5f5;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+    border-radius:100px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary-dark);
+
+}
+
+
+/* ===========================
+   Images
+=========================== */
+
+img{
+
+    display:block;
+    max-width:100%;
+
+}
+
+
+/* ===========================
+   Links
+=========================== */
+
+a{
+
+    text-decoration:none;
+    color:inherit;
+    transition:var(--transition);
+
+}
+
+
+/* ===========================
+   Lists
+=========================== */
+
+ul{
+
+    list-style:none;
+
+}
+
+
+/* ===========================
+   Container
+=========================== */
+
+.container{
+
+    width:min(92%,1200px);
+    margin:auto;
+
+}
+
+
+/* ===========================
+   Sections
+=========================== */
+
+section{
+
+    padding:100px 0;
+
+}
+
+
+/* ===========================
+   Headings
+=========================== */
+
+h1{
+
+    font-size:clamp(3.5rem,9vw,8rem);
+    font-weight:800;
+    line-height:1.05;
+
+}
+
+h2{
+
+    font-size:clamp(2rem,5vw,3.5rem);
+    font-weight:700;
+    color:var(--text);
+
+}
+
+h3{
+
+    font-size:1.4rem;
+    font-weight:600;
+
+}
+
+p{
+
+    color:var(--text-light);
+    font-size:1rem;
+
+}
+
+
+/* ===========================
+   Buttons
+=========================== */
+
+.primary-btn,
+.secondary-btn{
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:16px 34px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+    cursor:pointer;
+
+}
+
+.primary-btn{
+
+    background:var(--primary);
+    color:#ffffff;
+
+    box-shadow:var(--shadow);
+
+}
+
+.primary-btn:hover{
+
+    background:var(--primary-dark);
+
+}
+
+.secondary-btn{
+
+    border:2px solid var(--primary);
+    color:var(--primary);
+
+}
+
+.secondary-btn:hover{
+
+    background:var(--primary);
+    color:#ffffff;
+
+}
+
+
+/* ===========================
+   Utility Classes
+=========================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+/* =========================================
+   style.css - Part 2
+   Premium Navbar
+========================================= */
+
+
+/* ===========================
+   Header
+=========================== */
+
+header{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+
+    background:#ffffff;
+
+    z-index:9999;
+
+    transition:.35s ease;
+
+}
+
+
+/* Sticky Navbar */
+
+.navbar.sticky{
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+/* ===========================
+   Navbar
+=========================== */
+
+.navbar{
+
+    width:min(94%,1250px);
+
+    height:85px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+
+/* ===========================
+   Logo
+=========================== */
+
+.logo a{
+
+    font-size:1.8rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    letter-spacing:.5px;
+
+    transition:.3s;
+
+}
+
+.logo a:hover{
+
+    color:var(--primary-dark);
+
+}
+
+
+/* ===========================
+   Navigation
+=========================== */
+
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:40px;
+
+}
+
+
+.nav-links li{
+
+    position:relative;
+
+}
+
+
+.nav-links a{
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    color:#222;
+
+    transition:.3s;
+
+}
+
+
+/* Hover Line */
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:3px;
+
+    background:var(--primary);
+
+    border-radius:20px;
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+    color:var(--primary);
+
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
+
+/* Active Link */
+
+.nav-links a.current{
+
+    color:var(--primary);
+
+}
+
+.nav-links a.current::after{
+
+    width:100%;
+
+}
+
+
+/* ===========================
+   Hamburger
+=========================== */
+
+.menu-toggle{
+
+    width:42px;
+
+    height:42px;
+
+    display:none;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+}
+
+
+.menu-toggle span{
+
+    width:28px;
+
+    height:3px;
+
+    background:#111;
+
+    border-radius:20px;
+
+    margin:3px 0;
+
+    transition:.35s;
+
+}
+
+
+/* Animation */
+
+.menu-toggle.active span:nth-child(1){
+
+    transform:rotate(45deg) translate(6px,6px);
+
+}
+
+.menu-toggle.active span:nth-child(2){
+
+    opacity:0;
+
+}
+
+.menu-toggle.active span:nth-child(3){
+
+    transform:rotate(-45deg) translate(7px,-7px);
+
+}
+
+
+/* ===========================
+   Mobile Navigation
+=========================== */
+
+@media(max-width:900px){
+
+    .menu-toggle{
+
+        display:flex;
+
+    }
+
+    .nav-links{
+
+        position:fixed;
+
+        top:85px;
+
+        right:-100%;
+
+        width:280px;
+
+        height:calc(100vh - 85px);
+
+        background:#ffffff;
+
+        flex-direction:column;
+
+        justify-content:flex-start;
+
+        align-items:flex-start;
+
+        padding:45px 30px;
+
+        gap:28px;
+
+        box-shadow:-10px 0 30px rgba(0,0,0,.08);
+
+        transition:.4s;
+
+    }
+
+    .nav-links.active{
+
+        right:0;
+
+    }
+
+    .nav-links a{
+
+        font-size:1.1rem;
+
+    }
+
+}
+
+
+/* ===========================
+   Desktop Padding
+=========================== */
+
+body{
+
+    padding-top:85px;
+
+}
+
+/* =========================================
+   style.css - Part 3
+   Hero Section
+========================================= */
+
+
+/* ===========================
+   Home Section
+=========================== */
+
+#home{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:80px 0;
+
+    background:#ffffff;
+
+}
+
+
+/* ===========================
+   Hero Container
+=========================== */
+
+.hero-container{
+
+    width:min(92%,1200px);
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+
+/* ===========================
+   Hero Content
+=========================== */
+
+.hero-content{
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+
+/* ===========================
+   WELCOME
+=========================== */
+
+.welcome{
+
+    font-size:clamp(4rem,11vw,9rem);
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:12px;
+
+    color:transparent;
+
+    -webkit-text-stroke:3px #1677ff;
+
+    animation:strokeColor 6s linear infinite;
+
+    margin-bottom:20px;
+
+    user-select:none;
+
+}
+
+
+/* Stroke Animation */
+
+@keyframes strokeColor{
+
+    0%{
+
+        -webkit-text-stroke-color:#1677ff;
+
+    }
+
+    25%{
+
+        -webkit-text-stroke-color:#00b4ff;
+
+    }
+
+    50%{
+
+        -webkit-text-stroke-color:#7b61ff;
+
+    }
+
+    75%{
+
+        -webkit-text-stroke-color:#00c896;
+
+    }
+
+    100%{
+
+        -webkit-text-stroke-color:#1677ff;
+
+    }
+
+}
+
+
+/* ===========================
+   Studio Name
+=========================== */
+
+.studio-name{
+
+    font-size:clamp(2rem,5vw,3.8rem);
+
+    font-weight:800;
+
+    color:#111111;
+
+    margin-bottom:25px;
+
+}
+
+
+/* ===========================
+   Description
+=========================== */
+
+.hero-description{
+
+    max-width:760px;
+
+    margin:0 auto;
+
+    font-size:1.15rem;
+
+    line-height:1.9;
+
+    color:#666666;
+
+}
+
+
+/* ===========================
+   Features
+=========================== */
+
+.hero-features{
+
+    margin-top:45px;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:18px;
+
+}
+
+
+.feature{
+
+    padding:14px 22px;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:50px;
+
+    background:#ffffff;
+
+    box-shadow:var(--shadow);
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+
+.feature:hover{
+
+    transform:translateY(-8px);
+
+    color:var(--primary);
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+
+/* ===========================
+   Buttons
+=========================== */
+
+.hero-buttons{
+
+    margin-top:50px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+}
+
+
+/* ===========================
+   Hero Animation
+=========================== */
+
+.hero-content{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:1s;
+
+}
+
+
+.hero-loaded{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    .welcome{
+
+        letter-spacing:5px;
+
+        -webkit-text-stroke:2px #1677ff;
+
+    }
+
+    .hero-description{
+
+        font-size:1rem;
+
+    }
+
+    .feature{
+
+        width:100%;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .primary-btn,
+
+    .secondary-btn{
+
+        width:100%;
+
+    }
+
+}
+/* =========================================
+   style.css - Part 4
+   Services Section
+========================================= */
+
+
+/* ===========================
+   Services Section
+=========================== */
+
+#services{
+
+    background:#f8f9fc;
+
+    padding:120px 0;
+
+}
+
+
+/* ===========================
+   Section Title
+=========================== */
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+.section-title h2{
+
+    font-size:clamp(2.3rem,5vw,3.8rem);
+
+    font-weight:800;
+
+    color:#111;
+
+    margin-bottom:15px;
+
+}
+
+.section-title p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:#666;
+
+    font-size:1.05rem;
+
+    line-height:1.8;
+
+}
+
+
+/* ===========================
+   Services Grid
+=========================== */
+
+.services-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:30px;
+
+}
+
+
+/* ===========================
+   Service Card
+=========================== */
+
+.service-card{
+
+    background:#fff;
+
+    border-radius:25px;
+
+    padding:40px 35px;
+
+    border:1px solid #ececec;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+    transition:.4s ease;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+/* Top Line */
+
+.service-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:linear-gradient(90deg,#1677ff,#00bfff,#7b61ff);
+
+}
+
+
+/* Hover */
+
+.service-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.12);
+
+}
+
+
+/* Service Title */
+
+.service-card h3{
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    color:#111;
+
+    margin-bottom:18px;
+
+}
+
+
+/* Description */
+
+.service-card p{
+
+    color:#666;
+
+    line-height:1.9;
+
+    font-size:1rem;
+
+}
+
+
+/* ===========================
+   Reveal Animation
+=========================== */
+
+.service-card{
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:.8s ease;
+
+}
+
+.service-card.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+    #services{
+
+        padding:90px 0;
+
+    }
+
+    .services-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .service-card{
+
+        padding:30px;
+
+    }
+
+}
+/* =========================================
+   style.css - Part 5
+   About • Contact • Footer
+========================================= */
+
+
+/* ===========================
+   About Section
+=========================== */
+
+#about{
+
+    background:#ffffff;
+
+    padding:120px 0;
+
+}
+
+.about-text{
+
+    max-width:900px;
+
+    margin:40px auto 0;
+
+    text-align:center;
+
+    font-size:1.1rem;
+
+    line-height:2;
+
+    color:#666;
+
+}
+
+
+/* ===========================
+   Contact Section
+=========================== */
+
+#contact{
+
+    background:#f8f9fc;
+
+    padding:120px 0;
+
+}
+
+.contact-buttons{
+
+    margin-top:50px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.contact-buttons a{
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-width:190px;
+
+    padding:16px 32px;
+
+    border-radius:50px;
+
+    background:#1677ff;
+
+    color:#ffffff;
+
+    font-weight:600;
+
+    transition:.35s;
+
+    box-shadow:0 10px 30px rgba(22,119,255,.18);
+
+}
+
+.contact-buttons a:hover{
+
+    transform:translateY(-6px);
+
+    background:#005fe0;
+
+}
+
+
+/* ===========================
+   Footer
+=========================== */
+
+footer{
+
+    background:#111111;
+
+    color:#ffffff;
+
+    padding:70px 20px;
+
+    text-align:center;
+
+}
+
+.footer-content{
+
+    max-width:800px;
+
+    margin:auto;
+
+}
+
+.footer-content h3{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+    color:#ffffff;
+
+}
+
+.footer-content p{
+
+    color:#d8d8d8;
+
+    margin:12px 0;
+
+    line-height:1.8;
+
+}
+
+
+/* ===========================
+   Footer Links
+=========================== */
+
+.footer-links{
+
+    margin:30px 0;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+}
+
+.footer-links a{
+
+    color:#ffffff;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+.footer-links a:hover{
+
+    color:#3b82f6;
+
+}
+
+
+/* ===========================
+   Social Icons
+=========================== */
+
+.social-icons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:18px;
+
+    margin-top:25px;
+
+}
+
+.social-icons a{
+
+    width:50px;
+
+    height:50px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    background:#1d1d1d;
+
+    color:#ffffff;
+
+    font-size:1.2rem;
+
+    transition:.35s;
+
+}
+
+.social-icons a:hover{
+
+    background:#1677ff;
+
+    transform:translateY(-5px);
+
+}
+
+
+/* ===========================
+   Reveal Animation
+=========================== */
+
+.about-text,
+.contact-buttons,
+.footer-content{
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:.8s;
+
+}
+
+.about-text.show,
+.contact-buttons.show,
+.footer-content.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+    #about,
+    #contact{
+
+        padding:90px 0;
+
+    }
+
+    .contact-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .contact-buttons a{
+
+        width:100%;
+
+    }
+
+    .footer-links{
+
+        flex-direction:column;
+
+        gap:18px;
+
+    }
+
+}
+/* =========================================
+   style.css - Part 6
+   Animations & Effects
+========================================= */
+
+
+/* ===========================
+   Fade Animation
+=========================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* ===========================
+   Fade In
+=========================== */
+
+.show{
+
+    animation:fadeUp .8s ease forwards;
+
+}
+
+
+/* ===========================
+   Floating Animation
+=========================== */
+
+@keyframes floating{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+
+/* Welcome Floating */
+
+.welcome{
+
+    animation:
+        strokeColor 6s linear infinite,
+        floating 4s ease-in-out infinite;
+
+}
+
+
+/* ===========================
+   Ripple Effect
+=========================== */
+
+.primary-btn,
+.secondary-btn{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.ripple{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    transform:scale(0);
+
+    background:rgba(255,255,255,.45);
+
+    animation:rippleEffect .6s linear;
+
+    pointer-events:none;
+
+}
+
+
+@keyframes rippleEffect{
+
+    to{
+
+        transform:scale(4);
+
+        opacity:0;
+
+    }
+
+}
+
+
+/* ===========================
+   Progress Bar
+=========================== */
+
+.progress-bar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:0;
+
+    height:4px;
+
+    background:linear-gradient(
+        90deg,
+        #1677ff,
+        #00bfff,
+        #7b61ff
+    );
+
+    z-index:10000;
+
+}
+
+
+/* ===========================
+   Back To Top
+=========================== */
+
+.back-to-top{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#1677ff;
+
+    color:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    box-shadow:0 12px 25px rgba(0,0,0,.15);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s;
+
+}
+
+
+.back-to-top:hover{
+
+    background:#005fe0;
+
+    transform:translateY(-5px);
+
+}
+
+
+.show-top{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+
+/* ===========================
+   Click Animation
+=========================== */
+
+.clicked{
+
+    transform:scale(.95);
+
+}
+
+
+/* ===========================
+   Image Animation
+=========================== */
+
+img{
+
+    opacity:0;
+
+    transition:1s;
+
+}
+
+
+.image-visible{
+
+    opacity:1;
+
+}
+
+
+/* ===========================
+   Page Loaded
+=========================== */
+
+body{
+
+    opacity:0;
+
+    transition:.5s;
+
+}
+
+
+body.page-loaded{
+
+    opacity:1;
+
+}
+
+
+/* ===========================
+   Cursor Animation
+=========================== */
+
+.cursor::after{
+
+    content:"|";
+
+    margin-left:3px;
+
+    animation:blink .8s infinite;
+
+}
+
+
+@keyframes blink{
+
+    50%{
+
+        opacity:0;
+
+    }
+
+}
+
+
+/* ===========================
+   Hover Glow
+=========================== */
+
+.primary-btn:hover{
+
+    box-shadow:
+        0 0 25px rgba(22,119,255,.35);
+
+}
+
+
+.secondary-btn:hover{
+
+    box-shadow:
+        0 0 25px rgba(22,119,255,.25);
+
+}
+
+
+/* ===========================
+   Card Transition
+=========================== */
+
+.service-card{
+
+    transition:
+        transform .35s,
+        box-shadow .35s;
+
+}
+
+
+/* =========================================
+   End Part 6
+========================================= */
+/* =========================================
+   style.css - Part 7
+   Responsive Design
+========================================= */
+
+
+/* ===========================
+   Large Screens
+=========================== */
+
+@media (max-width:1200px){
+
+    .container{
+
+        width:92%;
+
+    }
+
+}
+
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width:992px){
+
+    .hero-container{
+
+        text-align:center;
+
+    }
+
+    .hero-content{
+
+        max-width:100%;
+
+    }
+
+    .welcome{
+
+        font-size:6rem;
+
+        letter-spacing:8px;
+
+    }
+
+    .studio-name{
+
+        font-size:2.7rem;
+
+    }
+
+    .hero-description{
+
+        width:90%;
+
+        margin:auto;
+
+    }
+
+    .services-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+/* ===========================
+   Mobile Navigation
+=========================== */
+
+@media (max-width:768px){
+
+    .navbar{
+
+        height:75px;
+
+    }
+
+    .logo a{
+
+        font-size:1.4rem;
+
+    }
+
+    .menu-toggle{
+
+        display:flex;
+
+    }
+
+    .nav-links{
+
+        position:fixed;
+
+        top:75px;
+
+        right:-100%;
+
+        width:100%;
+
+        height:calc(100vh - 75px);
+
+        background:#ffffff;
+
+        flex-direction:column;
+
+        justify-content:flex-start;
+
+        align-items:center;
+
+        padding-top:50px;
+
+        transition:.4s;
+
+        gap:35px;
+
+    }
+
+    .nav-links.active{
+
+        right:0;
+
+    }
+
+    .nav-links a{
+
+        font-size:1.2rem;
+
+    }
+
+}
+
+
+/* ===========================
+   Mobile Hero
+=========================== */
+
+@media (max-width:768px){
+
+    #home{
+
+        min-height:100vh;
+
+        padding:60px 0;
+
+    }
+
+    .welcome{
+
+        font-size:4rem;
+
+        letter-spacing:4px;
+
+        -webkit-text-stroke:2px #1677ff;
+
+    }
+
+    .studio-name{
+
+        font-size:2rem;
+
+    }
+
+    .hero-description{
+
+        font-size:1rem;
+
+        width:100%;
+
+    }
+
+    .hero-features{
+
+        gap:12px;
+
+    }
+
+    .feature{
+
+        width:100%;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        width:100%;
+
+    }
+
+    .primary-btn,
+
+    .secondary-btn{
+
+        width:100%;
+
+    }
+
+}
+
+
+/* ===========================
+   Mobile Services
+=========================== */
+
+@media (max-width:768px){
+
+    .services-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .service-card{
+
+        padding:30px;
+
+    }
+
+}
+
+
+/* ===========================
+   Small Phones
+=========================== */
+
+@media (max-width:480px){
+
+    .welcome{
+
+        font-size:3rem;
+
+        letter-spacing:2px;
+
+    }
+
+    .studio-name{
+
+        font-size:1.6rem;
+
+    }
+
+    .section-title h2{
+
+        font-size:2rem;
+
+    }
+
+    .hero-description{
+
+        font-size:.95rem;
+
+    }
+
+    p{
+
+        font-size:.95rem;
+
+    }
+
+    .primary-btn,
+
+    .secondary-btn{
+
+        padding:15px 25px;
+
+    }
+
+    .service-card{
+
+        padding:25px;
+
+    }
+
+    .footer-content h3{
+
+        font-size:1.5rem;
+
+    }
+
+}
+
+
+/* ===========================
+   Landscape Phones
+=========================== */
+
+@media (max-height:600px){
+
+    #home{
+
+        padding:100px 0;
+
+    }
+
+}
+
+/* =========================================
+   style.css - Part 8
+   Final Polish
+========================================= */
+
+
+/* ===========================
+   Focus Styles
+=========================== */
+
+button:focus,
+a:focus,
+input:focus,
+textarea:focus{
+
+    outline:3px solid rgba(22,119,255,.25);
+    outline-offset:4px;
+
+}
+
+
+/* ===========================
+   Smooth Transitions
+=========================== */
+
+*{
+
+    transition:
+    color .25s ease,
+    background-color .25s ease,
+    border-color .25s ease;
+
+}
+
+
+/* ===========================
+   Prevent Overflow
+=========================== */
+
+html,
+body{
+
+    max-width:100%;
+    overflow-x:hidden;
+
+}
+
+
+/* ===========================
+   Utility Classes
+=========================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-left{
+
+    text-align:left;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+.mt-1{margin-top:10px;}
+.mt-2{margin-top:20px;}
+.mt-3{margin-top:30px;}
+.mt-4{margin-top:40px;}
+.mt-5{margin-top:50px;}
+
+.mb-1{margin-bottom:10px;}
+.mb-2{margin-bottom:20px;}
+.mb-3{margin-bottom:30px;}
+.mb-4{margin-bottom:40px;}
+.mb-5{margin-bottom:50px;}
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+/* ===========================
+   Selection
+=========================== */
+
+::selection{
+
+    background:#1677ff;
+    color:#ffffff;
+
+}
+
+
+/* ===========================
+   Horizontal Rule
+=========================== */
+
+hr{
+
+    border:none;
+    height:1px;
+    background:#ececec;
+    margin:40px 0;
+
+}
+
+
+/* ===========================
+   Footer Copyright
+=========================== */
+
+footer small{
+
+    display:block;
+    margin-top:18px;
+    color:#bdbdbd;
+    font-size:.9rem;
+
+}
+
+
+/* ===========================
+   Loading Optimization
+=========================== */
+
+img{
+
+    image-rendering:auto;
+
+}
+
+
+/* ===========================
+   Reduce Motion
+=========================== */
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+        transition:none !important;
+        scroll-behavior:auto !important;
+
+    }
+
+}
+
+
+/* ===========================
+   Print Mode
+=========================== */
+
+@media print{
+
+    .navbar,
+    .menu-toggle,
+    .back-to-top{
+
+        display:none !important;
+
+    }
+
+}
+
+
+/* ===========================
+   End
+=========================== */
