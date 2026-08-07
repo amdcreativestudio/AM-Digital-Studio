@@ -1,1 +1,1081 @@
 
+/* =========================================
+   AM Digital Studio
+   video.css - Part 1
+   Reset + Global + Navbar
+========================================= */
+
+/* Google Font */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+/* Reset */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:#ffffff;
+    color:#111111;
+    line-height:1.7;
+    overflow-x:hidden;
+
+}
+
+
+/* Root */
+
+:root{
+
+    --primary:#1677ff;
+    --primary-dark:#005fe0;
+
+    --text:#111111;
+    --text-light:#666666;
+
+    --white:#ffffff;
+
+    --border:#ececec;
+
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+
+    --shadow-hover:0 20px 45px rgba(0,0,0,.12);
+
+    --radius:18px;
+
+}
+
+
+/* Selection */
+
+::selection{
+
+    background:var(--primary);
+    color:#fff;
+
+}
+
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f5f5f5;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+    border-radius:100px;
+
+}
+
+
+/* Container */
+
+.container{
+
+    width:min(92%,1200px);
+    margin:auto;
+
+}
+
+
+/* Links */
+
+a{
+
+    text-decoration:none;
+    color:inherit;
+    transition:.3s;
+
+}
+
+
+/* List */
+
+ul{
+
+    list-style:none;
+
+}
+
+
+/* ===========================
+        Header
+=========================== */
+
+header{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+
+    background:#fff;
+
+    z-index:9999;
+
+}
+
+
+/* Navbar */
+
+.navbar{
+
+    width:min(94%,1250px);
+
+    height:85px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+/* Sticky */
+
+.navbar.sticky{
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+/* Logo */
+
+.logo a{
+
+    font-size:1.8rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+
+/* Navigation */
+
+.nav-links{
+
+    display:flex;
+
+    gap:40px;
+
+}
+
+.nav-links li{
+
+    position:relative;
+
+}
+
+.nav-links a{
+
+    font-weight:600;
+
+    color:#222;
+
+}
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:3px;
+
+    background:var(--primary);
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+    color:var(--primary);
+
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
+
+/* Mobile */
+
+.menu-toggle{
+
+    display:none;
+
+    flex-direction:column;
+
+    cursor:pointer;
+
+}
+
+.menu-toggle span{
+
+    width:28px;
+
+    height:3px;
+
+    background:#111;
+
+    margin:3px;
+
+    border-radius:20px;
+
+}
+
+
+/* Body */
+
+body{
+
+    padding-top:85px;
+
+}
+/* =========================================
+   video.css - Part 2
+   Hero & Playlist
+========================================= */
+
+
+/* ===========================
+   Hero Section
+=========================== */
+
+.video-hero{
+
+    padding:140px 0 80px;
+
+    background:#ffffff;
+
+    text-align:center;
+
+}
+
+.video-hero h1{
+
+    font-size:clamp(2.8rem,6vw,4.5rem);
+
+    font-weight:800;
+
+    color:#111111;
+
+    margin-bottom:20px;
+
+}
+
+.video-hero p{
+
+    max-width:720px;
+
+    margin:auto;
+
+    color:#666666;
+
+    font-size:1.1rem;
+
+    line-height:1.8;
+
+}
+
+
+/* ===========================
+   Playlist Section
+=========================== */
+
+.playlist-section{
+
+    padding:80px 0 120px;
+
+    background:#f8f9fc;
+
+}
+
+
+/* Playlist Header */
+
+.playlist-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:45px;
+
+}
+
+.playlist-header i{
+
+    font-size:2rem;
+
+    color:var(--primary);
+
+}
+
+.playlist-header h2{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:#111111;
+
+}
+
+
+/* ===========================
+   Video Grid
+=========================== */
+
+.video-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(320px,1fr));
+
+    gap:30px;
+
+}
+
+
+/* ===========================
+   Empty Space
+=========================== */
+
+.video-grid:empty{
+
+    min-height:300px;
+
+}
+
+
+/* ===========================
+   Section Animation
+=========================== */
+
+.video-hero{
+
+    animation:fadeUp .8s ease;
+
+}
+
+.playlist-section{
+
+    animation:fadeUp 1s ease;
+
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    .video-hero{
+
+        padding:120px 0 60px;
+
+    }
+
+    .video-hero h1{
+
+        font-size:2.5rem;
+
+    }
+
+    .video-hero p{
+
+        font-size:1rem;
+
+    }
+
+    .playlist-header{
+
+        justify-content:center;
+
+        text-align:center;
+
+    }
+
+    .playlist-header h2{
+
+        font-size:1.6rem;
+
+    }
+
+}
+
+/* =========================================
+   video.css - Part 3
+   Video Cards
+========================================= */
+
+
+/* ===========================
+   Video Card
+=========================== */
+
+.video-card{
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    border:1px solid #ececec;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+    cursor:pointer;
+
+    transition:.35s ease;
+
+}
+
+.video-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.14);
+
+}
+
+
+/* ===========================
+   Thumbnail
+=========================== */
+
+.video-thumbnail{
+
+    position:relative;
+
+    width:100%;
+
+    aspect-ratio:16/9;
+
+    overflow:hidden;
+
+    background:#f3f3f3;
+
+}
+
+.video-thumbnail img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.45s ease;
+
+}
+
+.video-card:hover .video-thumbnail img{
+
+    transform:scale(1.08);
+
+}
+
+
+/* ===========================
+   Play Button
+=========================== */
+
+.play-icon{
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.92);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.35s ease;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+
+}
+
+.play-icon i{
+
+    font-size:28px;
+
+    color:#ff0000;
+
+    margin-left:5px;
+
+}
+
+.video-card:hover .play-icon{
+
+    transform:translate(-50%,-50%) scale(1.15);
+
+    background:#ffffff;
+
+}
+
+
+/* ===========================
+   Video Details
+=========================== */
+
+.video-details{
+
+    padding:22px;
+
+}
+
+.video-details h3{
+
+    font-size:1.15rem;
+
+    color:#111111;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+    line-height:1.5;
+
+}
+
+.video-details span{
+
+    color:#666666;
+
+    font-size:.95rem;
+
+}
+
+
+/* ===========================
+   Hover Title
+=========================== */
+
+.video-card:hover .video-details h3{
+
+    color:var(--primary);
+
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    .video-details{
+
+        padding:18px;
+
+    }
+
+    .play-icon{
+
+        width:60px;
+
+        height:60px;
+
+    }
+
+    .play-icon i{
+
+        font-size:24px;
+
+    }
+
+}
+/* =========================================
+   video.css - Part 4
+   Video Popup
+========================================= */
+
+
+/* ===========================
+   Popup Overlay
+=========================== */
+
+.video-popup{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:rgba(0,0,0,.82);
+
+    backdrop-filter:blur(8px);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s ease;
+
+    z-index:99999;
+
+}
+
+
+/* Show Popup */
+
+.video-popup.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+
+/* ===========================
+   Popup Container
+=========================== */
+
+.popup-container{
+
+    position:relative;
+
+    width:min(92%,1100px);
+
+    background:#000;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transform:scale(.8);
+
+    transition:.35s ease;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+
+}
+
+
+/* Zoom */
+
+.video-popup.active .popup-container{
+
+    transform:scale(1);
+
+}
+
+
+/* ===========================
+   YouTube Player
+=========================== */
+
+.popup-container iframe{
+
+    width:100%;
+
+    aspect-ratio:16/9;
+
+    display:block;
+
+}
+
+
+/* ===========================
+   Close Button
+=========================== */
+
+.close-popup{
+
+    position:absolute;
+
+    top:15px;
+
+    right:15px;
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#ffffff;
+
+    color:#111;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    z-index:10;
+
+    transition:.3s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+}
+
+.close-popup:hover{
+
+    background:#ff3b30;
+
+    color:#fff;
+
+    transform:rotate(90deg);
+
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    .popup-container{
+
+        width:95%;
+
+        border-radius:14px;
+
+    }
+
+    .close-popup{
+
+        width:40px;
+
+        height:40px;
+
+        font-size:18px;
+
+    }
+
+}
+/* =========================================
+   video.css - Part 5
+   Footer + Responsive + Final
+========================================= */
+
+
+/* ===========================
+   Footer
+=========================== */
+
+footer{
+
+    background:#111111;
+
+    color:#ffffff;
+
+    padding:80px 0 30px;
+
+}
+
+.footer-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+
+    gap:45px;
+
+}
+
+.footer-box h3{
+
+    font-size:1.5rem;
+
+    margin-bottom:18px;
+
+    color:#ffffff;
+
+}
+
+.footer-box p{
+
+    color:#cfcfcf;
+
+    line-height:1.9;
+
+    margin-bottom:12px;
+
+}
+
+.footer-box a{
+
+    display:block;
+
+    color:#d6d6d6;
+
+    margin:10px 0;
+
+    transition:.3s;
+
+}
+
+.footer-box a:hover{
+
+    color:var(--primary);
+
+    padding-left:8px;
+
+}
+
+
+/* ===========================
+   Social Icons
+=========================== */
+
+.social-text{
+
+    color:#cfcfcf;
+
+    margin-bottom:20px;
+
+}
+
+.social-icons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+
+}
+
+.social-icons a{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    background:#1d1d1d;
+
+    color:#ffffff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+    transition:.35s ease;
+
+}
+
+.social-icons a:hover{
+
+    background:var(--primary);
+
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 25px rgba(22,119,255,.35);
+
+}
+
+
+/* ===========================
+   Footer Divider
+=========================== */
+
+footer hr{
+
+    margin:50px 0 30px;
+
+    border:none;
+
+    height:1px;
+
+    background:#2b2b2b;
+
+}
+
+
+/* ===========================
+   Copyright
+=========================== */
+
+.copyright{
+
+    text-align:center;
+
+    color:#bdbdbd;
+
+    font-size:.95rem;
+
+    line-height:1.9;
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+    footer{
+
+        text-align:center;
+
+    }
+
+    .footer-grid{
+
+        grid-template-columns:1fr;
+
+        gap:35px;
+
+    }
+
+    .social-icons{
+
+        justify-content:center;
+
+    }
+
+    .footer-box a:hover{
+
+        padding-left:0;
+
+    }
+
+}
+
+
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+
+    border-radius:100px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f5f5f5;
+
+}
+
+
+/* ===========================
+   Selection
+=========================== */
+
+::selection{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+}
+
+
+/* ===========================
+   Utility
+=========================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+/* =========================================
+   End of video.css
+========================================= */
