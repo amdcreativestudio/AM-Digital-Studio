@@ -2228,3 +2228,68 @@ footer hr{
     font-size:.95rem;
 
 }
+.youtube-section{
+
+    margin-top:70px;
+
+    text-align:center;
+
+}
+
+.youtube-section h3{
+
+    font-size:3rem;
+
+    font-weight:800;
+
+    color:#111;
+
+    margin-bottom:15px;
+
+}
+
+.youtube-section p{
+
+    color:#666;
+
+    margin-bottom:35px;
+
+    font-size:1.1rem;
+
+}
+
+.watch-btn{
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:18px 45px;
+
+    background:#3db7ff;
+
+    color:#fff !important;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    box-shadow:0 10px 25px rgba(61,183,255,.35);
+
+    transition:.3s;
+
+}
+
+.watch-btn:hover{
+
+    background:#1897ff;
+
+    transform:translateY(-5px);
+
+}
