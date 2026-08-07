@@ -2155,3 +2155,76 @@ img{
 /* ===========================
    End
 =========================== */
+/* Footer Upgrade */
+
+.footer-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:50px;
+
+    text-align:left;
+
+}
+
+.footer-box h3{
+
+    color:#fff;
+
+    margin-bottom:20px;
+
+}
+
+.footer-box p{
+
+    color:#cfcfcf;
+
+    line-height:1.8;
+
+}
+
+.footer-box a{
+
+    display:block;
+
+    color:#d6d6d6;
+
+    margin:10px 0;
+
+    transition:.3s;
+
+}
+
+.footer-box a:hover{
+
+    color:#3b82f6;
+
+    padding-left:8px;
+
+}
+
+footer hr{
+
+    margin:50px 0 30px;
+
+    border:0;
+
+    height:1px;
+
+    background:#333;
+
+}
+
+.copyright{
+
+    text-align:center;
+
+    color:#bdbdbd;
+
+    line-height:1.8;
+
+    font-size:.95rem;
+
+}
