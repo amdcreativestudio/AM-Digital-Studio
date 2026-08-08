@@ -1,1 +1,2673 @@
 
+/* ========================================
+   AM Digital Studio
+   poster.css - Part 1
+   Global + Navbar
+======================================== */
+
+
+/* ===============================
+   Root Variables
+================================ */
+
+:root{
+
+    --primary:#1677ff;
+
+    --primary-dark:#005fe0;
+
+    --text:#111111;
+
+    --text-light:#666666;
+
+    --white:#ffffff;
+
+    --light-bg:#f7f9fc;
+
+    --border:#e8ebf0;
+
+}
+
+
+/* ===============================
+   Reset
+================================ */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    color:var(--text);
+
+    background:var(--white);
+
+    line-height:1.6;
+
+    overflow-x:hidden;
+
+}
+
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+button{
+
+    font-family:inherit;
+
+}
+
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+
+/* ===============================
+   Navbar
+================================ */
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:80px;
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(15px);
+
+    -webkit-backdrop-filter:blur(15px);
+
+    border-bottom:1px solid rgba(0,0,0,.05);
+
+    z-index:1000;
+
+    transition:.35s ease;
+
+}
+
+
+.navbar.sticky{
+
+    height:70px;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+
+}
+
+
+/* ===============================
+   Navbar Container
+================================ */
+
+.nav-container{
+
+    width:90%;
+
+    max-width:1200px;
+
+    height:100%;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+
+/* ===============================
+   Logo
+================================ */
+
+.logo{
+
+    font-size:1.35rem;
+
+    font-weight:800;
+
+    color:var(--text);
+
+    letter-spacing:-.5px;
+
+    transition:.3s ease;
+
+}
+
+
+.logo:hover{
+
+    color:var(--primary);
+
+}
+
+
+/* ===============================
+   Navigation Links
+================================ */
+
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:32px;
+
+}
+
+
+.nav-links a{
+
+    position:relative;
+
+    padding:8px 0;
+
+    color:#333333;
+
+    font-size:.95rem;
+
+    font-weight:500;
+
+    transition:.3s ease;
+
+}
+
+
+.nav-links a:hover,
+.nav-links a.active{
+
+    color:var(--primary);
+
+}
+
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:0;
+
+    width:0;
+
+    height:2px;
+
+    border-radius:5px;
+
+    background:var(--primary);
+
+    transition:.3s ease;
+
+}
+
+
+.nav-links a:hover::after,
+.nav-links a.active::after{
+
+    width:100%;
+
+}
+
+
+/* ===============================
+   Mobile Menu
+================================ */
+
+.menu-toggle{
+
+    display:none;
+
+    width:42px;
+
+    height:42px;
+
+    border:0;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:5px;
+
+}
+
+
+.menu-toggle span{
+
+    display:block;
+
+    width:25px;
+
+    height:2px;
+
+    border-radius:5px;
+
+    background:var(--text);
+
+    transition:.3s ease;
+
+}
+
+
+.menu-toggle.active span:nth-child(1){
+
+    transform:translateY(7px) rotate(45deg);
+
+}
+
+
+.menu-toggle.active span:nth-child(2){
+
+    opacity:0;
+
+}
+
+
+.menu-toggle.active span:nth-child(3){
+
+    transform:translateY(-7px) rotate(-45deg);
+
+}
+
+
+/* ===============================
+   Section Header
+================================ */
+
+.section-header{
+
+    width:90%;
+
+    max-width:750px;
+
+    margin:0 auto 55px;
+
+    text-align:center;
+
+}
+
+
+.section-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 16px;
+
+    margin-bottom:20px;
+
+    border-radius:50px;
+
+    background:rgba(22,119,255,.08);
+
+    border:1px solid rgba(22,119,255,.15);
+
+    color:var(--primary);
+
+    font-size:.78rem;
+
+    font-weight:700;
+
+    letter-spacing:1.5px;
+
+}
+
+
+.section-header h2{
+
+    margin-bottom:15px;
+
+    color:var(--text);
+
+    font-size:clamp(2rem,4vw,3rem);
+
+    line-height:1.2;
+
+    font-weight:800;
+
+    letter-spacing:-1px;
+
+}
+
+
+.section-header p{
+
+    color:var(--text-light);
+
+    font-size:1rem;
+
+    line-height:1.8;
+
+}
+
+
+/* ===============================
+   Common Buttons
+================================ */
+
+.primary-btn,
+.secondary-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    min-width:170px;
+
+    padding:14px 25px;
+
+    border-radius:10px;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    transition:.35s ease;
+
+}
+
+
+.primary-btn{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    box-shadow:0 10px 25px rgba(22,119,255,.25);
+
+}
+
+
+.primary-btn:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 30px rgba(22,119,255,.35);
+
+}
+
+
+.secondary-btn{
+
+    background:#ffffff;
+
+    border:1px solid #dfe4eb;
+
+    color:#222222;
+
+}
+
+
+.secondary-btn:hover{
+
+    border-color:var(--primary);
+
+    color:var(--primary);
+
+    transform:translateY(-4px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.07);
+
+}
+/* ========================================
+   poster.css - Part 2
+   Poster Design Hero
+======================================== */
+
+
+/* ===============================
+   Hero Section
+================================ */
+
+.poster-hero{
+
+    min-height:100vh;
+
+    padding:150px 0 100px;
+
+    display:flex;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 15% 30%,
+            rgba(22,119,255,.10),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(22,119,255,.07),
+            transparent 35%
+        ),
+
+        #ffffff;
+
+}
+
+
+/* ===============================
+   Decorative Glow
+================================ */
+
+.poster-hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    background:rgba(22,119,255,.07);
+
+    filter:blur(80px);
+
+    top:-120px;
+
+    right:-100px;
+
+    pointer-events:none;
+
+}
+
+
+.poster-hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+
+    height:300px;
+
+    border-radius:50%;
+
+    background:rgba(22,119,255,.05);
+
+    filter:blur(70px);
+
+    bottom:-100px;
+
+    left:-80px;
+
+    pointer-events:none;
+
+}
+
+
+/* ===============================
+   Hero Content
+================================ */
+
+.hero-content{
+
+    width:90%;
+
+    max-width:1000px;
+
+    margin:auto;
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    animation:posterHeroFade .8s ease both;
+
+}
+
+
+/* ===============================
+   Hero Badge
+================================ */
+
+.hero-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 16px;
+
+    margin-bottom:20px;
+
+    border-radius:50px;
+
+    background:rgba(22,119,255,.08);
+
+    border:1px solid rgba(22,119,255,.15);
+
+    color:var(--primary);
+
+    font-size:.78rem;
+
+    font-weight:700;
+
+    letter-spacing:1.5px;
+
+}
+
+
+/* ===============================
+   Hero Heading
+================================ */
+
+.hero-content h1{
+
+    margin-bottom:25px;
+
+    color:#101010;
+
+    font-size:clamp(2.7rem,6vw,5rem);
+
+    line-height:1.08;
+
+    font-weight:800;
+
+    letter-spacing:-2px;
+
+}
+
+
+.hero-content h1 span{
+
+    display:block;
+
+    color:var(--primary);
+
+}
+
+
+/* ===============================
+   Hero Description
+================================ */
+
+.hero-content > p{
+
+    max-width:760px;
+
+    margin:0 auto 35px;
+
+    color:var(--text-light);
+
+    font-size:1.08rem;
+
+    line-height:1.9;
+
+}
+
+
+/* ===============================
+   Hero Buttons
+================================ */
+
+.hero-buttons{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.hero-buttons i{
+
+    font-size:.9rem;
+
+}
+
+
+/* ===============================
+   Hero Animation
+================================ */
+
+@keyframes posterHeroFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+/* ========================================
+   poster.css - Part 3
+   Poster Design Services
+======================================== */
+
+
+/* ===============================
+   Services Section
+================================ */
+
+.poster-services{
+
+    padding:110px 0;
+
+    background:var(--light-bg);
+
+}
+
+
+/* ===============================
+   Services Grid
+================================ */
+
+.services-grid{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+}
+
+
+/* ===============================
+   Service Card
+================================ */
+
+.poster-service-card{
+
+    position:relative;
+
+    padding:35px 30px;
+
+    background:#ffffff;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.04);
+
+    transition:.4s ease;
+
+}
+
+
+/* Top Hover Line */
+
+.poster-service-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:0;
+
+    height:4px;
+
+    background:var(--primary);
+
+    transition:.4s ease;
+
+}
+
+
+.poster-service-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:rgba(22,119,255,.20);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.10);
+
+}
+
+
+.poster-service-card:hover::before{
+
+    width:100%;
+
+}
+
+
+/* ===============================
+   Service Icon
+================================ */
+
+.service-icon{
+
+    width:60px;
+
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:22px;
+
+    border-radius:15px;
+
+    background:rgba(22,119,255,.09);
+
+    color:var(--primary);
+
+    font-size:1.35rem;
+
+    transition:.4s ease;
+
+}
+
+
+.poster-service-card:hover .service-icon{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    transform:scale(1.08) rotate(-4deg);
+
+}
+
+
+/* ===============================
+   Service Title
+================================ */
+
+.poster-service-card h3{
+
+    margin-bottom:12px;
+
+    color:var(--text);
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+}
+
+
+/* ===============================
+   Service Description
+================================ */
+
+.poster-service-card p{
+
+    color:var(--text-light);
+
+    font-size:.92rem;
+
+    line-height:1.8;
+
+}
+
+
+/* ===============================
+   Card Animation
+================================ */
+
+.poster-service-card{
+
+    opacity:0;
+
+    animation:posterServiceReveal .7s ease forwards;
+
+}
+
+
+.poster-service-card:nth-child(1){
+
+    animation-delay:.1s;
+
+}
+
+
+.poster-service-card:nth-child(2){
+
+    animation-delay:.2s;
+
+}
+
+
+.poster-service-card:nth-child(3){
+
+    animation-delay:.3s;
+
+}
+
+
+.poster-service-card:nth-child(4){
+
+    animation-delay:.4s;
+
+}
+
+
+.poster-service-card:nth-child(5){
+
+    animation-delay:.5s;
+
+}
+
+
+.poster-service-card:nth-child(6){
+
+    animation-delay:.6s;
+
+}
+
+
+@keyframes posterServiceReveal{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+/* ========================================
+   poster.css - Part 4
+   Pricing Packages
+======================================== */
+
+
+/* ===============================
+   Pricing Section
+================================ */
+
+.poster-packages{
+
+    padding:110px 0;
+
+    background:#ffffff;
+
+}
+
+
+/* ===============================
+   Pricing Grid
+================================ */
+
+.pricing-grid{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+    align-items:stretch;
+
+}
+
+
+/* ===============================
+   Pricing Card
+================================ */
+
+.pricing-card{
+
+    position:relative;
+
+    display:flex;
+
+    flex-direction:column;
+
+    padding:35px 30px 30px;
+
+    background:#ffffff;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+    overflow:hidden;
+
+    transition:.4s ease;
+
+}
+
+
+.pricing-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:rgba(22,119,255,.25);
+
+    box-shadow:0 22px 50px rgba(0,0,0,.11);
+
+}
+
+
+/* ===============================
+   Featured Package
+================================ */
+
+.pricing-card.featured{
+
+    border:2px solid var(--primary);
+
+    box-shadow:0 18px 45px rgba(22,119,255,.15);
+
+    transform:translateY(-8px);
+
+}
+
+
+.pricing-card.featured:hover{
+
+    transform:translateY(-15px);
+
+    box-shadow:0 25px 55px rgba(22,119,255,.20);
+
+}
+
+
+/* ===============================
+   Popular Badge
+================================ */
+
+.popular-badge{
+
+    position:absolute;
+
+    top:0;
+
+    right:0;
+
+    padding:8px 16px;
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    border-radius:0 18px 0 14px;
+
+    font-size:.68rem;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+
+/* ===============================
+   Package Top
+================================ */
+
+.package-top{
+
+    padding-bottom:25px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+
+.package-name{
+
+    display:inline-block;
+
+    margin-bottom:12px;
+
+    color:var(--primary);
+
+    font-size:.85rem;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+
+}
+
+
+.package-top h3{
+
+    margin-bottom:14px;
+
+    color:var(--text);
+
+    font-size:3rem;
+
+    line-height:1;
+
+    font-weight:800;
+
+}
+
+
+.package-top p{
+
+    color:var(--text-light);
+
+    font-size:.9rem;
+
+    line-height:1.7;
+
+}
+
+
+/* ===============================
+   Package Details
+================================ */
+
+.package-details{
+
+    flex:1;
+
+    padding:25px 0;
+
+}
+
+
+.package-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:15px;
+
+    color:#333333;
+
+    font-size:.9rem;
+
+}
+
+
+.package-item i{
+
+    width:20px;
+
+    height:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    background:rgba(22,119,255,.10);
+
+    color:var(--primary);
+
+    font-size:.65rem;
+
+}
+
+
+.package-item.disabled{
+
+    color:#aaaaaa;
+
+}
+
+
+.package-item.disabled i{
+
+    background:#f1f1f1;
+
+    color:#999999;
+
+}
+
+
+/* ===============================
+   Package Button
+================================ */
+
+.package-btn{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:14px 20px;
+
+    border:1px solid var(--primary);
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    color:var(--primary);
+
+    font-size:.92rem;
+
+    font-weight:700;
+
+    transition:.35s ease;
+
+}
+
+
+.package-btn:hover{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(22,119,255,.25);
+
+}
+
+
+/* ===============================
+   Featured Button
+================================ */
+
+.primary-package{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    box-shadow:0 8px 20px rgba(22,119,255,.20);
+
+}
+
+
+.primary-package:hover{
+
+    background:var(--primary-dark);
+
+    color:#ffffff;
+
+    box-shadow:0 12px 28px rgba(22,119,255,.30);
+
+}
+
+
+/* ===============================
+   Pricing Animation
+================================ */
+
+.pricing-card{
+
+    opacity:0;
+
+    animation:posterPricingReveal .8s ease forwards;
+
+}
+
+
+.pricing-card:nth-child(1){
+
+    animation-delay:.15s;
+
+}
+
+
+.pricing-card:nth-child(2){
+
+    animation-delay:.30s;
+
+}
+
+
+.pricing-card:nth-child(3){
+
+    animation-delay:.45s;
+
+}
+
+
+@keyframes posterPricingReveal{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+/* ========================================
+   poster.css - Part 5
+   Why Choose Us + Poster Design Process
+======================================== */
+
+
+/* ===============================
+   Why Choose Us
+================================ */
+
+.why-poster{
+
+    padding:110px 0;
+
+    background:var(--light-bg);
+
+}
+
+
+/* ===============================
+   Why Grid
+================================ */
+
+.why-grid{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+}
+
+
+/* ===============================
+   Why Card
+================================ */
+
+.why-card{
+
+    padding:32px 28px;
+
+    background:#ffffff;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    transition:.4s ease;
+
+}
+
+
+.why-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:rgba(22,119,255,.20);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.08);
+
+}
+
+
+/* ===============================
+   Why Icon
+================================ */
+
+.why-icon{
+
+    width:58px;
+
+    height:58px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:20px;
+
+    border-radius:15px;
+
+    background:rgba(22,119,255,.09);
+
+    color:var(--primary);
+
+    font-size:1.25rem;
+
+    transition:.35s ease;
+
+}
+
+
+.why-card:hover .why-icon{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    transform:scale(1.08);
+
+}
+
+
+/* ===============================
+   Why Title
+================================ */
+
+.why-card h3{
+
+    margin-bottom:10px;
+
+    color:var(--text);
+
+    font-size:1.15rem;
+
+    font-weight:700;
+
+}
+
+
+/* ===============================
+   Why Description
+================================ */
+
+.why-card p{
+
+    color:var(--text-light);
+
+    font-size:.9rem;
+
+    line-height:1.8;
+
+}
+
+
+/* ===============================
+   Poster Process
+================================ */
+
+.poster-process{
+
+    padding:110px 0;
+
+    background:#ffffff;
+
+}
+
+
+/* ===============================
+   Process Grid
+================================ */
+
+.process-grid{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+}
+
+
+/* ===============================
+   Process Card
+================================ */
+
+.process-card{
+
+    position:relative;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    background:#ffffff;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    transition:.4s ease;
+
+}
+
+
+.process-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:rgba(22,119,255,.20);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.08);
+
+}
+
+
+/* ===============================
+   Process Number
+================================ */
+
+.process-number{
+
+    position:absolute;
+
+    top:15px;
+
+    right:18px;
+
+    color:rgba(22,119,255,.35);
+
+    font-size:.75rem;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+}
+
+
+/* ===============================
+   Process Icon
+================================ */
+
+.process-icon{
+
+    width:65px;
+
+    height:65px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:5px auto 20px;
+
+    border-radius:50%;
+
+    background:rgba(22,119,255,.09);
+
+    color:var(--primary);
+
+    font-size:1.35rem;
+
+    transition:.35s ease;
+
+}
+
+
+.process-card:hover .process-icon{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    transform:scale(1.08);
+
+}
+
+
+/* ===============================
+   Process Title
+================================ */
+
+.process-card h3{
+
+    margin-bottom:10px;
+
+    color:var(--text);
+
+    font-size:1.05rem;
+
+    font-weight:700;
+
+}
+
+
+/* ===============================
+   Process Description
+================================ */
+
+.process-card p{
+
+    color:var(--text-light);
+
+    font-size:.86rem;
+
+    line-height:1.75;
+
+}
+
+
+/* ===============================
+   Process Connector
+================================ */
+
+.process-card:not(:last-child)::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:67px;
+
+    right:-30px;
+
+    width:40px;
+
+    height:1px;
+
+    background:rgba(22,119,255,.20);
+
+}
+
+
+/* ===============================
+   Card Animation
+================================ */
+
+.why-card,
+.process-card{
+
+    opacity:0;
+
+    animation:posterSectionReveal .7s ease forwards;
+
+}
+
+
+.why-card:nth-child(1),
+.process-card:nth-child(1){
+
+    animation-delay:.1s;
+
+}
+
+
+.why-card:nth-child(2),
+.process-card:nth-child(2){
+
+    animation-delay:.2s;
+
+}
+
+
+.why-card:nth-child(3),
+.process-card:nth-child(3){
+
+    animation-delay:.3s;
+
+}
+
+
+.why-card:nth-child(4),
+.process-card:nth-child(4){
+
+    animation-delay:.4s;
+
+}
+
+
+.why-card:nth-child(5){
+
+    animation-delay:.5s;
+
+}
+
+
+.why-card:nth-child(6){
+
+    animation-delay:.6s;
+
+}
+
+
+@keyframes posterSectionReveal{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+/* ========================================
+   poster.css - Part 6
+   FAQ + CTA + Footer + Responsive
+======================================== */
+
+
+/* ===============================
+   FAQ Section
+================================ */
+
+.poster-faq{
+
+    padding:110px 0;
+
+    background:var(--light-bg);
+
+}
+
+
+.faq-container{
+
+    width:90%;
+
+    max-width:850px;
+
+    margin:auto;
+
+}
+
+
+.faq-item{
+
+    background:#ffffff;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    margin-bottom:15px;
+
+    overflow:hidden;
+
+    transition:.3s ease;
+
+}
+
+
+.faq-item:hover{
+
+    border-color:rgba(22,119,255,.25);
+
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+
+}
+
+
+.faq-question{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:20px 24px;
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--text);
+
+    text-align:left;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+.faq-question i{
+
+    color:var(--primary);
+
+    font-size:.85rem;
+
+    flex-shrink:0;
+
+    transition:.3s ease;
+
+}
+
+
+.faq-item.active .faq-question i{
+
+    transform:rotate(45deg);
+
+}
+
+
+.faq-answer{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:max-height .4s ease;
+
+}
+
+
+.faq-answer p{
+
+    padding:0 24px 20px;
+
+    color:var(--text-light);
+
+    font-size:.9rem;
+
+    line-height:1.8;
+
+}
+
+
+/* ===============================
+   CTA Section
+================================ */
+
+.poster-cta{
+
+    position:relative;
+
+    padding:120px 0;
+
+    overflow:hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(255,255,255,.12),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(255,255,255,.10),
+            transparent 30%
+        ),
+
+        var(--primary);
+
+}
+
+
+.poster-cta::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+
+    height:300px;
+
+    top:-120px;
+
+    right:-80px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:50%;
+
+}
+
+
+.poster-cta::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    bottom:-100px;
+
+    left:-70px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:50%;
+
+}
+
+
+.cta-content{
+
+    width:90%;
+
+    max-width:850px;
+
+    margin:auto;
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    color:#ffffff;
+
+}
+
+
+.cta-content .section-badge{
+
+    background:rgba(255,255,255,.12);
+
+    border-color:rgba(255,255,255,.20);
+
+    color:#ffffff;
+
+}
+
+
+.cta-content h2{
+
+    margin-bottom:20px;
+
+    font-size:clamp(2rem,4vw,3.4rem);
+
+    line-height:1.2;
+
+    font-weight:800;
+
+    letter-spacing:-1px;
+
+}
+
+
+.cta-content h2 span{
+
+    display:block;
+
+}
+
+
+.cta-content p{
+
+    max-width:650px;
+
+    margin:0 auto 32px;
+
+    color:rgba(255,255,255,.85);
+
+    font-size:1rem;
+
+    line-height:1.8;
+
+}
+
+
+.cta-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:15px 28px;
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    color:var(--primary);
+
+    font-size:.95rem;
+
+    font-weight:700;
+
+    transition:.35s ease;
+
+}
+
+
+.cta-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.20);
+
+}
+
+
+/* ===============================
+   Footer
+================================ */
+
+.site-footer{
+
+    padding:70px 0 25px;
+
+    background:#0b0f16;
+
+    color:#ffffff;
+
+}
+
+
+.footer-container{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:1.5fr 1fr 1fr 1.2fr;
+
+    gap:45px;
+
+}
+
+
+.footer-box h3{
+
+    margin-bottom:18px;
+
+    color:#ffffff;
+
+    font-size:1.1rem;
+
+    font-weight:700;
+
+}
+
+
+.footer-box p{
+
+    max-width:300px;
+
+    color:#aeb5c0;
+
+    font-size:.88rem;
+
+    line-height:1.8;
+
+}
+
+
+.footer-tagline{
+
+    margin-bottom:10px;
+
+    color:#ffffff !important;
+
+    font-weight:600;
+
+}
+
+
+.footer-box > a{
+
+    display:block;
+
+    width:max-content;
+
+    margin-bottom:10px;
+
+    color:#aeb5c0;
+
+    font-size:.88rem;
+
+    transition:.3s ease;
+
+}
+
+
+.footer-box > a:hover{
+
+    color:#ffffff;
+
+    transform:translateX(4px);
+
+}
+
+
+/* ===============================
+   Social Icons
+================================ */
+
+.social-icons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:18px;
+
+}
+
+
+.social-icons a{
+
+    width:40px;
+
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#ffffff;
+
+    transition:.3s ease;
+
+}
+
+
+.social-icons a:hover{
+
+    background:var(--primary);
+
+    transform:translateY(-4px);
+
+}
+
+
+/* ===============================
+   Footer Bottom
+================================ */
+
+.site-footer hr{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:50px auto 25px;
+
+    border:0;
+
+    border-top:1px solid rgba(255,255,255,.10);
+
+}
+
+
+.copyright{
+
+    text-align:center;
+
+    color:#8d96a3;
+
+    font-size:.8rem;
+
+    line-height:1.6;
+
+}
+
+
+/* ===============================
+   Back To Top
+================================ */
+
+.back-to-top{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:45px;
+
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    font-size:1.1rem;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(15px);
+
+    transition:.3s ease;
+
+    z-index:900;
+
+    box-shadow:0 8px 25px rgba(22,119,255,.25);
+
+}
+
+
+.back-to-top.show-top{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (max-width:1000px){
+
+    .services-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .pricing-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .pricing-card.featured{
+
+        transform:none;
+
+    }
+
+
+    .why-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .process-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .process-card:not(:last-child)::after{
+
+        display:none;
+
+    }
+
+
+    .footer-container{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width:700px){
+
+    /* Navbar */
+
+    .navbar{
+
+        height:70px;
+
+    }
+
+
+    .nav-container{
+
+        width:90%;
+
+    }
+
+
+    .menu-toggle{
+
+        display:flex;
+
+    }
+
+
+    .nav-links{
+
+        position:absolute;
+
+        top:70px;
+
+        left:0;
+
+        width:100%;
+
+        padding:20px;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        gap:5px;
+
+        background:#ffffff;
+
+        border-top:1px solid var(--border);
+
+        box-shadow:0 15px 30px rgba(0,0,0,.08);
+
+        opacity:0;
+
+        visibility:hidden;
+
+        transform:translateY(-10px);
+
+        transition:.3s ease;
+
+    }
+
+
+    .nav-links.active{
+
+        opacity:1;
+
+        visibility:visible;
+
+        transform:translateY(0);
+
+    }
+
+
+    .nav-links a{
+
+        width:100%;
+
+        padding:12px;
+
+        text-align:center;
+
+    }
+
+
+    /* Hero */
+
+    .poster-hero{
+
+        min-height:auto;
+
+        padding:140px 0 90px;
+
+    }
+
+
+    .hero-content h1{
+
+        font-size:2.45rem;
+
+        letter-spacing:-1.3px;
+
+    }
+
+
+    .hero-content > p{
+
+        font-size:.95rem;
+
+    }
+
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        width:100%;
+
+    }
+
+
+    .primary-btn,
+    .secondary-btn{
+
+        width:100%;
+
+        max-width:300px;
+
+    }
+
+
+    /* Sections */
+
+    .poster-services,
+    .poster-packages,
+    .why-poster,
+    .poster-process,
+    .poster-faq{
+
+        padding:80px 0;
+
+    }
+
+
+    .services-grid,
+    .pricing-grid,
+    .why-grid,
+    .process-grid{
+
+        width:90%;
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .pricing-card.featured{
+
+        transform:none;
+
+    }
+
+
+    .section-header{
+
+        margin-bottom:40px;
+
+    }
+
+
+    .section-header h2{
+
+        font-size:2rem;
+
+    }
+
+
+    /* CTA */
+
+    .poster-cta{
+
+        padding:90px 0;
+
+    }
+
+
+    .cta-content h2{
+
+        font-size:2rem;
+
+    }
+
+
+    /* Footer */
+
+    .footer-container{
+
+        grid-template-columns:1fr;
+
+        gap:35px;
+
+    }
+
+
+    .footer-box p{
+
+        max-width:none;
+
+    }
+
+
+    .site-footer{
+
+        padding-top:55px;
+
+    }
+
+}
+
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
+
+@media (max-width:420px){
+
+    .hero-content h1{
+
+        font-size:2.1rem;
+
+    }
+
+
+    .hero-badge,
+    .section-badge{
+
+        padding:7px 12px;
+
+        font-size:.68rem;
+
+    }
+
+
+    .poster-service-card,
+    .pricing-card,
+    .why-card{
+
+        padding:28px 22px;
+
+    }
+
+
+    .package-top h3{
+
+        font-size:2.6rem;
+
+    }
+
+
+    .faq-question{
+
+        padding:18px;
+
+        font-size:.88rem;
+
+    }
+
+
+    .faq-answer p{
+
+        padding:0 18px 18px;
+
+        font-size:.84rem;
+
+    }
+
+
+    .cta-content h2{
+
+        font-size:1.8rem;
+
+    }
+
+
+    .back-to-top{
+
+        right:15px;
+
+        bottom:15px;
+
+        width:42px;
+
+        height:42px;
+
+    }
+
+}
