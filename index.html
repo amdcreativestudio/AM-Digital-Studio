@@ -294,13 +294,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
             </div>
 
             
-            <div class="contact-buttons">
+        <div class="contact-buttons">
 
-                <a href="#">Email Us</a>
+    <button type="button" id="openEmailPopup">
+        ✉ Email Us
+    </button>
 
- 
-
-            </div>
+</div>
 
         </div>
 
@@ -437,7 +437,120 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         Made with ❤️ in Sri Lanka
 
     </div>
+<!-- ==========================
+     EMAIL POPUP
+=========================== -->
 
+<div class="email-popup" id="emailPopup">
+
+    <div class="email-popup-box">
+
+        <button
+            type="button"
+            class="email-popup-close"
+            id="closeEmailPopup"
+            aria-label="Close"
+        >
+            &times;
+        </button>
+
+        <div class="email-popup-header">
+
+            <div class="email-icon">✉</div>
+
+            <h2>Email Us</h2>
+
+            <p>
+                Have a question or business inquiry?
+                Send us a message and we'll get back to you.
+            </p>
+
+        </div>
+
+        <form id="emailForm">
+
+            <div class="email-field">
+
+                <label for="senderName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="senderName"
+                    name="from_name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+            <div class="email-field">
+
+                <label for="senderEmail">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="senderEmail"
+                    name="reply_to"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+            <div class="email-field">
+
+                <label for="emailSubject">
+                    Subject
+                </label>
+
+                <input
+                    type="text"
+                    id="emailSubject"
+                    name="subject"
+                    placeholder="What is this about?"
+                    required
+                >
+
+            </div>
+
+            <div class="email-field">
+
+                <label for="emailMessage">
+                    Message
+                </label>
+
+                <textarea
+                    id="emailMessage"
+                    name="message"
+                    rows="5"
+                    placeholder="Write your message..."
+                    required
+                ></textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="send-email-btn"
+                id="sendEmailBtn"
+            >
+                <span>Send Message</span>
+            </button>
+
+            <div
+                class="email-status"
+                id="emailStatus"
+            ></div>
+
+        </form>
+
+    </div>
+
+</div>
 </footer>
 
 
