@@ -355,19 +355,19 @@ function updateOrderSummary() {
 
         if (packageName === "basic") {
 
-            currentPrice = 10;
+            currentPrice = 3300;
 
         }
 
         else if (packageName === "standard") {
 
-            currentPrice = 45;
+            currentPrice = 8300;
 
         }
 
         else if (packageName === "premium") {
 
-            currentPrice = 95;
+            currentPrice = 12500;
 
         }
 
@@ -382,19 +382,19 @@ function updateOrderSummary() {
 
         if (packageName === "basic") {
 
-            currentPrice = 15;
+            currentPrice = 2500;
 
         }
 
         else if (packageName === "standard") {
 
-            currentPrice = 35;
+            currentPrice = 4750;
 
         }
 
         else if (packageName === "premium") {
 
-            currentPrice = 70;
+            currentPrice = 6200;
 
         }
 
@@ -409,19 +409,19 @@ function updateOrderSummary() {
 
         if (packageName === "basic") {
 
-            currentPrice = 10;
+            currentPrice = 1700;
 
         }
 
         else if (packageName === "standard") {
 
-            currentPrice = 25;
+            currentPrice = 2850;
 
         }
 
         else if (packageName === "premium") {
 
-            currentPrice = 50;
+            currentPrice = 3600;
 
         }
 
@@ -436,19 +436,19 @@ function updateOrderSummary() {
 
         if (packageName === "basic") {
 
-            currentPrice = 10;
+            currentPrice = 1800;
 
         }
 
         else if (packageName === "standard") {
 
-            currentPrice = 25;
+            currentPrice = 2600;
 
         }
 
         else if (packageName === "premium") {
 
-            currentPrice = 50;
+            currentPrice = 3300;
 
         }
 
@@ -463,19 +463,19 @@ function updateOrderSummary() {
 
         if (packageName === "basic") {
 
-            currentPrice = 50;
+            currentPrice = 25000;
 
         }
 
         else if (packageName === "standard") {
 
-            currentPrice = 100;
+            currentPrice = 46000;
 
         }
 
         else if (packageName === "premium") {
 
-            currentPrice = 200;
+            currentPrice = 125,000;
 
         }
 
@@ -490,19 +490,19 @@ function updateOrderSummary() {
 
         if (packageName === "basic") {
 
-            currentPrice = 10;
+            currentPrice = 4300;
 
         }
 
         else if (packageName === "standard") {
 
-            currentPrice = 25;
+            currentPrice = 8200;
 
         }
 
         else if (packageName === "premium") {
 
-            currentPrice = 50;
+            currentPrice = 11500;
 
         }
 
