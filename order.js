@@ -124,7 +124,7 @@ console.log(
 );
 // ========================================
 // order.js - Part 2
-// Service + Package + Price
+// Automatic Service + Package + Price
 // ========================================
 
 
@@ -132,87 +132,465 @@ console.log(
 // Elements
 // ===============================
 
-const serviceInput = document.getElementById("serviceName");
+const serviceInput =
+    document.getElementById("serviceName");
 
-const packageSelect = document.getElementById("package");
+const packageSelect =
+    document.getElementById("package");
 
-const summaryService = document.getElementById("summaryService");
+const summaryService =
+    document.getElementById("summaryService");
 
-const summaryPackage = document.getElementById("summaryPackage");
+const summaryPackage =
+    document.getElementById("summaryPackage");
 
-const summaryPrice = document.getElementById("summaryPrice");
+const summaryPrice =
+    document.getElementById("summaryPrice");
 
-const totalPrice = document.getElementById("totalPrice");
-
-
-// ===============================
-// Package Prices
-// ===============================
-
-const packagePrices = {
-
-    Basic:10,
-
-    Standard:25,
-
-    Premium:50
-
-};
+const totalPrice =
+    document.getElementById("totalPrice");
 
 
 // ===============================
-// Load Service
+// Read Order URL
 // ===============================
 
-const savedService = localStorage.getItem("serviceName");
+const orderParams =
+    new URLSearchParams(window.location.search);
 
-if(savedService){
 
-    serviceInput.value = savedService;
+// ===============================
+// Get Selected Data
+// ===============================
 
-    summaryService.textContent = savedService;
+const urlService =
+    orderParams.get("service");
+
+const urlPackage =
+    orderParams.get("package");
+
+const urlPrice =
+    orderParams.get("price");
+
+
+// ===============================
+// Service Name Formatter
+// ===============================
+
+function formatServiceName(service) {
+
+    if (!service) return "";
+
+    const serviceNames = {
+
+        "video-editing":
+            "Video Editing",
+
+        "logo-design":
+            "Logo Design",
+
+        "poster-design":
+            "Poster Design",
+
+        "thumbnail-design":
+            "Thumbnail Design",
+
+        "web-development":
+            "Web Development",
+
+        "fiverr-seo":
+            "Fiverr Gig SEO"
+
+    };
+
+    return serviceNames[service] || service;
 
 }
 
 
 // ===============================
-// Update Package
+// Package Formatter
 // ===============================
 
-function updateOrderSummary(){
+function formatPackageName(packageName) {
 
-    const selectedPackage = packageSelect.value;
+    if (!packageName) return "";
 
-    const price = packagePrices[selectedPackage];
-
-    summaryPackage.textContent =
-
-        selectedPackage + " Package";
-
-    summaryPrice.textContent =
-
-        "$" + price;
-
-    totalPrice.textContent =
-
-        "$" + price;
+    return (
+        packageName.charAt(0).toUpperCase() +
+        packageName.slice(1).toLowerCase()
+    );
 
 }
 
 
-// First Load
+// ===============================
+// Final Selected Values
+// ===============================
+
+let selectedService =
+    urlService;
+
+let selectedPackage =
+    urlPackage;
+
+let selectedPrice =
+    urlPrice;
+
+
+// ===============================
+// Fallback - LocalStorage
+// ===============================
+
+if (!selectedService) {
+
+    selectedService =
+        localStorage.getItem("serviceName");
+
+}
+
+if (!selectedPackage) {
+
+    selectedPackage =
+        localStorage.getItem("selectedPackage");
+
+}
+
+if (!selectedPrice) {
+
+    selectedPrice =
+        localStorage.getItem("selectedPrice");
+
+}
+
+
+// ===============================
+// Format Values
+// ===============================
+
+const displayService =
+    formatServiceName(selectedService);
+
+const displayPackage =
+    formatPackageName(selectedPackage);
+
+
+// ===============================
+// Set Service
+// ===============================
+
+if (serviceInput && displayService) {
+
+    serviceInput.value =
+        displayService;
+
+}
+
+
+if (summaryService && displayService) {
+
+    summaryService.textContent =
+        displayService;
+
+}
+
+
+// ===============================
+// Set Package Select
+// ===============================
+
+if (packageSelect && selectedPackage) {
+
+    const packageValue =
+        formatPackageName(selectedPackage);
+
+    const optionExists =
+        [...packageSelect.options].some(
+            option =>
+                option.value === packageValue
+        );
+
+    if (optionExists) {
+
+        packageSelect.value =
+            packageValue;
+
+    }
+
+}
+
+
+// ===============================
+// Update Summary
+// ===============================
+
+function updateOrderSummary() {
+
+    const currentPackage =
+        packageSelect
+            ? packageSelect.value
+            : displayPackage;
+
+    let currentPrice =
+        selectedPrice;
+
+
+    // If user manually changes package,
+    // calculate the correct price for
+    // the selected service.
+
+    const service =
+        displayService.toLowerCase();
+
+
+    const packageName =
+        currentPackage.toLowerCase();
+
+
+    // ===============================
+    // Video Editing
+    // ===============================
+
+    if (service === "video editing") {
+
+        if (packageName === "basic") {
+
+            currentPrice = 10;
+
+        }
+
+        else if (packageName === "standard") {
+
+            currentPrice = 45;
+
+        }
+
+        else if (packageName === "premium") {
+
+            currentPrice = 95;
+
+        }
+
+    }
+
+
+    // ===============================
+    // Logo Design
+    // ===============================
+
+    else if (service === "logo design") {
+
+        if (packageName === "basic") {
+
+            currentPrice = 15;
+
+        }
+
+        else if (packageName === "standard") {
+
+            currentPrice = 35;
+
+        }
+
+        else if (packageName === "premium") {
+
+            currentPrice = 70;
+
+        }
+
+    }
+
+
+    // ===============================
+    // Poster Design
+    // ===============================
+
+    else if (service === "poster design") {
+
+        if (packageName === "basic") {
+
+            currentPrice = 10;
+
+        }
+
+        else if (packageName === "standard") {
+
+            currentPrice = 25;
+
+        }
+
+        else if (packageName === "premium") {
+
+            currentPrice = 50;
+
+        }
+
+    }
+
+
+    // ===============================
+    // Thumbnail Design
+    // ===============================
+
+    else if (service === "thumbnail design") {
+
+        if (packageName === "basic") {
+
+            currentPrice = 10;
+
+        }
+
+        else if (packageName === "standard") {
+
+            currentPrice = 25;
+
+        }
+
+        else if (packageName === "premium") {
+
+            currentPrice = 50;
+
+        }
+
+    }
+
+
+    // ===============================
+    // Web Development
+    // ===============================
+
+    else if (service === "web development") {
+
+        if (packageName === "basic") {
+
+            currentPrice = 50;
+
+        }
+
+        else if (packageName === "standard") {
+
+            currentPrice = 100;
+
+        }
+
+        else if (packageName === "premium") {
+
+            currentPrice = 200;
+
+        }
+
+    }
+
+
+    // ===============================
+    // Fiverr Gig SEO
+    // ===============================
+
+    else if (service === "fiverr gig seo") {
+
+        if (packageName === "basic") {
+
+            currentPrice = 10;
+
+        }
+
+        else if (packageName === "standard") {
+
+            currentPrice = 25;
+
+        }
+
+        else if (packageName === "premium") {
+
+            currentPrice = 50;
+
+        }
+
+    }
+
+
+    // ===============================
+    // Display Package
+    // ===============================
+
+    if (summaryPackage) {
+
+        summaryPackage.textContent =
+            currentPackage + " Package";
+
+    }
+
+
+    // ===============================
+    // Display Price
+    // ===============================
+
+    if (summaryPrice) {
+
+        summaryPrice.textContent =
+            "Rs." + currentPrice + "/-";
+
+    }
+
+
+    if (totalPrice) {
+
+        totalPrice.textContent =
+            "Rs." + currentPrice + "/-";
+
+    }
+
+
+    // ===============================
+    // Save Current Selection
+    // ===============================
+
+    localStorage.setItem(
+        "serviceName",
+        displayService
+    );
+
+    localStorage.setItem(
+        "selectedPackage",
+        currentPackage
+    );
+
+    localStorage.setItem(
+        "selectedPrice",
+        currentPrice
+    );
+
+}
+
+
+// ===============================
+// Initial Load
+// ===============================
 
 updateOrderSummary();
 
 
+// ===============================
 // Package Change
+// ===============================
 
-packageSelect.addEventListener(
+if (packageSelect) {
 
-    "change",
+    packageSelect.addEventListener(
+        "change",
+        updateOrderSummary
+    );
 
-    updateOrderSummary
+}
 
+
+// ===============================
+// Console
+// ===============================
+
+console.log(
+    "%cOrder Selection Loaded ✓",
+    "font-size:16px;font-weight:bold;color:#1677ff;"
 );
 // ========================================
 // order.js - Part 3
