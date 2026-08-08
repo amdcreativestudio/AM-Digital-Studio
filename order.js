@@ -475,7 +475,7 @@ function updateOrderSummary() {
 
         else if (packageName === "premium") {
 
-            currentPrice = 125,000;
+            currentPrice = 125000;
 
         }
 
