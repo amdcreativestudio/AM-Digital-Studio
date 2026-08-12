@@ -680,3 +680,70 @@ document.addEventListener("DOMContentLoaded", () => {
 // ========================================
 // END OF SCRIPT.JS
 // ========================================
+/* ==========================
+   EMAIL POPUP
+=========================== */
+
+const emailPopup = document.getElementById("emailPopup");
+const openEmailPopup = document.getElementById("openEmailPopup");
+const closeEmailPopup = document.getElementById("closeEmailPopup");
+
+
+if (openEmailPopup && emailPopup) {
+
+    openEmailPopup.addEventListener("click", function () {
+
+        emailPopup.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+
+    });
+
+}
+
+
+if (closeEmailPopup && emailPopup) {
+
+    closeEmailPopup.addEventListener("click", function () {
+
+        emailPopup.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    });
+
+}
+
+
+/* Close when clicking outside */
+
+if (emailPopup) {
+
+    emailPopup.addEventListener("click", function (event) {
+
+        if (event.target === emailPopup) {
+
+            emailPopup.classList.remove("active");
+
+            document.body.style.overflow = "";
+
+        }
+
+    });
+
+}
+
+
+/* Close with ESC */
+
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape" && emailPopup) {
+
+        emailPopup.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    }
+
+});
