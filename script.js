@@ -825,3 +825,120 @@ if (emailForm) {
     });
 
 }
+/* ==========================
+   EMAILJS CONTACT FORM
+========================== */
+
+const emailForm = document.getElementById("emailForm");
+const emailStatus = document.getElementById("emailStatus");
+const sendEmailBtn = document.getElementById("sendEmailBtn");
+
+if (emailForm && sendEmailBtn && emailStatus) {
+
+    emailForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        sendEmailBtn.disabled = true;
+
+        const buttonText =
+            sendEmailBtn.querySelector("span");
+
+        if (buttonText) {
+            buttonText.textContent = "Sending...";
+        }
+
+        emailStatus.textContent = "";
+        emailStatus.className = "email-status";
+
+
+        const templateParams = {
+
+            name:
+                document.getElementById("senderName").value.trim(),
+
+            email:
+                document.getElementById("senderEmail").value.trim(),
+
+            subject:
+                document.getElementById("emailSubject").value.trim(),
+
+            message:
+                document.getElementById("emailMessage").value.trim()
+
+        };
+
+
+        emailjs.send(
+            "service_erxcjq7",
+            "template_79wqgy1",
+            templateParams
+        )
+
+        .then(function (response) {
+
+            console.log(
+                "Email sent successfully:",
+                response.status,
+                response.text
+            );
+
+            emailStatus.textContent =
+                "✓ Message sent successfully!";
+
+            emailStatus.className =
+                "email-status success";
+
+            emailForm.reset();
+
+            if (buttonText) {
+                buttonText.textContent = "Sent ✓";
+            }
+
+
+            setTimeout(function () {
+
+                if (emailPopup) {
+
+                    emailPopup.classList.remove("active");
+
+                }
+
+                document.body.style.overflow = "";
+
+                emailStatus.textContent = "";
+
+                sendEmailBtn.disabled = false;
+
+                if (buttonText) {
+                    buttonText.textContent = "Send Message";
+                }
+
+            }, 2000);
+
+        })
+
+        .catch(function (error) {
+
+            console.error(
+                "Email sending failed:",
+                error
+            );
+
+            emailStatus.textContent =
+                "✕ Failed to send message. Please try again.";
+
+            emailStatus.className =
+                "email-status error";
+
+            sendEmailBtn.disabled = false;
+
+            if (buttonText) {
+                buttonText.textContent = "Send Message";
+            }
+
+        });
+
+    });
+
+}
