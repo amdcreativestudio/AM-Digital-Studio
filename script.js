@@ -747,3 +747,81 @@ document.addEventListener("keydown", function (event) {
     }
 
 });
+/* ==========================
+   EMAILJS - CONTACT FORM
+========================== */
+
+emailjs.init({
+    publicKey: "YOUR_PUBLIC_KEY"
+});
+
+const emailForm = document.getElementById("emailForm");
+const emailStatus = document.getElementById("emailStatus");
+const sendEmailBtn = document.getElementById("sendEmailBtn");
+
+if (emailForm) {
+
+    emailForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        sendEmailBtn.disabled = true;
+        sendEmailBtn.querySelector("span").textContent = "Sending...";
+
+        emailStatus.textContent = "";
+        emailStatus.className = "email-status";
+
+        const templateParams = {
+            name: document.getElementById("senderName").value,
+            email: document.getElementById("senderEmail").value,
+            subject: document.getElementById("emailSubject").value,
+            message: document.getElementById("emailMessage").value
+        };
+
+        emailjs.send(
+            "YOUR_SERVICE_ID",
+            "YOUR_TEMPLATE_ID",
+            templateParams
+        )
+        .then(function (response) {
+
+            console.log("SUCCESS!", response.status, response.text);
+
+            emailStatus.textContent =
+                "Message sent successfully! ✅";
+
+            emailStatus.classList.add("success");
+
+            emailForm.reset();
+
+            sendEmailBtn.querySelector("span").textContent = "Sent ✓";
+
+            setTimeout(() => {
+                emailPopup.classList.remove("active");
+                document.body.style.overflow = "";
+
+                sendEmailBtn.disabled = false;
+                sendEmailBtn.querySelector("span").textContent =
+                    "Send Message";
+
+                emailStatus.textContent = "";
+            }, 2000);
+
+        })
+        .catch(function (error) {
+
+            console.error("FAILED...", error);
+
+            emailStatus.textContent =
+                "Failed to send message. Please try again. ❌";
+
+            emailStatus.classList.add("error");
+
+            sendEmailBtn.disabled = false;
+            sendEmailBtn.querySelector("span").textContent =
+                "Send Message";
+        });
+
+    });
+
+}
