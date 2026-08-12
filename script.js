@@ -676,155 +676,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
-// ========================================
-// END OF SCRIPT.JS
-// ========================================
 /* ==========================
    EMAIL POPUP
-=========================== */
+========================== */
 
 const emailPopup = document.getElementById("emailPopup");
 const openEmailPopup = document.getElementById("openEmailPopup");
 const closeEmailPopup = document.getElementById("closeEmailPopup");
 
-
 if (openEmailPopup && emailPopup) {
-
-    openEmailPopup.addEventListener("click", function () {
-
+    openEmailPopup.addEventListener("click", () => {
         emailPopup.classList.add("active");
-
         document.body.style.overflow = "hidden";
-
     });
-
 }
-
 
 if (closeEmailPopup && emailPopup) {
-
-    closeEmailPopup.addEventListener("click", function () {
-
+    closeEmailPopup.addEventListener("click", () => {
         emailPopup.classList.remove("active");
-
         document.body.style.overflow = "";
-
     });
-
 }
-
-
-/* Close when clicking outside */
 
 if (emailPopup) {
-
-    emailPopup.addEventListener("click", function (event) {
-
-        if (event.target === emailPopup) {
-
+    emailPopup.addEventListener("click", (e) => {
+        if (e.target === emailPopup) {
             emailPopup.classList.remove("active");
-
             document.body.style.overflow = "";
-
         }
-
     });
-
 }
 
-
-/* Close with ESC */
-
-document.addEventListener("keydown", function (event) {
-
-    if (event.key === "Escape" && emailPopup) {
-
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && emailPopup) {
         emailPopup.classList.remove("active");
-
         document.body.style.overflow = "";
-
     }
-
-});
-/* ==========================
-   EMAILJS - CONTACT FORM
-========================== */
-
-emailjs.init({
-    publicKey: "YOUR_PUBLIC_KEY"
 });
 
-const emailForm = document.getElementById("emailForm");
-const emailStatus = document.getElementById("emailStatus");
-const sendEmailBtn = document.getElementById("sendEmailBtn");
 
-if (emailForm) {
-
-    emailForm.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-        sendEmailBtn.disabled = true;
-        sendEmailBtn.querySelector("span").textContent = "Sending...";
-
-        emailStatus.textContent = "";
-        emailStatus.className = "email-status";
-
-        const templateParams = {
-            name: document.getElementById("senderName").value,
-            email: document.getElementById("senderEmail").value,
-            subject: document.getElementById("emailSubject").value,
-            message: document.getElementById("emailMessage").value
-        };
-
-        emailjs.send(
-            "YOUR_SERVICE_ID",
-            "YOUR_TEMPLATE_ID",
-            templateParams
-        )
-        .then(function (response) {
-
-            console.log("SUCCESS!", response.status, response.text);
-
-            emailStatus.textContent =
-                "Message sent successfully! ✅";
-
-            emailStatus.classList.add("success");
-
-            emailForm.reset();
-
-            sendEmailBtn.querySelector("span").textContent = "Sent ✓";
-
-            setTimeout(() => {
-                emailPopup.classList.remove("active");
-                document.body.style.overflow = "";
-
-                sendEmailBtn.disabled = false;
-                sendEmailBtn.querySelector("span").textContent =
-                    "Send Message";
-
-                emailStatus.textContent = "";
-            }, 2000);
-
-        })
-        .catch(function (error) {
-
-            console.error("FAILED...", error);
-
-            emailStatus.textContent =
-                "Failed to send message. Please try again. ❌";
-
-            emailStatus.classList.add("error");
-
-            sendEmailBtn.disabled = false;
-            sendEmailBtn.querySelector("span").textContent =
-                "Send Message";
-        });
-
-    });
-
-}
 /* ==========================
    EMAILJS CONTACT FORM
 ========================== */
@@ -835,39 +725,24 @@ const sendEmailBtn = document.getElementById("sendEmailBtn");
 
 if (emailForm && sendEmailBtn && emailStatus) {
 
-    emailForm.addEventListener("submit", function (event) {
+    emailForm.addEventListener("submit", (e) => {
 
-        event.preventDefault();
+        e.preventDefault();
 
         sendEmailBtn.disabled = true;
 
-        const buttonText =
-            sendEmailBtn.querySelector("span");
+        const buttonText = sendEmailBtn.querySelector("span");
 
         if (buttonText) {
             buttonText.textContent = "Sending...";
         }
 
-        emailStatus.textContent = "";
-        emailStatus.className = "email-status";
-
-
         const templateParams = {
-
-            name:
-                document.getElementById("senderName").value.trim(),
-
-            email:
-                document.getElementById("senderEmail").value.trim(),
-
-            subject:
-                document.getElementById("emailSubject").value.trim(),
-
-            message:
-                document.getElementById("emailMessage").value.trim()
-
+            name: document.getElementById("senderName").value.trim(),
+            email: document.getElementById("senderEmail").value.trim(),
+            subject: document.getElementById("emailSubject").value.trim(),
+            message: document.getElementById("emailMessage").value.trim()
         };
-
 
         emailjs.send(
             "service_erxcjq7",
@@ -875,19 +750,10 @@ if (emailForm && sendEmailBtn && emailStatus) {
             templateParams
         )
 
-        .then(function (response) {
+        .then(() => {
 
-            console.log(
-                "Email sent successfully:",
-                response.status,
-                response.text
-            );
-
-            emailStatus.textContent =
-                "✓ Message sent successfully!";
-
-            emailStatus.className =
-                "email-status success";
+            emailStatus.textContent = "✓ Message sent successfully!";
+            emailStatus.className = "email-status success";
 
             emailForm.reset();
 
@@ -895,19 +761,12 @@ if (emailForm && sendEmailBtn && emailStatus) {
                 buttonText.textContent = "Sent ✓";
             }
 
+            setTimeout(() => {
 
-            setTimeout(function () {
-
-                if (emailPopup) {
-
-                    emailPopup.classList.remove("active");
-
-                }
-
+                emailPopup.classList.remove("active");
                 document.body.style.overflow = "";
 
                 emailStatus.textContent = "";
-
                 sendEmailBtn.disabled = false;
 
                 if (buttonText) {
@@ -918,18 +777,14 @@ if (emailForm && sendEmailBtn && emailStatus) {
 
         })
 
-        .catch(function (error) {
+        .catch((error) => {
 
-            console.error(
-                "Email sending failed:",
-                error
-            );
+            console.error("Email sending failed:", error);
 
             emailStatus.textContent =
                 "✕ Failed to send message. Please try again.";
 
-            emailStatus.className =
-                "email-status error";
+            emailStatus.className = "email-status error";
 
             sendEmailBtn.disabled = false;
 
