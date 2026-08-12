@@ -2670,3 +2670,50 @@ footer hr{
 .email-popup.active {
     display: flex !important;
 }
+/* ==========================
+   EMAIL US BUTTON
+========================== */
+
+#openEmailPopup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 190px;
+    height: 58px;
+
+    padding: 0 32px;
+
+    background: #42bfe3;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 35px;
+
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(66, 191, 227, 0.25);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+/* Hover */
+#openEmailPopup:hover {
+    background: #35b5da;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 12px 28px rgba(66, 191, 227, 0.35);
+}
+
+/* Click */
+#openEmailPopup:active {
+    transform: translateY(0);
+}
