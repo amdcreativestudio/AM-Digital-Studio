@@ -1,0 +1,605 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f9fc;
+    color: #111827;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+    z-index: 100;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111827;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links a {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    transition: color 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: #2563eb;
+}
+
+
+/* =========================================
+   COMMON CARD
+========================================= */
+
+.card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+}
+/* =========================================
+   MAIN PAYMENT PAGE
+========================================= */
+
+.payment-page {
+    width: 100%;
+    padding: 55px 20px 70px;
+}
+
+.payment-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+
+/* =========================================
+   SECTION HEADERS
+========================================= */
+
+.section-header {
+    margin-bottom: 28px;
+}
+
+.section-label {
+    display: inline-block;
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #2563eb;
+    text-transform: uppercase;
+}
+
+.section-header h1,
+.section-header h2 {
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 800;
+    color: #111827;
+}
+
+
+/* =========================================
+   ORDER SUMMARY
+========================================= */
+
+.order-summary {
+    padding: 32px;
+}
+
+.summary-content {
+    width: 100%;
+}
+
+.summary-row {
+    width: 100%;
+    min-height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 14px 0;
+    border-bottom: 1px solid #eef0f4;
+}
+
+.summary-row:last-of-type {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-size: 15px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.summary-value {
+    font-size: 15px;
+    color: #111827;
+    font-weight: 700;
+    text-align: right;
+}
+
+.summary-total {
+    margin-top: 18px;
+    padding-top: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    border-top: 2px solid #e5e7eb;
+}
+
+.summary-total span {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.summary-total strong {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2563eb;
+}
+/* =========================================
+   PAYMENT SECTION
+========================================= */
+
+.payment-card {
+    padding: 32px;
+}
+
+.payment-description {
+    max-width: 760px;
+    margin-bottom: 28px;
+
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   BANK ACCOUNT DETAILS
+========================================= */
+
+.bank-details {
+    width: 100%;
+    padding: 24px;
+
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+}
+
+.bank-details h3 {
+    margin-bottom: 18px;
+
+    font-size: 19px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.bank-row {
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.bank-row:last-child {
+    border-bottom: none;
+}
+
+.bank-row span {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.bank-row strong {
+    font-size: 15px;
+    color: #111827;
+    font-weight: 700;
+    text-align: right;
+    word-break: break-word;
+}
+/* =========================================
+   IMPORTANT NOTICE
+========================================= */
+
+.important-notice {
+    width: 100%;
+    margin-top: 28px;
+    padding: 22px 24px;
+
+    background: #fff8e6;
+    border: 1px solid #f5d98b;
+    border-left: 5px solid #f59e0b;
+    border-radius: 14px;
+}
+
+.notice-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.notice-icon {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #f59e0b;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.notice-header h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #92400e;
+}
+
+.notice-content p {
+    margin-bottom: 10px;
+
+    font-size: 14px;
+    line-height: 1.7;
+    color: #78350f;
+}
+
+.notice-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   GO TO CHAT
+========================================= */
+
+.chat-section {
+    margin-top: 30px;
+    padding-top: 28px;
+
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+}
+
+.chat-section h3 {
+    margin-bottom: 8px;
+
+    font-size: 20px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.chat-section p {
+    max-width: 620px;
+    margin: 0 auto 22px;
+
+    font-size: 14px;
+    line-height: 1.7;
+    color: #6b7280;
+}
+
+.chat-button {
+    width: 100%;
+    max-width: 320px;
+    min-height: 54px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #1877f2;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.chat-button:hover {
+    background: #0d65d9;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(24, 119, 242, 0.25);
+}
+
+.chat-button:active {
+    transform: translateY(0);
+}
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+    width: 100%;
+    padding: 24px 20px;
+
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+
+    text-align: center;
+}
+
+.footer p {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+
+    .nav-container {
+        padding: 16px 20px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+    }
+
+    .payment-page {
+        padding: 40px 16px 55px;
+    }
+
+    .payment-container {
+        gap: 20px;
+    }
+
+    .order-summary,
+    .payment-card {
+        padding: 24px;
+    }
+
+    .section-header h1,
+    .section-header h2 {
+        font-size: 26px;
+    }
+
+    .summary-total strong {
+        font-size: 22px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 520px) {
+
+    .nav-container {
+        padding: 15px 16px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .payment-page {
+        padding: 28px 12px 45px;
+    }
+
+    .payment-container {
+        gap: 16px;
+    }
+
+    .order-summary,
+    .payment-card {
+        padding: 20px 16px;
+        border-radius: 14px;
+    }
+
+    .section-header {
+        margin-bottom: 22px;
+    }
+
+    .section-label {
+        font-size: 10px;
+        letter-spacing: 1.2px;
+    }
+
+    .section-header h1,
+    .section-header h2 {
+        font-size: 23px;
+    }
+
+    .summary-row {
+        min-height: 52px;
+        gap: 12px;
+        padding: 12px 0;
+    }
+
+    .summary-label {
+        font-size: 13px;
+    }
+
+    .summary-value {
+        max-width: 55%;
+        font-size: 13px;
+    }
+
+    .summary-total {
+        margin-top: 14px;
+        padding-top: 18px;
+    }
+
+    .summary-total span {
+        font-size: 16px;
+    }
+
+    .summary-total strong {
+        font-size: 20px;
+    }
+
+    .payment-description {
+        margin-bottom: 22px;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .bank-details {
+        padding: 18px 15px;
+        border-radius: 12px;
+    }
+
+    .bank-details h3 {
+        font-size: 17px;
+    }
+
+    .bank-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+        padding: 11px 0;
+    }
+
+    .bank-row span {
+        font-size: 12px;
+    }
+
+    .bank-row strong {
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .important-notice {
+        margin-top: 20px;
+        padding: 18px 16px;
+        border-radius: 12px;
+    }
+
+    .notice-header {
+        gap: 9px;
+    }
+
+    .notice-header h3 {
+        font-size: 16px;
+    }
+
+    .notice-content p {
+        font-size: 13px;
+    }
+
+    .chat-section {
+        margin-top: 24px;
+        padding-top: 22px;
+    }
+
+    .chat-section h3 {
+        font-size: 18px;
+    }
+
+    .chat-section p {
+        font-size: 13px;
+    }
+
+    .chat-button {
+        max-width: 100%;
+        min-height: 52px;
+        font-size: 15px;
+    }
+
+    .footer {
+        padding: 20px 15px;
+    }
+
+    .footer p {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+}
