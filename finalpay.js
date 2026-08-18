@@ -552,9 +552,7 @@ document.addEventListener(
     () => {
 
         const goToChatBtn =
-            document.getElementById(
-                "goToChatBtn"
-            );
+            document.getElementById("goToChatBtn");
 
 
         if (!goToChatBtn) {
@@ -564,7 +562,6 @@ document.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -572,51 +569,45 @@ document.addEventListener(
             "click",
             async () => {
 
-
                 /*
-                 * Open Messenger immediately
-                 * to avoid popup blocking.
-                 */
-
-                window.open(
-                    FACEBOOK_PAGE_CHAT_URL,
-                    "_blank"
-                );
-
-
-                /*
-                 * Copy order details.
+                 * IMPORTANT:
+                 * Copy BEFORE opening Messenger.
+                 * This keeps the user's click gesture
+                 * available for clipboard access.
                  */
 
                 const copied =
                     await copyOrderDetails();
 
 
+                if (!copied) {
+
+                    showCopyFailedNotification();
+
+                    return;
+                }
+
+
                 /*
-                 * Show custom notification.
+                 * Show the green notification.
                  */
 
-                if (copied) {
+                showCopyNotification();
 
-                    showCopyNotification();
 
-                }
+                /*
+                 * Open Facebook Messenger
+                 * after copying is completed.
+                 */
 
-                else {
-
-                    alert(
-                        "Unable to copy the order details. " +
-                        "Please copy them manually."
-                    );
-
-                }
+                window.location.href =
+                    FACEBOOK_PAGE_CHAT_URL;
 
             }
         );
 
     }
 );
-
 
 /* =========================================
    PART 7 — COPY SUCCESS NOTIFICATION
