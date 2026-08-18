@@ -1675,23 +1675,6 @@ footer hr{
 }
 
 
-/* ===========================
-      Page Load Animation
-=========================== */
-
-body{
-
-    opacity:0;
-
-    transition:opacity .45s ease;
-
-}
-
-body.page-loaded{
-
-    opacity:1;
-
-}
 
 
 /* ===========================
