@@ -931,3 +931,197 @@ button {
     }
 
 }
+/* =========================================
+   HOW TO CONTINUE NOTICE
+========================================= */
+
+.how-to-continue {
+
+    margin-top: 28px;
+    padding: 24px 26px;
+
+    background: rgba(22, 119, 255, 0.06);
+
+    border: 1px solid rgba(22, 119, 255, 0.20);
+
+    border-left: 5px solid #1677ff;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(22, 119, 255, 0.08);
+
+}
+
+
+.how-to-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.how-to-icon {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(22, 119, 255, 0.12);
+
+    border-radius: 50%;
+
+    font-size: 21px;
+
+}
+
+
+.how-to-header h3 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+}
+
+
+.how-to-content > p {
+
+    margin: 0 0 20px;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    color: #5f6673;
+
+}
+
+
+.how-to-content strong {
+
+    color: #1677ff;
+
+}
+
+
+.device-instruction {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+}
+
+
+.instruction-item {
+
+    padding: 17px 18px;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    border: 1px solid rgba(0, 0, 0, 0.07);
+
+    border-radius: 14px;
+
+}
+
+
+.instruction-item > strong {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 15px;
+
+    color: #172033;
+
+}
+
+
+.instruction-item p {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    color: #626b78;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .how-to-continue {
+
+        padding: 20px 18px;
+
+        margin-top: 22px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .how-to-header h3 {
+
+        font-size: 18px;
+
+    }
+
+
+    .how-to-content > p {
+
+        font-size: 14px;
+
+        line-height: 1.75;
+
+    }
+
+
+    .device-instruction {
+
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+    }
+
+
+    .instruction-item {
+
+        padding: 15px;
+
+    }
+
+
+    .instruction-item p {
+
+        font-size: 13.5px;
+
+    }
+
+}
