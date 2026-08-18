@@ -846,3 +846,12 @@ console.log(
     "%cAM Digital Studio Final Payment Page Ready ✓",
     "font-size:16px;font-weight:bold;color:#1677ff;"
 );
+// ========================================
+// PAGE LOADED
+// ========================================
+
+window.addEventListener("load", () => {
+
+    document.body.classList.add("page-loaded");
+
+});
