@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.getItem("customerEmail") || "",
 
         whatsapp:
-            localStorage.getItem("customerWhatsapp") || "",
+            localStorage.getItem("customerWhatsApp") || "",
 
         country:
             localStorage.getItem("customerCountry") || "",
@@ -63,8 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* Continue processing */
-
     fillOrderSummary(orderData);
 
 });
@@ -73,9 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =========================================
    PART 2 — HELPER FUNCTIONS
 ========================================= */
-
-
-/* Clean empty values */
 
 function cleanValue(
     value,
@@ -97,7 +92,9 @@ function cleanValue(
 }
 
 
-/* Format price */
+/* =========================================
+   FORMAT PRICE
+========================================= */
 
 function formatPrice(price) {
 
@@ -127,7 +124,9 @@ function formatPrice(price) {
 }
 
 
-/* Format package */
+/* =========================================
+   FORMAT PACKAGE
+========================================= */
 
 function formatPackage(packageName) {
 
@@ -138,16 +137,31 @@ function formatPackage(packageName) {
     }
 
 
+    const name =
+        String(packageName).trim();
+
+
+    if (
+        name.toLowerCase().includes("package")
+    ) {
+
+        return name;
+
+    }
+
+
     return (
-        packageName.charAt(0).toUpperCase() +
-        packageName.slice(1).toLowerCase() +
+        name.charAt(0).toUpperCase() +
+        name.slice(1).toLowerCase() +
         " Package"
     );
 
 }
 
 
-/* Format delivery */
+/* =========================================
+   FORMAT DELIVERY
+========================================= */
 
 function formatDelivery(
     service,
@@ -155,10 +169,10 @@ function formatDelivery(
 ) {
 
     service =
-        String(service).toLowerCase();
+        String(service || "").toLowerCase();
 
     delivery =
-        String(delivery).toLowerCase();
+        String(delivery || "").toLowerCase();
 
 
     let days = 2;
@@ -224,10 +238,12 @@ function fillOrderSummary(orderData) {
     const service =
         cleanValue(orderData.service);
 
+
     const packageName =
         formatPackage(
             orderData.package
         );
+
 
     const delivery =
         formatDelivery(
@@ -235,18 +251,42 @@ function fillOrderSummary(orderData) {
             orderData.delivery
         );
 
+
     const price =
         formatPrice(
             orderData.price
         );
 
 
-    /* Service */
-
     const summaryService =
         document.getElementById(
             "summaryService"
         );
+
+
+    const summaryPackage =
+        document.getElementById(
+            "summaryPackage"
+        );
+
+
+    const summaryDelivery =
+        document.getElementById(
+            "summaryDelivery"
+        );
+
+
+    const summaryEstimatedPrice =
+        document.getElementById(
+            "summaryEstimatedPrice"
+        );
+
+
+    const summaryTotal =
+        document.getElementById(
+            "summaryTotal"
+        );
+
 
     if (summaryService) {
 
@@ -256,13 +296,6 @@ function fillOrderSummary(orderData) {
     }
 
 
-    /* Package */
-
-    const summaryPackage =
-        document.getElementById(
-            "summaryPackage"
-        );
-
     if (summaryPackage) {
 
         summaryPackage.textContent =
@@ -270,13 +303,6 @@ function fillOrderSummary(orderData) {
 
     }
 
-
-    /* Delivery */
-
-    const summaryDelivery =
-        document.getElementById(
-            "summaryDelivery"
-        );
 
     if (summaryDelivery) {
 
@@ -286,13 +312,6 @@ function fillOrderSummary(orderData) {
     }
 
 
-    /* Estimated Price */
-
-    const summaryEstimatedPrice =
-        document.getElementById(
-            "summaryEstimatedPrice"
-        );
-
     if (summaryEstimatedPrice) {
 
         summaryEstimatedPrice.textContent =
@@ -301,19 +320,17 @@ function fillOrderSummary(orderData) {
     }
 
 
-    /* Total */
-
-    const summaryTotal =
-        document.getElementById(
-            "summaryTotal"
-        );
-
     if (summaryTotal) {
 
         summaryTotal.textContent =
             price;
 
     }
+
+
+    console.log(
+        "Order Summary Loaded ✓"
+    );
 
 }
 
@@ -364,9 +381,7 @@ function createOrderMessage() {
         );
 
 
-    const message = `
-
-NEW ORDER REQUEST
+    const message = `NEW ORDER REQUEST
 ==============================
 
 CUSTOMER INFORMATION
@@ -409,9 +424,7 @@ in this chat.
 
 ==============================
 
-AM Digital Studio
-
-`;
+AM Digital Studio`;
 
 
     return message.trim();
@@ -431,28 +444,39 @@ async function copyOrderDetails() {
 
     try {
 
-        await navigator.clipboard.writeText(
-            message
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
+
+            await navigator.clipboard.writeText(
+                message
+            );
+
+            console.log(
+                "Order details copied successfully ✓"
+            );
+
+            return true;
+
+        }
+
+
+        throw new Error(
+            "Clipboard API unavailable"
         );
-
-
-        console.log(
-            "Order details copied successfully."
-        );
-
-
-        return true;
 
     }
 
     catch (error) {
 
-        /* Clipboard fallback */
+        console.log(
+            "Using clipboard fallback..."
+        );
+
 
         const textArea =
-            document.createElement(
-                "textarea"
-            );
+            document.createElement("textarea");
 
 
         textArea.value =
@@ -465,6 +489,9 @@ async function copyOrderDetails() {
         textArea.style.left =
             "-9999px";
 
+        textArea.style.top =
+            "0";
+
 
         document.body.appendChild(
             textArea
@@ -472,13 +499,13 @@ async function copyOrderDetails() {
 
 
         textArea.focus();
-
         textArea.select();
 
 
         try {
 
-            document.execCommand("copy");
+            const successful =
+                document.execCommand("copy");
 
 
             document.body.removeChild(
@@ -486,7 +513,7 @@ async function copyOrderDetails() {
             );
 
 
-            return true;
+            return successful;
 
         }
 
@@ -520,67 +547,267 @@ const FACEBOOK_PAGE_CHAT_URL =
     "https://m.me/amdigitalstudio01";
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    const goToChatBtn =
-        document.getElementById("goToChatBtn");
+        const goToChatBtn =
+            document.getElementById(
+                "goToChatBtn"
+            );
 
 
-    if (!goToChatBtn) {
-        return;
+        if (!goToChatBtn) {
+
+            console.error(
+                "Go To Chat button not found."
+            );
+
+            return;
+
+        }
+
+
+        goToChatBtn.addEventListener(
+            "click",
+            async () => {
+
+
+                /*
+                 * Open Messenger immediately
+                 * to avoid popup blocking.
+                 */
+
+                window.open(
+                    FACEBOOK_PAGE_CHAT_URL,
+                    "_blank"
+                );
+
+
+                /*
+                 * Copy order details.
+                 */
+
+                const copied =
+                    await copyOrderDetails();
+
+
+                /*
+                 * Show custom notification.
+                 */
+
+                if (copied) {
+
+                    showCopyNotification();
+
+                }
+
+                else {
+
+                    alert(
+                        "Unable to copy the order details. " +
+                        "Please copy them manually."
+                    );
+
+                }
+
+            }
+        );
+
     }
+);
 
 
-    goToChatBtn.addEventListener("click", async () => {
+/* =========================================
+   PART 7 — COPY SUCCESS NOTIFICATION
+========================================= */
 
-        /*
-         * Copy complete order details
-         */
-        const copied =
-            await copyOrderDetails();
+function showCopyNotification() {
 
+    /*
+     * Remove old notification
+     * if one already exists.
+     */
 
-        /*
-         * Open Facebook Messenger
-         */
-        window.open(
-            FACEBOOK_PAGE_CHAT_URL,
-            "_blank"
+    const oldNotification =
+        document.querySelector(
+            ".copy-notification"
         );
 
 
-        /*
-         * Show custom notification
-         */
-        if (copied) {
+    if (oldNotification) {
 
-            showCopyNotification();
+        oldNotification.remove();
 
-        } else {
+    }
 
-            alert(
-                "Unable to copy the order details. " +
-                "Please copy them manually."
+
+    const notification =
+        document.createElement("div");
+
+
+    notification.className =
+        "copy-notification";
+
+
+    notification.innerHTML = `
+
+        <div class="copy-notification-icon">
+            ✓
+        </div>
+
+
+        <div class="copy-notification-content">
+
+            <h3>
+                Order Details Copied!
+            </h3>
+
+
+            <p>
+                Your complete order details are ready
+                to paste into the Facebook chat.
+            </p>
+
+
+            <div class="paste-instructions">
+
+                <div>
+
+                    <strong>
+                        💻 Computer
+                    </strong>
+
+                    <span>
+                        Press <b>Ctrl + V</b>
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        📱 Phone
+                    </strong>
+
+                    <span>
+                        Press and hold the message box,
+                        then tap <b>Paste</b>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <p class="receipt-reminder">
+
+                After pasting the order details,
+                attach your payment receipt or
+                payment screenshot and send the message.
+
+            </p>
+
+        </div>
+
+
+        <button
+            class="copy-notification-close"
+            type="button"
+            aria-label="Close">
+
+            ×
+
+        </button>
+
+    `;
+
+
+    document.body.appendChild(
+        notification
+    );
+
+
+    /*
+     * Show animation.
+     */
+
+    requestAnimationFrame(() => {
+
+        notification.classList.add(
+            "show"
+        );
+
+    });
+
+
+    /*
+     * Manual close only.
+     */
+
+    const closeButton =
+        notification.querySelector(
+            ".copy-notification-close"
+        );
+
+
+    if (closeButton) {
+
+        closeButton.addEventListener(
+            "click",
+            () => {
+
+                closeCopyNotification(
+                    notification
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CLOSE NOTIFICATION
+========================================= */
+
+function closeCopyNotification(
+    notification
+) {
+
+    if (!notification) {
+
+        return;
+
+    }
+
+
+    notification.classList.remove(
+        "show"
+    );
+
+
+    setTimeout(() => {
+
+        if (notification.parentNode) {
+
+            notification.parentNode.removeChild(
+                notification
             );
 
         }
 
-    });
+    }, 400);
 
-});
+}
+
 
 /* =========================================
-   PART 7 — OPTIONAL COPY BUTTON
+   OPTIONAL COPY BUTTON
 ========================================= */
-
-
-/*
- * If you later add a button with:
- *
- * id="copyOrderBtn"
- *
- * this code will automatically make it work.
- */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -609,10 +836,7 @@ document.addEventListener(
 
                 if (copied) {
 
-                    alert(
-                        "Order details copied successfully. " +
-                        "You can now paste them into the chat."
-                    );
+                    showCopyNotification();
 
                 }
 
@@ -624,142 +848,10 @@ document.addEventListener(
 
 
 /* =========================================
-   END
+   READY
 ========================================= */
 
 console.log(
     "%cAM Digital Studio Final Payment Page Ready ✓",
     "font-size:16px;font-weight:bold;color:#1677ff;"
 );
-/* =========================================
-   COPY SUCCESS NOTIFICATION
-========================================= */
-
-function showCopyNotification() {
-
-    const notification =
-        document.createElement("div");
-
-    notification.className =
-        "copy-notification";
-
-    notification.innerHTML = `
-
-        <div class="copy-notification-icon">
-            ✓
-        </div>
-
-        <div class="copy-notification-content">
-
-            <h3>
-                Order Details Copied!
-            </h3>
-
-            <p>
-                Your complete order details are ready
-                to paste into the Facebook chat.
-            </p>
-
-            <div class="paste-instructions">
-
-                <div>
-                    <strong>💻 Computer</strong>
-                    <span>Press <b>Ctrl + V</b></span>
-                </div>
-
-                <div>
-                    <strong>📱 Phone</strong>
-                    <span>
-                        Press and hold the message box,
-                        then tap <b>Paste</b>
-                    </span>
-                </div>
-
-            </div>
-
-            <p class="receipt-reminder">
-                After pasting the order details,
-                attach your payment receipt or
-                payment screenshot and send the message.
-            </p>
-
-        </div>
-
-        <button
-            class="copy-notification-close"
-            type="button"
-            aria-label="Close">
-            ×
-        </button>
-
-    `;
-
-
-    document.body.appendChild(
-        notification
-    );
-
-
-    /* Show animation */
-
-    setTimeout(() => {
-
-        notification.classList.add(
-            "show"
-        );
-
-    }, 20);
-
-
-    /* Close button */
-
-    const closeButton =
-        notification.querySelector(
-            ".copy-notification-close"
-        );
-
-
-    closeButton.addEventListener(
-        "click",
-        () => {
-
-            closeCopyNotification(
-                notification
-            );
-
-        }
-    );
-
-
-    /* Automatically disappear */
-
-
-/* =========================================
-   CLOSE NOTIFICATION
-========================================= */
-
-function closeCopyNotification(
-    notification
-) {
-
-    if (!notification) return;
-
-
-    notification.classList.remove(
-        "show"
-    );
-
-
-    setTimeout(() => {
-
-        if (notification.parentNode) {
-
-            notification.parentNode.removeChild(
-                notification
-            );
-
-        }
-
-    }, 400);
-
-}
