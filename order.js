@@ -753,14 +753,50 @@ checkoutBtn.addEventListener("click", (e) => {
 // Continue Payment
 // ===============================
 
-continuePayment.addEventListener("click", () => {
+if (continuePayment) {
 
-    alert("Payment Gateway Coming Soon!");
+    continuePayment.addEventListener("click", () => {
 
-    successModal.classList.remove("active");
+        // Save current order data
+        localStorage.setItem(
+            "customerName",
+            document.getElementById("fullName")?.value || ""
+        );
 
-});
+        localStorage.setItem(
+            "customerEmail",
+            document.getElementById("email")?.value || ""
+        );
 
+        localStorage.setItem(
+            "customerWhatsApp",
+            document.getElementById("whatsapp")?.value || ""
+        );
+
+        localStorage.setItem(
+            "customerCountry",
+            document.getElementById("country")?.value || ""
+        );
+
+        localStorage.setItem(
+            "projectTitle",
+            document.getElementById("projectTitle")?.value || ""
+        );
+
+        localStorage.setItem(
+            "projectDescription",
+            document.getElementById("projectDescription")?.value || ""
+        );
+
+        // Close the modal
+        successModal.classList.remove("active");
+
+        // Open final payment page
+        window.location.href = "finalpay.html";
+
+    });
+
+}
 
 // ===============================
 // Close Modal
