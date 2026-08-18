@@ -1125,3 +1125,442 @@ button {
     }
 
 }
+/* ===============================
+   Footer Line
+================================ */
+
+.site-footer hr{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:50px auto 25px;
+
+    border:0;
+
+    border-top:1px solid rgba(255,255,255,.10);
+
+}
+
+
+.copyright{
+
+    text-align:center;
+
+    color:#8d96a3;
+
+    font-size:.8rem;
+
+    line-height:1.6;
+
+}
+
+
+/* ===============================
+   Back To Top
+================================ */
+
+.back-to-top{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:45px;
+
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+    font-size:1.1rem;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(15px);
+
+    transition:.3s ease;
+
+    z-index:900;
+
+    box-shadow:0 8px 25px rgba(22,119,255,.25);
+
+}
+
+
+.back-to-top.show-top{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (max-width:1000px){
+
+    .services-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .pricing-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .pricing-card.featured{
+
+        transform:none;
+
+    }
+
+
+    .process-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .process-card:not(:last-child)::after{
+
+        display:none;
+
+    }
+
+
+    .why-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+    .footer-container{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width:700px){
+
+    .navbar{
+
+        height:70px;
+
+    }
+
+
+    .nav-container{
+
+        width:90%;
+
+    }
+
+
+    .menu-toggle{
+
+        display:flex;
+
+    }
+
+
+    .nav-links{
+
+        position:absolute;
+
+        top:70px;
+
+        left:0;
+
+        width:100%;
+
+        padding:20px;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        gap:5px;
+
+        background:#ffffff;
+
+        border-top:1px solid var(--border);
+
+        box-shadow:0 15px 30px rgba(0,0,0,.08);
+
+        opacity:0;
+
+        visibility:hidden;
+
+        transform:translateY(-10px);
+
+        transition:.3s ease;
+
+    }
+
+
+    .nav-links.active{
+
+        opacity:1;
+
+        visibility:visible;
+
+        transform:translateY(0);
+
+    }
+
+
+    .nav-links a{
+
+        width:100%;
+
+        padding:12px;
+
+        text-align:center;
+
+    }
+
+
+    .logo-hero{
+
+        min-height:auto;
+
+        padding:140px 0 90px;
+
+    }
+
+
+    .hero-content h1{
+
+        font-size:2.45rem;
+
+        letter-spacing:-1.3px;
+
+    }
+
+
+    .hero-content p{
+
+        font-size:.95rem;
+
+    }
+
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        width:100%;
+
+    }
+
+
+    .primary-btn,
+    .secondary-btn{
+
+        width:100%;
+
+        max-width:300px;
+
+    }
+
+
+    .logo-services,
+    .logo-packages,
+    .why-logo,
+    .logo-process,
+    .logo-faq{
+
+        padding:80px 0;
+
+    }
+
+
+    .services-grid,
+    .pricing-grid,
+    .why-grid,
+    .process-grid{
+
+        grid-template-columns:1fr;
+
+        width:90%;
+
+    }
+
+
+    .pricing-card.featured{
+
+        transform:none;
+
+    }
+
+
+    .package-top h3{
+
+        font-size:2.6rem;
+
+    }
+
+
+    .section-header{
+
+        margin-bottom:40px;
+
+    }
+
+
+    .section-header h2{
+
+        font-size:2rem;
+
+    }
+
+
+    .logo-cta{
+
+        padding:90px 0;
+
+    }
+
+
+    .cta-content h2{
+
+        font-size:2rem;
+
+    }
+
+
+    .footer-container{
+
+        grid-template-columns:1fr;
+
+        gap:35px;
+
+    }
+
+
+    .footer-box p{
+
+        max-width:none;
+
+    }
+
+
+    .site-footer{
+
+        padding-top:55px;
+
+    }
+
+}
+
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
+
+@media (max-width:420px){
+
+    .hero-content h1{
+
+        font-size:2.1rem;
+
+    }
+
+
+    .hero-badge,
+    .section-badge{
+
+        font-size:.68rem;
+
+        padding:7px 12px;
+
+    }
+
+
+    .logo-service-card,
+    .pricing-card,
+    .why-card{
+
+        padding:28px 22px;
+
+    }
+
+
+    .faq-question{
+
+        padding:18px;
+
+        font-size:.88rem;
+
+    }
+
+
+    .faq-answer p{
+
+        padding:0 18px 18px;
+
+        font-size:.84rem;
+
+    }
+
+
+    .cta-content h2{
+
+        font-size:1.8rem;
+
+    }
+
+
+    .back-to-top{
+
+        right:15px;
+
+        bottom:15px;
+
+        width:42px;
+
+        height:42px;
+
+    }
+
+}
