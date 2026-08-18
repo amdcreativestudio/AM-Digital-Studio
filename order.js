@@ -149,7 +149,11 @@ const summaryPrice =
 
 const totalPrice =
     document.getElementById("totalPrice");
+const deliverySelect =
+    document.getElementById("delivery");
 
+const summaryDelivery =
+    document.getElementById("summaryDelivery");
 
 // ===============================
 // Read Order URL
@@ -333,7 +337,8 @@ function updateOrderSummary() {
 
     let currentPrice =
         selectedPrice;
-
+let deliveryDays = 2;
+let deliveryExtra = 0;
 
     // If user manually changes package,
     // calculate the correct price for
@@ -508,7 +513,61 @@ function updateOrderSummary() {
 
     }
 
+// ===============================
+// Service Delivery Settings
+// ===============================
 
+if (service === "video editing") {
+
+    if (deliverySelect.value === "express") {
+        deliveryDays = 1;
+        deliveryExtra = 1000;
+    } else {
+        deliveryDays = 2;
+        deliveryExtra = 0;
+    }
+
+}
+
+else if (service === "web development") {
+
+    if (deliverySelect.value === "express") {
+        deliveryDays = 3;
+        deliveryExtra = 5000;
+    } else {
+        deliveryDays = 7;
+        deliveryExtra = 0;
+    }
+
+}
+
+else if (
+    service === "logo design" ||
+    service === "poster design" ||
+    service === "thumbnail design"
+) {
+
+    if (deliverySelect.value === "express") {
+        deliveryDays = 1;
+        deliveryExtra = 500;
+    } else {
+        deliveryDays = 2;
+        deliveryExtra = 0;
+    }
+
+}
+
+else if (service === "fiverr gig seo") {
+
+    if (deliverySelect.value === "express") {
+        deliveryDays = 1;
+        deliveryExtra = 750;
+    } else {
+        deliveryDays = 2;
+        deliveryExtra = 0;
+    }
+
+}
     // ===============================
     // Display Package
     // ===============================
@@ -525,20 +584,38 @@ function updateOrderSummary() {
     // Display Price
     // ===============================
 
-    if (summaryPrice) {
+  // ===============================
+// Final Price + Delivery
+// ===============================
 
-        summaryPrice.textContent =
-            "Rs." + currentPrice + "/-";
-
-    }
+const finalPrice =
+    Number(currentPrice) + deliveryExtra;
 
 
-    if (totalPrice) {
+if (summaryDelivery) {
 
-        totalPrice.textContent =
-            "Rs." + currentPrice + "/-";
+    summaryDelivery.textContent =
+        deliveryDays + " Day" +
+        (deliveryDays > 1 ? "s" : "") +
+        " Delivery";
 
-    }
+}
+
+
+if (summaryPrice) {
+
+    summaryPrice.textContent =
+        "Rs." + currentPrice + "/-";
+
+}
+
+
+if (totalPrice) {
+
+    totalPrice.textContent =
+        "Rs." + finalPrice + "/-";
+
+}
 
 
     // ===============================
@@ -555,11 +632,10 @@ function updateOrderSummary() {
         currentPackage
     );
 
-    localStorage.setItem(
-        "selectedPrice",
-        currentPrice
-    );
-
+ localStorage.setItem(
+    "selectedPrice",
+    finalPrice
+);
 }
 
 
@@ -583,7 +659,18 @@ if (packageSelect) {
 
 }
 
+// ===============================
+// Delivery Change
+// ===============================
 
+if (deliverySelect) {
+
+    deliverySelect.addEventListener(
+        "change",
+        updateOrderSummary
+    );
+
+}
 // ===============================
 // Console
 // ===============================
