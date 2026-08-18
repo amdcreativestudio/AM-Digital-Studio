@@ -516,77 +516,58 @@ async function copyOrderDetails() {
    PART 6 — FACEBOOK MESSENGER
 ========================================= */
 
-
-/*
- * IMPORTANT:
- * Replace YOUR_PAGE_USERNAME
- * with your actual Facebook Page username.
- *
- * Example:
- *
- * https://m.me/AMDigitalStudio
- *
- */
-
 const FACEBOOK_PAGE_CHAT_URL =
     "https://m.me/amdigitalstudio01";
 
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-        const goToChatBtn =
-            document.getElementById(
-                "goToChatBtn"
+    const goToChatBtn =
+        document.getElementById("goToChatBtn");
+
+
+    if (!goToChatBtn) {
+        return;
+    }
+
+
+    goToChatBtn.addEventListener("click", async () => {
+
+        /*
+         * Copy complete order details
+         */
+        const copied =
+            await copyOrderDetails();
+
+
+        /*
+         * Open Facebook Messenger
+         */
+        window.open(
+            FACEBOOK_PAGE_CHAT_URL,
+            "_blank"
+        );
+
+
+        /*
+         * Show custom notification
+         */
+        if (copied) {
+
+            showCopyNotification();
+
+        } else {
+
+            alert(
+                "Unable to copy the order details. " +
+                "Please copy them manually."
             );
-
-
-        if (!goToChatBtn) {
-
-            return;
 
         }
 
+    });
 
-        goToChatBtn.addEventListener(
-            "click",
-            async () => {
-
-
-                /* Copy order details */
-
-                const copied =
-                    await copyOrderDetails();
-
-
-                /* Open Messenger */
-
-                window.open(
-                    FACEBOOK_PAGE_CHAT_URL,
-                    "_blank"
-                );
-
-
-                /* User instruction */
-if (copied) {
-
- 
-                else {
-
-                    alert(
-                        "Please copy your order details manually " +
-                        "and send them in the Facebook chat."
-                    );
-
-                }
-
-            }
-        );
-
-    }
-);
-
+});
 
 /* =========================================
    PART 7 — OPTIONAL COPY BUTTON
@@ -751,16 +732,6 @@ function showCopyNotification() {
 
 
     /* Automatically disappear */
-
-    setTimeout(() => {
-
-        closeCopyNotification(
-            notification
-        );
-
-    }, 9000);
-
-}
 
 
 /* =========================================
