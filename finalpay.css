@@ -2182,3 +2182,115 @@ footer hr{
     }
 
 }
+/* =========================================
+   HOW TO CONTINUE — BLUE NOTICE BOX
+========================================= */
+
+.how-to-continue {
+    margin-top: 35px;
+    padding: 28px;
+    background: linear-gradient(135deg, #eef7ff, #e6f2ff);
+    border: 1px solid #b9dcff;
+    border-left: 5px solid #1677ff;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(22, 119, 255, 0.08);
+}
+
+
+/* Header */
+
+.how-to-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.how-to-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #1677ff;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.how-to-header h3 {
+    margin: 0;
+    color: #111;
+    font-size: 1.2rem;
+}
+
+
+/* Main text */
+
+.how-to-content > p {
+    margin: 0 0 22px;
+    color: #444;
+    line-height: 1.8;
+}
+
+
+/* Phone + Computer */
+
+.device-instruction {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+
+/* Individual boxes */
+
+.instruction-item {
+    background: #ffffff;
+    border: 1px solid #d7eaff;
+    border-radius: 14px;
+    padding: 20px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+.instruction-item strong {
+    display: block;
+    color: #1677ff;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+
+.instruction-item p {
+    margin: 0;
+    color: #555;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .how-to-continue {
+        padding: 22px 18px;
+    }
+
+    .device-instruction {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .instruction-item {
+        padding: 18px;
+    }
+
+}
