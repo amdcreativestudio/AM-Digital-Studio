@@ -1,16 +1,19 @@
 /* =========================================
+   AM DIGITAL STUDIO
    FINAL PAYMENT PAGE
+   FINALPAY.JS
+========================================= */
+
+
+/* =========================================
    PART 1 — LOAD ORDER DATA
 ========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /*
-     * Order data is stored by order.js
-     * before the user reaches this page.
-     */
-
     const orderData = {
+
+        /* Customer Information */
 
         customerName:
             localStorage.getItem("customerName") || "",
@@ -24,8 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
         country:
             localStorage.getItem("customerCountry") || "",
 
+
+        /* Service Information */
+
         service:
-            localStorage.getItem("selectedService") || "",
+            localStorage.getItem("serviceName") || "",
 
         package:
             localStorage.getItem("selectedPackage") || "",
@@ -34,15 +40,19 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.getItem("selectedDelivery") || "",
 
         price:
-            localStorage.getItem("selectedPrice") || "0"
+            localStorage.getItem("selectedPrice") || "0",
+
+
+        /* Project Information */
+
+        projectTitle:
+            localStorage.getItem("projectTitle") || "",
+
+        projectDescription:
+            localStorage.getItem("projectDescription") || ""
 
     };
 
-
-    /*
-     * Make the data available to the
-     * remaining parts of finalpay.js.
-     */
 
     window.finalOrderData = orderData;
 
@@ -52,26 +62,34 @@ document.addEventListener("DOMContentLoaded", () => {
         orderData
     );
 
+
+    /* Continue processing */
+
+    fillOrderSummary(orderData);
+
 });
+
+
 /* =========================================
-   PART 2 — PROCESS ORDER DATA
+   PART 2 — HELPER FUNCTIONS
 ========================================= */
 
-const orderData = window.finalOrderData;
 
+/* Clean empty values */
 
-/*
- * Clean a value before displaying it.
- */
-
-function cleanValue(value, fallback = "Not provided") {
+function cleanValue(
+    value,
+    fallback = "Not provided"
+) {
 
     if (
         value === null ||
         value === undefined ||
         String(value).trim() === ""
     ) {
+
         return fallback;
+
     }
 
     return String(value).trim();
@@ -79,9 +97,7 @@ function cleanValue(value, fallback = "Not provided") {
 }
 
 
-/*
- * Format the price as Sri Lankan Rupees.
- */
+/* Format price */
 
 function formatPrice(price) {
 
@@ -91,12 +107,16 @@ function formatPrice(price) {
                 .replace(/[^0-9.]/g, "")
         );
 
+
     if (
         Number.isNaN(numericPrice) ||
         numericPrice <= 0
     ) {
+
         return "Rs.0/-";
+
     }
+
 
     return (
         "Rs." +
@@ -107,189 +127,292 @@ function formatPrice(price) {
 }
 
 
-/*
- * Prepare the final order information.
- */
+/* Format package */
 
-const customerName =
-    cleanValue(orderData.customerName);
+function formatPackage(packageName) {
 
-const customerEmail =
-    cleanValue(orderData.email);
+    if (!packageName) {
 
-const customerWhatsapp =
-    cleanValue(orderData.whatsapp);
+        return "Not provided";
 
-const customerCountry =
-    cleanValue(orderData.country);
-
-const selectedService =
-    cleanValue(orderData.service);
-
-const selectedPackage =
-    cleanValue(orderData.package);
-
-const selectedDelivery =
-    cleanValue(orderData.delivery);
-
-const selectedPrice =
-    formatPrice(orderData.price);
+    }
 
 
-/*
- * Make processed values available
- * to the remaining JavaScript parts.
- */
+    return (
+        packageName.charAt(0).toUpperCase() +
+        packageName.slice(1).toLowerCase() +
+        " Package"
+    );
 
-window.processedOrder = {
+}
 
-    customerName,
-    customerEmail,
-    customerWhatsapp,
-    customerCountry,
 
-    selectedService,
-    selectedPackage,
-    selectedDelivery,
-    selectedPrice
+/* Format delivery */
 
-};
+function formatDelivery(
+    service,
+    delivery
+) {
+
+    service =
+        String(service).toLowerCase();
+
+    delivery =
+        String(delivery).toLowerCase();
+
+
+    let days = 2;
+
+
+    if (service === "video editing") {
+
+        days =
+            delivery === "express"
+                ? 1
+                : 2;
+
+    }
+
+    else if (service === "web development") {
+
+        days =
+            delivery === "express"
+                ? 3
+                : 7;
+
+    }
+
+    else if (
+        service === "logo design" ||
+        service === "poster design" ||
+        service === "thumbnail design"
+    ) {
+
+        days =
+            delivery === "express"
+                ? 1
+                : 2;
+
+    }
+
+    else if (service === "fiverr gig seo") {
+
+        days =
+            delivery === "express"
+                ? 1
+                : 2;
+
+    }
+
+
+    return (
+        days +
+        " Day" +
+        (days > 1 ? "s" : "") +
+        " Delivery"
+    );
+
+}
+
+
 /* =========================================
    PART 3 — FILL ORDER SUMMARY
 ========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+function fillOrderSummary(orderData) {
 
-    const data = window.processedOrder;
+    const service =
+        cleanValue(orderData.service);
+
+    const packageName =
+        formatPackage(
+            orderData.package
+        );
+
+    const delivery =
+        formatDelivery(
+            service,
+            orderData.delivery
+        );
+
+    const price =
+        formatPrice(
+            orderData.price
+        );
 
 
-    /*
-     * Get summary elements
-     */
+    /* Service */
 
     const summaryService =
-        document.getElementById("summaryService");
+        document.getElementById(
+            "summaryService"
+        );
+
+    if (summaryService) {
+
+        summaryService.textContent =
+            service;
+
+    }
+
+
+    /* Package */
 
     const summaryPackage =
-        document.getElementById("summaryPackage");
+        document.getElementById(
+            "summaryPackage"
+        );
+
+    if (summaryPackage) {
+
+        summaryPackage.textContent =
+            packageName;
+
+    }
+
+
+    /* Delivery */
 
     const summaryDelivery =
-        document.getElementById("summaryDelivery");
+        document.getElementById(
+            "summaryDelivery"
+        );
+
+    if (summaryDelivery) {
+
+        summaryDelivery.textContent =
+            delivery;
+
+    }
+
+
+    /* Estimated Price */
 
     const summaryEstimatedPrice =
         document.getElementById(
             "summaryEstimatedPrice"
         );
 
-    const summaryTotal =
-        document.getElementById("summaryTotal");
-
-
-    /*
-     * Display service
-     */
-
-    if (summaryService) {
-
-        summaryService.textContent =
-            data.selectedService;
-
-    }
-
-
-    /*
-     * Display package
-     */
-
-    if (summaryPackage) {
-
-        summaryPackage.textContent =
-            data.selectedPackage;
-
-    }
-
-
-    /*
-     * Display delivery
-     */
-
-    if (summaryDelivery) {
-
-        summaryDelivery.textContent =
-            data.selectedDelivery;
-
-    }
-
-
-    /*
-     * Display estimated price
-     */
-
     if (summaryEstimatedPrice) {
 
         summaryEstimatedPrice.textContent =
-            data.selectedPrice;
+            price;
 
     }
 
 
-    /*
-     * Display final total
-     */
+    /* Total */
+
+    const summaryTotal =
+        document.getElementById(
+            "summaryTotal"
+        );
 
     if (summaryTotal) {
 
         summaryTotal.textContent =
-            data.selectedPrice;
+            price;
 
     }
 
-});
+}
+
+
 /* =========================================
    PART 4 — CREATE ORDER MESSAGE
 ========================================= */
 
 function createOrderMessage() {
 
-    const data = window.processedOrder;
+    const data =
+        window.finalOrderData || {};
+
+
+    const customerName =
+        cleanValue(data.customerName);
+
+    const email =
+        cleanValue(data.email);
+
+    const whatsapp =
+        cleanValue(data.whatsapp);
+
+    const country =
+        cleanValue(data.country);
+
+    const service =
+        cleanValue(data.service);
+
+    const packageName =
+        formatPackage(data.package);
+
+    const delivery =
+        formatDelivery(
+            service,
+            data.delivery
+        );
+
+    const price =
+        formatPrice(data.price);
+
+    const projectTitle =
+        cleanValue(data.projectTitle);
+
+    const projectDescription =
+        cleanValue(
+            data.projectDescription
+        );
+
 
     const message = `
+
 NEW ORDER REQUEST
 ==============================
 
 CUSTOMER INFORMATION
 
-Name: ${data.customerName}
-Email: ${data.customerEmail}
-WhatsApp: ${data.customerWhatsapp}
-Country: ${data.customerCountry}
+Name: ${customerName}
+Email: ${email}
+WhatsApp: ${whatsapp}
+Country: ${country}
 
 
 SERVICE DETAILS
 
-Service: ${data.selectedService}
-Package: ${data.selectedPackage}
-Delivery: ${data.selectedDelivery}
+Service: ${service}
+Package: ${packageName}
+Delivery: ${delivery}
 
 
 ORDER SUMMARY
 
-Total Amount: ${data.selectedPrice}
+Estimated Price: ${price}
+Total Amount: ${price}
+
+
+PROJECT INFORMATION
+
+Project Title: ${projectTitle}
+
+Project Description:
+${projectDescription}
 
 
 PAYMENT
 
-Payment has been made.
+Payment has been completed.
 
-The payment receipt / payment screenshot
-will be attached in this chat.
+I will send the payment receipt
+or payment confirmation screenshot
+in this chat.
 
 
 ==============================
 
-Thank you.
 AM Digital Studio
+
 `;
+
 
     return message.trim();
 
@@ -297,7 +420,7 @@ AM Digital Studio
 
 
 /* =========================================
-   COPY ORDER DETAILS
+   PART 5 — COPY ORDER DETAILS
 ========================================= */
 
 async function copyOrderDetails() {
@@ -305,59 +428,83 @@ async function copyOrderDetails() {
     const message =
         createOrderMessage();
 
+
     try {
 
         await navigator.clipboard.writeText(
             message
         );
 
+
         console.log(
             "Order details copied successfully."
         );
 
+
         return true;
 
-    } catch (error) {
+    }
 
-        /*
-         * Fallback for browsers where
-         * Clipboard API is unavailable.
-         */
+    catch (error) {
+
+        /* Clipboard fallback */
 
         const textArea =
-            document.createElement("textarea");
+            document.createElement(
+                "textarea"
+            );
 
-        textArea.value = message;
 
-        textArea.style.position = "fixed";
-        textArea.style.opacity = "0";
+        textArea.value =
+            message;
 
-        document.body.appendChild(textArea);
+
+        textArea.style.position =
+            "fixed";
+
+        textArea.style.left =
+            "-9999px";
+
+
+        document.body.appendChild(
+            textArea
+        );
+
+
+        textArea.focus();
 
         textArea.select();
+
 
         try {
 
             document.execCommand("copy");
 
+
             document.body.removeChild(
                 textArea
             );
+
 
             return true;
 
-        } catch (copyError) {
+        }
+
+        catch (copyError) {
 
             document.body.removeChild(
                 textArea
             );
 
+
             console.error(
-                "Unable to copy order details:",
+                "Copy failed:",
                 copyError
             );
 
+
             return false;
+
         }
 
     }
@@ -365,89 +512,154 @@ async function copyOrderDetails() {
 }
 
 
-/*
- * Make the function available to
- * Part 5.
- */
-
-window.createOrderMessage =
-    createOrderMessage;
-
-window.copyOrderDetails =
-    copyOrderDetails;
 /* =========================================
-   PART 5 — GO TO FACEBOOK CHAT
+   PART 6 — FACEBOOK MESSENGER
 ========================================= */
 
+
 /*
- * Replace this with your actual
- * Facebook Page Messenger link.
+ * IMPORTANT:
+ * Replace YOUR_PAGE_USERNAME
+ * with your actual Facebook Page username.
  *
  * Example:
- * https://m.me/YourPageUsername
+ *
+ * https://m.me/AMDigitalStudio
+ *
  */
 
 const FACEBOOK_PAGE_CHAT_URL =
-    "https://m.me/YOUR_PAGE_USERNAME";
+    "https://m.me/amdigitalstudio01";
 
 
-const goToChatBtn =
-    document.getElementById("goToChatBtn");
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-
-if (goToChatBtn) {
-
-    goToChatBtn.addEventListener(
-        "click",
-        async () => {
-
-            /*
-             * Create the order message.
-             */
-
-            const message =
-                window.createOrderMessage();
-
-
-            /*
-             * Copy the complete order details
-             * before opening Messenger.
-             */
-
-            const copied =
-                await window.copyOrderDetails();
-
-
-            /*
-             * Open Facebook Messenger.
-             */
-
-            window.open(
-                FACEBOOK_PAGE_CHAT_URL,
-                "_blank"
+        const goToChatBtn =
+            document.getElementById(
+                "goToChatBtn"
             );
 
 
-            /*
-             * Tell the user what to do next.
-             */
+        if (!goToChatBtn) {
 
-            if (copied) {
-
-                setTimeout(() => {
-
-                    alert(
-                        "Your order details have been copied. " +
-                        "Paste them in the chat, then attach " +
-                        "your payment receipt or screenshot " +
-                        "and send the message."
-                    );
-
-                }, 700);
-
-            }
+            return;
 
         }
-    );
 
-}
+
+        goToChatBtn.addEventListener(
+            "click",
+            async () => {
+
+
+                /* Copy order details */
+
+                const copied =
+                    await copyOrderDetails();
+
+
+                /* Open Messenger */
+
+                window.open(
+                    FACEBOOK_PAGE_CHAT_URL,
+                    "_blank"
+                );
+
+
+                /* User instruction */
+
+                if (copied) {
+
+                    setTimeout(() => {
+
+                        alert(
+                            "Your complete order details have been copied. " +
+                            "Paste them into the Facebook chat, " +
+                            "then attach your payment receipt or " +
+                            "payment screenshot and send the message."
+                        );
+
+                    }, 700);
+
+                }
+
+                else {
+
+                    alert(
+                        "Please copy your order details manually " +
+                        "and send them in the Facebook chat."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================
+   PART 7 — OPTIONAL COPY BUTTON
+========================================= */
+
+
+/*
+ * If you later add a button with:
+ *
+ * id="copyOrderBtn"
+ *
+ * this code will automatically make it work.
+ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const copyButton =
+            document.getElementById(
+                "copyOrderBtn"
+            );
+
+
+        if (!copyButton) {
+
+            return;
+
+        }
+
+
+        copyButton.addEventListener(
+            "click",
+            async () => {
+
+                const copied =
+                    await copyOrderDetails();
+
+
+                if (copied) {
+
+                    alert(
+                        "Order details copied successfully. " +
+                        "You can now paste them into the chat."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================
+   END
+========================================= */
+
+console.log(
+    "%cAM Digital Studio Final Payment Page Ready ✓",
+    "font-size:16px;font-weight:bold;color:#1677ff;"
+);
