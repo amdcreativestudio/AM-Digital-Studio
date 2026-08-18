@@ -571,14 +571,7 @@ document.addEventListener(
                 /* User instruction */
 if (copied) {
 
-    setTimeout(() => {
-
-        showCopyNotification();
-
-    }, 700);
-
-}
-
+ 
                 else {
 
                     alert(
