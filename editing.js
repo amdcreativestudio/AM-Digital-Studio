@@ -260,15 +260,7 @@ topButton.addEventListener("click",()=>{
 });
 
 
-// ===============================
-// Page Loaded Effect
-// ===============================
 
-window.addEventListener("load",()=>{
-
-    document.body.classList.add("page-loaded");
-
-});
 
 
 // ===============================
