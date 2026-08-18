@@ -1090,3 +1090,65 @@ footer hr{
         grid-template-columns: 1fr;
     }
 }
+/* =========================================
+   SOCIAL ICONS — SINGLE ROW
+========================================= */
+
+.social-icons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+
+    gap: 16px;
+
+    width: 100%;
+    max-width: 100%;
+
+    box-sizing: border-box;
+}
+
+
+.social-icons a {
+    width: 58px;
+    height: 58px;
+
+    min-width: 58px;
+    min-height: 58px;
+
+    flex: 0 0 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    box-sizing: border-box;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .social-icons {
+        gap: 9px;
+    }
+
+    .social-icons a {
+        width: 46px;
+        height: 46px;
+
+        min-width: 46px;
+        min-height: 46px;
+
+        flex: 0 0 46px;
+    }
+
+}
