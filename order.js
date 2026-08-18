@@ -748,7 +748,6 @@ checkoutBtn.addEventListener("click", (e) => {
 
 });
 
-
 // ===============================
 // Continue Payment
 // ===============================
@@ -757,41 +756,67 @@ if (continuePayment) {
 
     continuePayment.addEventListener("click", () => {
 
-        // Save current order data
+        // ===============================
+        // Save Customer Information
+        // ===============================
+
         localStorage.setItem(
             "customerName",
-            document.getElementById("fullName")?.value || ""
+            document.getElementById("fullName")?.value.trim() || ""
         );
 
         localStorage.setItem(
             "customerEmail",
-            document.getElementById("email")?.value || ""
+            document.getElementById("email")?.value.trim() || ""
         );
 
         localStorage.setItem(
             "customerWhatsApp",
-            document.getElementById("whatsapp")?.value || ""
+            document.getElementById("phone")?.value.trim() || ""
         );
 
         localStorage.setItem(
             "customerCountry",
-            document.getElementById("country")?.value || ""
+            document.getElementById("country")?.value.trim() || ""
         );
+
+
+        // ===============================
+        // Save Project Information
+        // ===============================
 
         localStorage.setItem(
             "projectTitle",
-            document.getElementById("projectTitle")?.value || ""
+            document.getElementById("projectTitle")?.value.trim() || ""
         );
 
         localStorage.setItem(
             "projectDescription",
-            document.getElementById("projectDescription")?.value || ""
+            document.getElementById("description")?.value.trim() || ""
         );
 
-        // Close the modal
+
+        // ===============================
+        // Save Delivery
+        // ===============================
+
+        localStorage.setItem(
+            "selectedDelivery",
+            deliverySelect?.value || "standard"
+        );
+
+
+        // ===============================
+        // Close Modal
+        // ===============================
+
         successModal.classList.remove("active");
 
-        // Open final payment page
+
+        // ===============================
+        // Open Final Payment Page
+        // ===============================
+
         window.location.href = "finalpay.html";
 
     });
