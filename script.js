@@ -17,16 +17,30 @@ const navItems = document.querySelectorAll(".nav-links a");
 
 
 // ===============================
-// Mobile Menu Toggle
+// Universal Menu Toggle
+// Desktop + Mobile
 // ===============================
 
-menuToggle.addEventListener("click", () => {
+if (menuToggle && navLinks) {
 
-    menuToggle.classList.toggle("active");
-    navLinks.classList.toggle("active");
+    menuToggle.addEventListener("click", () => {
 
-});
+        const isOpen =
+            navLinks.classList.toggle("active");
 
+        menuToggle.classList.toggle(
+            "active",
+            isOpen
+        );
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+    });
+
+}
 
 // ===============================
 // Close Menu After Clicking Link
@@ -64,6 +78,7 @@ window.addEventListener("scroll", () => {
 
 
 // ===============================
+// ===============================
 // Smooth Scrolling
 // ===============================
 
@@ -71,25 +86,43 @@ navItems.forEach(link => {
 
     link.addEventListener("click", function (e) {
 
-        e.preventDefault();
+        const href = this.getAttribute("href");
 
-        const target = document.querySelector(this.getAttribute("href"));
+        // Only smooth-scroll for same-page # links
+        if (href && href.startsWith("#")) {
 
-        if (target) {
+            const target = document.querySelector(href);
 
-            target.scrollIntoView({
+            if (target) {
 
-                behavior: "smooth",
-                block: "start"
+                e.preventDefault();
 
-            });
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+
+        }
+
+        // Close menu
+        if (menuToggle && navLinks) {
+
+            menuToggle.classList.remove("active");
+
+            navLinks.classList.remove("active");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
 
         }
 
     });
 
 });
-
 
 // ===============================
 // Active Navigation Link
