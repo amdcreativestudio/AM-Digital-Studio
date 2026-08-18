@@ -569,21 +569,15 @@ document.addEventListener(
 
 
                 /* User instruction */
+if (copied) {
 
-                if (copied) {
+    setTimeout(() => {
 
-                    setTimeout(() => {
+        showCopyNotification();
 
-                        alert(
-                            "Your complete order details have been copied. " +
-                            "Paste them into the Facebook chat, " +
-                            "then attach your payment receipt or " +
-                            "payment screenshot and send the message."
-                        );
+    }, 700);
 
-                    }, 700);
-
-                }
+}
 
                 else {
 
@@ -663,3 +657,145 @@ console.log(
     "%cAM Digital Studio Final Payment Page Ready ✓",
     "font-size:16px;font-weight:bold;color:#1677ff;"
 );
+/* =========================================
+   COPY SUCCESS NOTIFICATION
+========================================= */
+
+function showCopyNotification() {
+
+    const notification =
+        document.createElement("div");
+
+    notification.className =
+        "copy-notification";
+
+    notification.innerHTML = `
+
+        <div class="copy-notification-icon">
+            ✓
+        </div>
+
+        <div class="copy-notification-content">
+
+            <h3>
+                Order Details Copied!
+            </h3>
+
+            <p>
+                Your complete order details are ready
+                to paste into the Facebook chat.
+            </p>
+
+            <div class="paste-instructions">
+
+                <div>
+                    <strong>💻 Computer</strong>
+                    <span>Press <b>Ctrl + V</b></span>
+                </div>
+
+                <div>
+                    <strong>📱 Phone</strong>
+                    <span>
+                        Press and hold the message box,
+                        then tap <b>Paste</b>
+                    </span>
+                </div>
+
+            </div>
+
+            <p class="receipt-reminder">
+                After pasting the order details,
+                attach your payment receipt or
+                payment screenshot and send the message.
+            </p>
+
+        </div>
+
+        <button
+            class="copy-notification-close"
+            type="button"
+            aria-label="Close">
+            ×
+        </button>
+
+    `;
+
+
+    document.body.appendChild(
+        notification
+    );
+
+
+    /* Show animation */
+
+    setTimeout(() => {
+
+        notification.classList.add(
+            "show"
+        );
+
+    }, 20);
+
+
+    /* Close button */
+
+    const closeButton =
+        notification.querySelector(
+            ".copy-notification-close"
+        );
+
+
+    closeButton.addEventListener(
+        "click",
+        () => {
+
+            closeCopyNotification(
+                notification
+            );
+
+        }
+    );
+
+
+    /* Automatically disappear */
+
+    setTimeout(() => {
+
+        closeCopyNotification(
+            notification
+        );
+
+    }, 9000);
+
+}
+
+
+/* =========================================
+   CLOSE NOTIFICATION
+========================================= */
+
+function closeCopyNotification(
+    notification
+) {
+
+    if (!notification) return;
+
+
+    notification.classList.remove(
+        "show"
+    );
+
+
+    setTimeout(() => {
+
+        if (notification.parentNode) {
+
+            notification.parentNode.removeChild(
+                notification
+            );
+
+        }
+
+    }, 400);
+
+}
