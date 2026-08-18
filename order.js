@@ -767,31 +767,6 @@ if(projectFiles){
 }
 
 
-// ===============================
-// Coupon Button
-// ===============================
-
-const couponButton = document.querySelector(".coupon-input button");
-
-if(couponButton){
-
-    couponButton.addEventListener("click", () => {
-
-        const coupon = document.getElementById("coupon").value.trim();
-
-        if(coupon === ""){
-
-            alert("Please enter a coupon code.");
-
-            return;
-
-        }
-
-        alert("Coupon system will be available soon.");
-
-    });
-
-}
 
 
 // ===============================
