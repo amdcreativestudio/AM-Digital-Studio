@@ -133,6 +133,7 @@ console.log(
 );
 
 // ========================================
+// AM Digital Studio
 // thumbnail.js - Part 2
 // Package Selection + Order Navigation
 // ========================================
@@ -142,7 +143,8 @@ console.log(
 // Package Buttons
 // ===============================
 
-const packageButtons = document.querySelectorAll(".package-btn");
+const packageButtons =
+    document.querySelectorAll(".package-btn");
 
 
 // ===============================
@@ -154,19 +156,19 @@ const thumbnailPackages = {
     basic: {
         service: "Thumbnail Design",
         package: "Basic",
-        price: 10
+        price: 1800
     },
 
     standard: {
         service: "Thumbnail Design",
         package: "Standard",
-        price: 25
+        price: 2600
     },
 
     premium: {
         service: "Thumbnail Design",
         package: "Premium",
-        price: 50
+        price: 3300
     }
 
 };
@@ -176,40 +178,35 @@ const thumbnailPackages = {
 // Handle Package Buttons
 // ===============================
 
-packageButtons.forEach(button => {
+packageButtons.forEach((button, index) => {
 
     button.addEventListener("click", function(e) {
 
         e.preventDefault();
 
 
-        const buttonText = this.textContent
-            .trim()
-            .toLowerCase();
-
-
         let selectedPackage = null;
 
 
         // ===============================
-        // Detect Selected Package
+        // Detect Package by Button Position
         // ===============================
 
-        if (buttonText.includes("basic")) {
+        if (index === 0) {
 
             selectedPackage =
                 thumbnailPackages.basic;
 
         }
 
-        else if (buttonText.includes("standard")) {
+        else if (index === 1) {
 
             selectedPackage =
                 thumbnailPackages.standard;
 
         }
 
-        else if (buttonText.includes("premium")) {
+        else if (index === 2) {
 
             selectedPackage =
                 thumbnailPackages.premium;
@@ -218,7 +215,7 @@ packageButtons.forEach(button => {
 
 
         // ===============================
-        // Package Not Found
+        // Safety Check
         // ===============================
 
         if (!selectedPackage) {
@@ -260,7 +257,7 @@ packageButtons.forEach(button => {
             "order.html" +
             "?service=" +
             encodeURIComponent(
-                selectedPackage.service
+                "thumbnail-design"
             ) +
             "&package=" +
             encodeURIComponent(
@@ -276,7 +273,8 @@ packageButtons.forEach(button => {
         // Go To Order Page
         // ===============================
 
-        window.location.href = orderURL;
+        window.location.href =
+            orderURL;
 
     });
 
@@ -288,7 +286,7 @@ packageButtons.forEach(button => {
 // ===============================
 
 console.log(
-    "%cThumbnail Package System Ready",
+    "%cThumbnail Package System Ready ✓",
     "font-size:16px;font-weight:bold;color:#1677ff;"
 );
 // ========================================
