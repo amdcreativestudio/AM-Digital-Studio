@@ -1,0 +1,404 @@
+/* =========================================
+   AM DIGITAL STUDIO
+   DARK / LIGHT MODE
+========================================= */
+
+
+/* =========================
+   LIGHT MODE
+========================= */
+
+:root {
+
+    --theme-bg: #ffffff;
+    --theme-text: #111827;
+    --theme-muted: #6b7280;
+
+    --theme-card: #ffffff;
+    --theme-section: #f8fafc;
+
+    --theme-border: #e5e7eb;
+
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+html[data-theme="dark"] {
+
+    --theme-bg: #0b1120;
+    --theme-text: #f8fafc;
+    --theme-muted: #aab4c3;
+
+    --theme-card: #111827;
+    --theme-section: #0f172a;
+
+    --theme-border: #263244;
+
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+html[data-theme="dark"] body {
+
+    background: var(--theme-bg) !important;
+
+    color: var(--theme-text) !important;
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+html[data-theme="dark"] header {
+
+    background: #0b1120 !important;
+
+    border-bottom-color: #263244 !important;
+
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+html[data-theme="dark"] .navbar {
+
+    background: #0b1120 !important;
+
+}
+
+
+html[data-theme="dark"] .nav-links a {
+
+    color: #f8fafc !important;
+
+}
+
+
+html[data-theme="dark"] .nav-links a:hover {
+
+    color: #60a5fa !important;
+
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+html[data-theme="dark"] .logo a {
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+html[data-theme="dark"] section {
+
+    background-color: var(--theme-bg) !important;
+
+}
+
+
+/* =========================
+   HEADINGS
+========================= */
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+
+    color: #f8fafc !important;
+
+}
+
+
+/* =========================
+   PARAGRAPHS
+========================= */
+
+html[data-theme="dark"] p {
+
+    color: var(--theme-muted) !important;
+
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+html[data-theme="dark"] .service-card,
+html[data-theme="dark"] .feature-card,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .service-details,
+html[data-theme="dark"] .faq-item {
+
+    background: var(--theme-card) !important;
+
+    color: var(--theme-text) !important;
+
+    border-color: var(--theme-border) !important;
+
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+
+    background: #0f172a !important;
+
+    color: #ffffff !important;
+
+    border-color: #334155 !important;
+
+}
+
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+
+    color: #7c8798 !important;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+html[data-theme="dark"] footer {
+
+    background: #070b14 !important;
+
+    color: #ffffff !important;
+
+}
+
+
+/* ==================================================
+   THEME BUTTON
+   POSITION = BELOW NAVBAR / RIGHT SIDE
+================================================== */
+
+.theme-toggle-wrap {
+
+    position: fixed;
+
+    top: 88px;
+
+    right: 25px;
+
+    z-index: 99999;
+
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.theme-toggle {
+
+    width: 125px;
+
+    height: 42px;
+
+    border: 1px solid rgba(22, 119, 255, 0.25);
+
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    color: #111827;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    transition: all 0.3s ease;
+
+}
+
+
+/* =========================
+   ICON
+========================= */
+
+.theme-icon {
+
+    width: 29px;
+
+    height: 29px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eef5ff;
+
+    color: #1677ff;
+
+    font-size: 15px;
+
+    transition: all 0.3s ease;
+
+}
+
+
+/* =========================
+   HOVER
+========================= */
+
+.theme-toggle:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+
+}
+
+
+/* =========================
+   DARK BUTTON
+========================= */
+
+html[data-theme="dark"] .theme-toggle {
+
+    background: #111827;
+
+    color: #ffffff;
+
+    border-color: #334155;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+
+}
+
+
+html[data-theme="dark"] .theme-icon {
+
+    background: #1e293b;
+
+    color: #fbbf24;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .theme-toggle-wrap {
+
+        top: 78px;
+
+        right: 12px;
+
+    }
+
+
+    .theme-toggle {
+
+        width: 110px;
+
+        height: 38px;
+
+        font-size: 11px;
+
+    }
+
+
+    .theme-icon {
+
+        width: 27px;
+
+        height: 27px;
+
+        font-size: 14px;
+
+    }
+
+}
+
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 400px) {
+
+    .theme-toggle-wrap {
+
+        right: 10px;
+
+        top: 76px;
+
+    }
+
+
+    .theme-toggle {
+
+        width: 102px;
+
+        height: 36px;
+
+        font-size: 10px;
+
+    }
+
+
+    .theme-icon {
+
+        width: 25px;
+
+        height: 25px;
+
+    }
+
+}
