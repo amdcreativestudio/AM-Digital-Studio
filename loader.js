@@ -276,19 +276,18 @@
 
             /* Ignore special links */
 
-            if (
-                href.startsWith("#") ||
-                href.startsWith("http") ||
-                href.startsWith("//") ||
-                href.startsWith("mailto:") ||
-                href.startsWith("tel:") ||
-                link.target === "_blank" ||
-                link.hasAttribute("download")
-            ) {
-
-                return;
-
-            }
+        if (
+    href.startsWith("#") ||
+    href.includes("#") ||
+    href.startsWith("http") ||
+    href.startsWith("//") ||
+    href.startsWith("mailto:") ||
+    href.startsWith("tel:") ||
+    link.target === "_blank" ||
+    link.hasAttribute("download")
+) {
+    return;
+}
 
 
             /* Ignore javascript links */
