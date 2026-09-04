@@ -46,34 +46,36 @@
 
     style.textContent = `
 
-        #globalPageLoader {
+ #globalPageLoader {
+    background:
+        radial-gradient(circle at 50% 35%,
+            rgba(22,119,255,.18),
+            transparent 45%),
+        linear-gradient(
+            135deg,
+            #f8fbff 0%,
+            #eef6ff 45%,
+            #f5f3ff 100%
+        );
 
-            position: fixed;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
 
-            inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            width: 100%;
-            height: 100vh;
+    z-index: 999999999;
 
-            background: #05070d;
+    opacity: 1;
+    visibility: visible;
 
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            z-index: 999999999;
-
-            opacity: 1;
-
-            visibility: visible;
-
-            transition:
-                opacity .6s ease,
-                visibility .6s ease;
-
-        }
-
+    transition:
+        opacity .6s ease,
+        visibility .6s ease;
+}
 
         #globalPageLoader.loader-hidden {
 
@@ -97,7 +99,7 @@
         }
 
 
-  .global-loader-logo {
+ .global-loader-logo {
     width: 90px;
     height: 90px;
     margin: 0 auto 22px;
@@ -109,13 +111,27 @@
     border-radius: 22px;
     overflow: hidden;
 
-    background: rgba(255,255,255,0.08);
+    background:
+        linear-gradient(
+            135deg,
+            #1677ff,
+            #00c6ff,
+            #6d5dfc
+        );
 
     box-shadow:
-        0 0 35px rgba(22,119,255,.35);
+        0 0 40px rgba(22,119,255,.35);
 
     animation:
-        globalLoaderPulse 2s ease-in-out infinite;
+        globalLoaderPulse
+        2s ease-in-out infinite;
+}
+
+.global-loader-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .global-loader-logo img {
@@ -151,32 +167,19 @@
         }
 
 
-        .global-loader-title {
+    .global-loader-title {
+    color: #111827;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+}
 
-            color: white;
-
-            font-size: 17px;
-
-            font-weight: 700;
-
-            letter-spacing: 3px;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .global-loader-text {
-
-            color:
-                rgba(255,255,255,.55);
-
-            font-size: 13px;
-
-            letter-spacing: 1px;
-
-        }
-
+.global-loader-text {
+    color: #64748b;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
 
         @keyframes globalLoaderSpin {
 
