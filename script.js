@@ -830,3 +830,327 @@ if (emailForm && sendEmailBtn && emailStatus) {
     });
 
 }
+
+// ========================================
+// PREMIUM SITE SEARCH
+// ========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const searchInput =
+        document.getElementById("siteSearchInput");
+
+    const searchResults =
+        document.getElementById("searchResults");
+
+    const clearSearch =
+        document.getElementById("clearSearch");
+
+
+    if (!searchInput || !searchResults) return;
+
+
+    // ========================================
+    // SEARCH DATA
+    // ========================================
+
+    const searchItems = [
+
+        {
+            title: "Services",
+            description: "Explore all AM Digital Studio services",
+            icon: "fa-layer-group",
+            url: "#services"
+        },
+
+        {
+            title: "Video Editing",
+            description: "Professional video editing services",
+            icon: "fa-video",
+            url: "editing.html"
+        },
+
+        {
+            title: "Web Development",
+            description: "Business and portfolio websites",
+            icon: "fa-code",
+            url: "web.html"
+        },
+
+        {
+            title: "Logo Design",
+            description: "Professional logo design for your brand",
+            icon: "fa-pen-nib",
+            url: "logo.html"
+        },
+
+        {
+            title: "Poster Design",
+            description: "Modern professional poster designs",
+            icon: "fa-image",
+            url: "poster.html"
+        },
+
+        {
+            title: "YouTube Thumbnail Design",
+            description: "High CTR YouTube thumbnail designs",
+            icon: "fa-youtube",
+            url: "thumbnail.html"
+        },
+
+        {
+            title: "Fiverr Gig SEO",
+            description: "Optimize your Fiverr gig for better visibility",
+            icon: "fa-chart-line",
+            url: "seo.html"
+        },
+
+        {
+            title: "About Us",
+            description: "Learn more about AM Digital Studio",
+            icon: "fa-users",
+            url: "#about"
+        },
+
+        {
+            title: "YouTube Videos",
+            description: "Watch AM Digital Studio videos",
+            icon: "fa-play",
+            url: "#watch"
+        },
+
+        {
+            title: "Contact Us",
+            description: "Get in touch with AM Digital Studio",
+            icon: "fa-envelope",
+            url: "#contact"
+        },
+
+        {
+            title: "Email Us",
+            description: "Send us a message by email",
+            icon: "fa-paper-plane",
+            url: "#contact"
+        },
+
+        {
+            title: "Videos",
+            description: "Watch all videos and playlists",
+            icon: "fa-circle-play",
+            url: "video.html"
+        }
+
+    ];
+
+
+    // ========================================
+    // DISPLAY RESULTS
+    // ========================================
+
+    function displayResults(query) {
+
+        const searchTerm =
+            query.trim().toLowerCase();
+
+
+        if (!searchTerm) {
+
+            searchResults.innerHTML = "";
+
+            searchResults.classList.remove("active");
+
+            clearSearch.style.display = "none";
+
+            return;
+
+        }
+
+
+        clearSearch.style.display = "flex";
+
+
+        const filtered =
+            searchItems.filter(item =>
+
+                item.title
+                    .toLowerCase()
+                    .includes(searchTerm)
+
+                ||
+
+                item.description
+                    .toLowerCase()
+                    .includes(searchTerm)
+
+            );
+
+
+        if (filtered.length === 0) {
+
+            searchResults.innerHTML = `
+
+                <div class="search-no-result">
+
+                    <i class="fas fa-search"></i>
+
+                    <br>
+
+                    No results found for
+                    "<strong>${query}</strong>"
+
+                </div>
+
+            `;
+
+            searchResults.classList.add("active");
+
+            return;
+
+        }
+
+
+        searchResults.innerHTML =
+            filtered.map(item => `
+
+                <a
+                    href="${item.url}"
+                    class="search-result"
+                >
+
+                    <span class="search-result-icon">
+
+                        <i class="fas ${item.icon}"></i>
+
+                    </span>
+
+                    <span class="search-result-text">
+
+                        <span class="search-result-title">
+
+                            ${item.title}
+
+                        </span>
+
+                        <span class="search-result-description">
+
+                            ${item.description}
+
+                        </span>
+
+                    </span>
+
+                </a>
+
+            `).join("");
+
+
+        searchResults.classList.add("active");
+
+
+        // Close dropdown after selecting
+
+        document
+            .querySelectorAll(".search-result")
+            .forEach(result => {
+
+                result.addEventListener("click", () => {
+
+                    searchResults.classList.remove("active");
+
+                    searchInput.value = "";
+
+                    clearSearch.style.display = "none";
+
+                });
+
+            });
+
+    }
+
+
+    // ========================================
+    // INPUT
+    // ========================================
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            displayResults(
+                searchInput.value
+            );
+
+        }
+    );
+
+
+    // ========================================
+    // CLEAR
+    // ========================================
+
+    clearSearch.addEventListener(
+        "click",
+        () => {
+
+            searchInput.value = "";
+
+            searchResults.innerHTML = "";
+
+            searchResults.classList.remove(
+                "active"
+            );
+
+            clearSearch.style.display = "none";
+
+            searchInput.focus();
+
+        }
+    );
+
+
+    // ========================================
+    // ESC KEY
+    // ========================================
+
+    searchInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+
+                searchResults.classList.remove(
+                    "active"
+                );
+
+                searchInput.blur();
+
+            }
+
+        }
+    );
+
+
+    // ========================================
+    // CLICK OUTSIDE
+    // ========================================
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if (
+                !event.target.closest(
+                    ".site-search"
+                )
+            ) {
+
+                searchResults.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+});
