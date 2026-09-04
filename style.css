@@ -2884,42 +2884,43 @@ footer hr{
 
     padding: 0 18px;
 
-    border: 1px solid rgba(22, 119, 255, 0.18);
+    /* Premium dark frame */
+    border: 2px solid #111827;
 
     border-radius: 18px;
 
-    background: rgba(255, 255, 255, 0.88);
+    /* Clean white inside */
+    background: rgba(255, 255, 255, 0.96);
 
+    /* Dark premium shadow */
     box-shadow:
-        0 12px 35px rgba(22, 119, 255, 0.10);
+        0 8px 0 rgba(17, 24, 39, 0.08),
+        0 15px 35px rgba(0, 0, 0, 0.16);
 
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
 
-    transition:
-        .3s ease;
+    transition: .3s ease;
 }
-
 
 .search-box:focus-within {
 
-    border-color: rgba(22, 119, 255, .55);
+    border-color: #1677ff;
 
     box-shadow:
-        0 15px 40px rgba(22, 119, 255, .18);
+        0 8px 0 rgba(22, 119, 255, 0.10),
+        0 15px 40px rgba(22, 119, 255, 0.22);
 
     transform: translateY(-2px);
 }
 
-
 /* Search Icon */
 
+
+
 .search-icon {
-
     color: #1677ff;
-
     font-size: 18px;
-
     margin-right: 12px;
 }
 
