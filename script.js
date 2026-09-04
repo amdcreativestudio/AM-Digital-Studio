@@ -1154,3 +1154,403 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
+
+
+
+/* ========================================
+   AM DIGITAL STUDIO
+   SMART SITE SEARCH
+======================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const searchInput = document.getElementById("siteSearch");
+    const searchResults = document.getElementById("searchResults");
+
+    if (!searchInput || !searchResults) return;
+
+
+    /* ========================================
+       SEARCH DATABASE
+    ======================================== */
+
+    const searchItems = [
+
+        /* SERVICES */
+
+        {
+            title: "Video Editing",
+            keywords: "video editing edit videos editing",
+            type: "Service",
+            url: "editing.html",
+            icon: "fa-video"
+        },
+
+        {
+            title: "Web Development",
+            keywords: "web development website websites coding",
+            type: "Service",
+            url: "web.html",
+            icon: "fa-code"
+        },
+
+        {
+            title: "Logo Design",
+            keywords: "logo design logos branding brand",
+            type: "Service",
+            url: "logo.html",
+            icon: "fa-pen-nib"
+        },
+
+        {
+            title: "Poster Design",
+            keywords: "poster design posters advertising",
+            type: "Service",
+            url: "poster.html",
+            icon: "fa-image"
+        },
+
+        {
+            title: "YouTube Thumbnail Design",
+            keywords: "youtube thumbnail thumbnails design youtube",
+            type: "Service",
+            url: "thumbnail.html",
+            icon: "fa-photo-film"
+        },
+
+        {
+            title: "Fiverr Gig SEO",
+            keywords: "fiverr seo gig seo search optimization freelancing",
+            type: "Service",
+            url: "seo.html",
+            icon: "fa-chart-line"
+        },
+
+
+        /* WEBSITE SECTIONS */
+
+        {
+            title: "About Us",
+            keywords: "about about us company studio information",
+            type: "Page",
+            url: "index.html#about",
+            icon: "fa-circle-info"
+        },
+
+        {
+            title: "Services",
+            keywords: "services service buy services",
+            type: "Page",
+            url: "index.html#services",
+            icon: "fa-briefcase"
+        },
+
+        {
+            title: "YouTube Videos",
+            keywords: "youtube videos video tutorials tutorials watch",
+            type: "Page",
+            url: "index.html#watch",
+            icon: "fa-youtube"
+        },
+
+        {
+            title: "Contact Us",
+            keywords: "contact contact us business inquiry",
+            type: "Page",
+            url: "index.html#contact",
+            icon: "fa-address-book"
+        },
+
+        {
+            title: "Email Us",
+            keywords: "email email us mail message contact",
+            type: "Page",
+            url: "index.html#contact",
+            icon: "fa-envelope"
+        },
+
+
+        /* ORDER */
+
+        {
+            title: "Order",
+            keywords: "order order now purchase buy service",
+            type: "Page",
+            url: "order.html",
+            icon: "fa-cart-shopping"
+        },
+
+        {
+            title: "Place Order",
+            keywords: "place order order service purchase",
+            type: "Page",
+            url: "order.html",
+            icon: "fa-rocket"
+        },
+
+
+        /* PAYMENT */
+
+        {
+            title: "Payment",
+            keywords: "payment pay final payment checkout",
+            type: "Page",
+            url: "finalpay.html",
+            icon: "fa-credit-card"
+        },
+
+        {
+            title: "Final Payment",
+            keywords: "final payment payment checkout",
+            type: "Page",
+            url: "finalpay.html",
+            icon: "fa-money-check-dollar"
+        },
+
+
+        /* LEGAL */
+
+        {
+            title: "Privacy Policy",
+            keywords: "privacy policy privacy data security",
+            type: "Legal",
+            url: "policy.html",
+            icon: "fa-shield-halved"
+        },
+
+        {
+            title: "Terms & Conditions",
+            keywords: "terms conditions terms and conditions rules",
+            type: "Legal",
+            url: "terms.html",
+            icon: "fa-file-contract"
+        },
+
+
+        /* SOCIAL MEDIA */
+
+        {
+            title: "YouTube",
+            keywords: "youtube yt videos channel",
+            type: "Social Media",
+            url: "https://youtube.com/@amdigitalstudios1?si=Yq-9OmFsia5Wphch2",
+            icon: "fab fa-youtube",
+            external: true
+        },
+
+        {
+            title: "Facebook",
+            keywords: "facebook fb social",
+            type: "Social Media",
+            url: "https://www.facebook.com/share/1DPgTCT6yb/",
+            icon: "fab fa-facebook-f",
+            external: true
+        },
+
+        {
+            title: "Instagram",
+            keywords: "instagram insta ig social",
+            type: "Social Media",
+            url: "https://www.instagram.com/amdigitalstudio1?igsh=MWoyazZ4Mm9zYmgwag==",
+            icon: "fab fa-instagram",
+            external: true
+        },
+
+        {
+            title: "LinkedIn",
+            keywords: "linkedin linked in professional social",
+            type: "Social Media",
+            url: "https://www.linkedin.com/in/arunalu-mayura-702777421/",
+            icon: "fab fa-linkedin-in",
+            external: true
+        },
+
+        {
+            title: "GitHub",
+            keywords: "github git code repository projects",
+            type: "Social Media",
+            url: "https://github.com/amdcreativestudio",
+            icon: "fab fa-github",
+            external: true
+        },
+
+
+        /* OTHER */
+
+        {
+            title: "Videos",
+            keywords: "videos watch youtube tutorials",
+            type: "Resource",
+            url: "video.html",
+            icon: "fa-play"
+        },
+
+        {
+            title: "Home",
+            keywords: "home homepage main",
+            type: "Page",
+            url: "index.html",
+            icon: "fa-house"
+        }
+
+    ];
+
+
+    /* ========================================
+       SEARCH FUNCTION
+    ======================================== */
+
+    function showResults(query) {
+
+        query = query.trim().toLowerCase();
+
+        searchResults.innerHTML = "";
+
+        if (!query) {
+
+            searchResults.classList.remove("active");
+
+            return;
+        }
+
+
+        const results = searchItems
+            .filter(item => {
+
+                const searchableText =
+                    `${item.title} ${item.keywords}`.toLowerCase();
+
+                return searchableText.includes(query);
+
+            })
+            .slice(0, 8);
+
+
+        if (results.length === 0) {
+
+            searchResults.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <br><br>
+                    No results found for "${query}"
+                </div>
+            `;
+
+            searchResults.classList.add("active");
+
+            return;
+        }
+
+
+        results.forEach(item => {
+
+            const link = document.createElement("a");
+
+            link.className = "search-result";
+
+            link.href = item.url;
+
+            if (item.external) {
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+            }
+
+            link.innerHTML = `
+
+                <div class="search-result-icon">
+
+                    <i class="${item.icon.includes("fab")
+                        ? item.icon
+                        : "fas " + item.icon}">
+                    </i>
+
+                </div>
+
+                <div class="search-result-text">
+
+                    <span class="search-result-title">
+                        ${item.title}
+                    </span>
+
+                    <span class="search-result-type">
+                        ${item.type}
+                    </span>
+
+                </div>
+
+            `;
+
+            searchResults.appendChild(link);
+
+        });
+
+
+        searchResults.classList.add("active");
+    }
+
+
+    /* ========================================
+       INPUT
+    ======================================== */
+
+    searchInput.addEventListener("input", () => {
+
+        showResults(searchInput.value);
+
+    });
+
+
+    /* ========================================
+       ENTER KEY
+    ======================================== */
+
+    searchInput.addEventListener("keydown", (e) => {
+
+        if (e.key === "Enter") {
+
+            const firstResult =
+                searchResults.querySelector(".search-result");
+
+            if (firstResult) {
+
+                firstResult.click();
+
+            }
+
+        }
+
+    });
+
+
+    /* ========================================
+       CLICK OUTSIDE
+    ======================================== */
+
+    document.addEventListener("click", (e) => {
+
+        if (!e.target.closest(".site-search")) {
+
+            searchResults.classList.remove("active");
+
+        }
+
+    });
+
+
+    /* ========================================
+       ESC KEY
+    ======================================== */
+
+    document.addEventListener("keydown", (e) => {
+
+        if (e.key === "Escape") {
+
+            searchResults.classList.remove("active");
+
+            searchInput.blur();
+
+        }
+
+    });
+
+});
