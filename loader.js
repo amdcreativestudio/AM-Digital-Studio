@@ -97,44 +97,33 @@
         }
 
 
-        .global-loader-logo {
+  .global-loader-logo {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 22px;
 
-            width: 82px;
-            height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            margin: 0 auto 22px;
+    border-radius: 22px;
+    overflow: hidden;
 
-            display: flex;
+    background: rgba(255,255,255,0.08);
 
-            align-items: center;
-            justify-content: center;
+    box-shadow:
+        0 0 35px rgba(22,119,255,.35);
 
-            border-radius: 24px;
+    animation:
+        globalLoaderPulse 2s ease-in-out infinite;
+}
 
-            color: white;
-
-            font-size: 30px;
-
-            font-weight: 900;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #1677ff,
-                    #00c6ff,
-                    #6d5dfc
-                );
-
-            box-shadow:
-                0 0 40px
-                rgba(22,119,255,.45);
-
-            animation:
-                globalLoaderPulse
-                2s ease-in-out infinite;
-
-        }
-
+.global-loader-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
 
         .global-loader-ring {
 
