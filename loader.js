@@ -17,9 +17,9 @@
 
         <div class="global-loader-content">
 
-            <div class="global-loader-logo">
-                AM
-            </div>
+          <div class="global-loader-logo">
+    <img src="https://raw.githubusercontent.com/amdcreativestudio/AM-Digital-Studio/main/wdf.png" alt="AM Digital Studio">
+</div>
 
             <div class="global-loader-ring"></div>
 
