@@ -18,7 +18,7 @@
         <div class="global-loader-content">
 
           <div class="global-loader-logo">
-    <img src="https://raw.githubusercontent.com/amdcreativestudio/AM-Digital-Studio/main/wdf.png" alt="AM Digital Studio">
+    <img src="https://github.com/amdcreativestudio/AM-Digital-Studio/blob/main/wdf.png?raw=true" alt="AM Digital Studio">
 </div>
 
             <div class="global-loader-ring"></div>
