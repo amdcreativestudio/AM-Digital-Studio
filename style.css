@@ -627,70 +627,146 @@ body{
 }
 
 
-/* ===========================
-   WELCOME
-=========================== */
+/* ================================
+   PREMIUM WELCOME TITLE
+================================ */
 
-.welcome{
+.welcome-text {
+    font-size: clamp(70px, 11vw, 170px);
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-align: center;
 
-    font-size:clamp(4rem,11vw,9rem);
+    margin: 0;
 
-    font-weight:800;
+    background: linear-gradient(
+        110deg,
+        #1677ff,
+        #6d5dfc,
+        #00c6ff,
+        #1677ff
+    );
 
-    text-transform:uppercase;
+    background-size: 300% auto;
 
-    letter-spacing:12px;
+    -webkit-background-clip: text;
+    background-clip: text;
 
-    color:transparent;
+    -webkit-text-fill-color: transparent;
 
-    -webkit-text-stroke:3px #1677ff;
+    animation:
+        welcomeGradient 6s ease-in-out infinite,
+        welcomeFloat 4s ease-in-out infinite;
 
-    animation:strokeColor 6s linear infinite;
+    filter: drop-shadow(
+        0 10px 30px rgba(22, 119, 255, 0.18)
+    );
 
-    margin-bottom:20px;
+    position: relative;
 
-    user-select:none;
-
+    user-select: none;
 }
 
 
-/* Stroke Animation */
+/* Moving gradient */
 
-@keyframes strokeColor{
+@keyframes welcomeGradient {
 
-    0%{
-
-        -webkit-text-stroke-color:#1677ff;
-
+    0% {
+        background-position: 0% 50%;
     }
 
-    25%{
-
-        -webkit-text-stroke-color:#00b4ff;
-
+    50% {
+        background-position: 100% 50%;
     }
 
-    50%{
-
-        -webkit-text-stroke-color:#7b61ff;
-
-    }
-
-    75%{
-
-        -webkit-text-stroke-color:#00c896;
-
-    }
-
-    100%{
-
-        -webkit-text-stroke-color:#1677ff;
-
+    100% {
+        background-position: 0% 50%;
     }
 
 }
 
 
+/* Very subtle floating movement */
+
+@keyframes welcomeFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+}
+
+
+/* ================================
+   LIGHT SWEEP
+================================ */
+
+.welcome-text::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 50%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.65),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    animation: welcomeShine 4.5s ease-in-out infinite;
+
+    pointer-events: none;
+
+}
+
+
+@keyframes welcomeShine {
+
+    0% {
+        left: -120%;
+    }
+
+    35% {
+        left: 130%;
+    }
+
+    100% {
+        left: 130%;
+    }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+
+    .welcome-text {
+
+        font-size: clamp(45px, 15vw, 85px);
+
+        letter-spacing: 4px;
+
+    }
+
+}
 /* ===========================
    Studio Name
 =========================== */
