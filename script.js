@@ -1581,7 +1581,7 @@ document.addEventListener("DOMContentLoaded", () => {
     */
 
     const TRUSTPILOT_REVIEW_URL =
-        "YOUR_TRUSTPILOT_REVIEW_LINK";
+        "https://www.trustpilot.com/review/amdigitalstudio.site";
 
 
     if (reviewButton) {
