@@ -1554,3 +1554,394 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+/* =========================================
+   TRUSTPILOT REVIEWS
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const reviewsContainer =
+        document.getElementById("trustpilotReviews");
+
+    const reviewButton =
+        document.getElementById("trustpilotReviewButton");
+
+    if (!reviewsContainer) return;
+
+
+    /*
+        Backend API
+    */
+
+    const API_URL = "/api/reviews";
+
+
+    /*
+        Trustpilot Review Page
+    */
+
+    const TRUSTPILOT_REVIEW_URL =
+        "YOUR_TRUSTPILOT_REVIEW_LINK";
+
+
+    if (reviewButton) {
+        reviewButton.href = TRUSTPILOT_REVIEW_URL;
+    }
+
+
+    /*
+        Keep track of previous reviews
+    */
+
+    let previousReviewIds = [];
+
+
+    /*
+        Prevent HTML injection
+    */
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /*
+        Format date
+    */
+
+    function formatDate(dateValue) {
+
+        if (!dateValue) return "";
+
+        const date = new Date(dateValue);
+
+        if (Number.isNaN(date.getTime())) {
+            return "";
+        }
+
+        return new Intl.DateTimeFormat(
+            undefined,
+            {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            }
+        ).format(date);
+
+    }
+
+
+    /*
+        Generate stars
+    */
+
+    function starsHtml(stars) {
+
+        const rating =
+            Math.max(
+                1,
+                Math.min(
+                    5,
+                    Number(stars) || 5
+                )
+            );
+
+        let html = "";
+
+        for (let i = 1; i <= 5; i++) {
+
+            html += i <= rating
+
+                ? '<i class="fas fa-star"></i>'
+
+                : '<i class="far fa-star"></i>';
+
+        }
+
+        return html;
+
+    }
+
+
+    /*
+        Render latest 6 reviews
+    */
+
+    function renderReviews(reviews) {
+
+        if (
+            !Array.isArray(reviews) ||
+            reviews.length === 0
+        ) {
+
+            reviewsContainer.innerHTML = `
+                <div class="review-empty">
+                    No Trustpilot reviews are available yet.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        /*
+            IMPORTANT:
+
+            Always take the newest 6 reviews.
+        */
+
+        const latestSix =
+            reviews.slice(0, 6);
+
+
+        const currentIds =
+            latestSix.map(
+                review => String(review.id)
+            );
+
+
+        /*
+            Detect new review
+        */
+
+        const newReviewId =
+            currentIds.find(
+                id =>
+                    !previousReviewIds.includes(id)
+            );
+
+
+        /*
+            Create cards
+        */
+
+        reviewsContainer.innerHTML =
+
+            latestSix.map(review => {
+
+                const title =
+                    review.title ||
+                    "Great experience";
+
+
+                const text =
+                    review.text ||
+                    "Customer review";
+
+
+                const userName =
+                    review.consumer?.displayName ||
+                    "Verified Customer";
+
+
+                const date =
+                    formatDate(
+                        review.createdAt
+                    );
+
+
+                const isNew =
+                    newReviewId &&
+                    String(review.id) ===
+                    newReviewId;
+
+
+                return `
+
+                    <article
+                        class="review-card ${isNew ? "is-new" : ""}"
+                        data-review-id="${escapeHtml(review.id)}"
+                    >
+
+                        <div class="review-card-top">
+
+                            <div
+                                class="review-stars"
+                                aria-label="${Number(review.stars) || 5} out of 5 stars"
+                            >
+
+                                ${starsHtml(review.stars)}
+
+                            </div>
+
+
+                            ${
+                                review.isVerified
+                                ?
+                                `
+                                <span class="review-verified">
+
+                                    <i class="fas fa-circle-check"></i>
+
+                                    Verified
+
+                                </span>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+
+
+                        <h3 class="review-title">
+
+                            ${escapeHtml(title)}
+
+                        </h3>
+
+
+                        <p class="review-text">
+
+                            ${escapeHtml(text)}
+
+                        </p>
+
+
+                        <div class="review-footer">
+
+                            <div class="review-user">
+
+                                <span class="review-user-name">
+
+                                    ${escapeHtml(userName)}
+
+                                </span>
+
+
+                                ${
+                                    date
+                                    ?
+                                    `
+                                    <span class="review-date">
+
+                                        ${escapeHtml(date)}
+
+                                    </span>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+
+                            <i
+                                class="fas fa-quote-right"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }).join("");
+
+
+        /*
+            Save current IDs
+        */
+
+        previousReviewIds =
+            currentIds;
+
+    }
+
+
+    /*
+        Get reviews from backend
+    */
+
+    async function loadReviews() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "GET",
+                        cache: "no-store",
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `Reviews request failed: ${response.status}`
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            renderReviews(
+                data.reviews || []
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Trustpilot reviews error:",
+                error
+            );
+
+
+            if (
+                previousReviewIds.length === 0
+            ) {
+
+                reviewsContainer.innerHTML = `
+
+                    <div class="review-error">
+
+                        Reviews are temporarily unavailable.
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+    }
+
+
+    /*
+        First load
+    */
+
+    loadReviews();
+
+
+    /*
+        Check for new reviews
+        every 60 seconds
+    */
+
+    setInterval(
+        loadReviews,
+        60000
+    );
+
+});
