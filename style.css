@@ -3731,3 +3731,54 @@ html[data-theme="dark"] .search-result-description {
     }
 
 }
+
+
+/* ==========================
+   TRUSTPILOT REVIEW IMAGE BOXES
+========================== */
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.review-image-card {
+    width: 100%;
+    min-height: 260px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.review-image-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.empty-review {
+    min-height: 260px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .review-image-card,
+    .empty-review {
+        min-height: 220px;
+    }
+}
+
