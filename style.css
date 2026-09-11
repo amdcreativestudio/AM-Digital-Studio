@@ -4220,3 +4220,34 @@ html[data-theme="dark"] .search-result-description {
     }
 
 }
+/* ========================================
+   EMAIL FORM - SHOW FULL CONTENT
+======================================== */
+
+#emailPopup {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+}
+
+#emailPopup .email-popup-content {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+#emailPopup form {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+#emailPopup button[type="submit"],
+#emailPopup .send-btn,
+#emailPopup .submit-btn {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    margin-bottom: 30px !important;
+}
