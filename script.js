@@ -933,7 +933,7 @@ document.addEventListener("DOMContentLoaded", () => {
     icon: "fa-star"
 },
         
-   {
+  {
     title: "Email Us",
     keywords: "email email us mail message contact",
     type: "Popup",
@@ -1529,63 +1529,82 @@ document.addEventListener("DOMContentLoaded", () => {
     // SPECIAL SEARCH RESULT ACTIONS
     // ========================================
 
-    link.addEventListener("click", (e) => {
+   // ========================================
+// SPECIAL SEARCH RESULT ACTIONS
+// ========================================
 
-        // ------------------------------------
-        // EMAIL US → OPEN POPUP
-        // ------------------------------------
+link.addEventListener("click", (e) => {
 
-        if (item.title === "Email Us") {
+    // ------------------------------------
+    // EMAIL US → OPEN POPUP
+    // ------------------------------------
 
-            e.preventDefault();
+    if (item.title === "Email Us") {
 
-            const popup =
-                document.getElementById("emailPopup");
+        e.preventDefault();
 
-            if (popup) {
+        const popup =
+            document.getElementById("emailPopup");
 
-                popup.classList.add("active");
+        if (popup) {
 
-                document.body.style.overflow = "hidden";
+            popup.classList.add("active");
 
-            }
-
-            searchResults.classList.remove("active");
-
-            searchInput.value = "";
-
-            return;
+            document.body.style.overflow = "hidden";
 
         }
 
+        searchResults.classList.remove("active");
 
-        // ------------------------------------
-        // RATINGS AND REVIEWS → SCROLL
-        // ------------------------------------
+        searchInput.value = "";
 
-        if (item.title === "Ratings And Reviews") {
+        return;
 
-            e.preventDefault();
+    }
 
-            const reviewsSection =
-                document.getElementById("reviews");
 
-            if (reviewsSection) {
+    // ------------------------------------
+    // RATINGS AND REVIEWS → SCROLL
+    // ------------------------------------
 
-                reviewsSection.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
+    if (item.title === "Ratings And Reviews") {
 
-            }
+        e.preventDefault();
 
-            searchResults.classList.remove("active");
+        const reviewsSection =
+            document.getElementById("reviews");
 
-            searchInput.value = "";
+        if (reviewsSection) {
 
-            return;
+            reviewsSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
         }
+
+        searchResults.classList.remove("active");
+
+        searchInput.value = "";
+
+        return;
+
+    }
+
+
+    // ------------------------------------
+    // OTHER RESULTS → NORMAL NAVIGATION
+    // ------------------------------------
+
+    searchResults.classList.remove("active");
+
+    searchInput.value = "";
+
+});
+
+
+// Append result AFTER adding click handler
+searchResults.appendChild(link);
 
 
         // ------------------------------------
