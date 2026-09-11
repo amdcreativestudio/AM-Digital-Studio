@@ -926,19 +926,20 @@ document.addEventListener("DOMContentLoaded", () => {
             url: "#contact"
         },
 {
-            title: "Ratings And Reviews",
-            description: "Watch AM Digital Studio Reviews",
-            icon: "fa-star",
-            url: "#trustpilot"
-        },
-
+    title: "Ratings And Reviews",
+    keywords: "rating ratings review reviews trustpilot stars feedback customer reviews testimonials",
+    type: "Page",
+    url: "index.html#reviews",
+    icon: "fa-star"
+},
         
-        {
-            title: "Email Us",
-            description: "Send us a message by email",
-            icon: "fa-paper-plane",
-            url: "#contact"
-        },
+   {
+    title: "Email Us",
+    keywords: "email email us mail message contact",
+    type: "Popup",
+    url: "#emailPopup",
+    icon: "fa-envelope"
+},
 
         {
             title: "Videos",
@@ -1524,7 +1525,57 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             searchResults.appendChild(link);
+// Handle special search results
+link.addEventListener("click", (e) => {
 
+    // Email Us → Open popup
+    if (item.title === "Email Us") {
+
+        e.preventDefault();
+
+        if (emailPopup) {
+
+            emailPopup.classList.add("active");
+
+            document.body.style.overflow = "hidden";
+
+        }
+
+        searchResults.classList.remove("active");
+
+        searchInput.value = "";
+
+        return;
+
+    }
+
+    // Ratings And Reviews → Scroll to reviews
+    if (item.title === "Ratings And Reviews") {
+
+        e.preventDefault();
+
+        const reviewsSection =
+            document.getElementById("reviews");
+
+        if (reviewsSection) {
+
+            reviewsSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+        searchResults.classList.remove("active");
+
+        searchInput.value = "";
+
+        return;
+
+    }
+
+});
+            
         });
 
 
