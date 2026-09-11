@@ -925,7 +925,14 @@ document.addEventListener("DOMContentLoaded", () => {
             icon: "fa-envelope",
             url: "#contact"
         },
+{
+            title: "Ratings And Reviews",
+            description: "Watch AM Digital Studio Reviews",
+            icon: "fa-star",
+            url: "#trustpilot"
+        },
 
+        
         {
             title: "Email Us",
             description: "Send us a message by email",
