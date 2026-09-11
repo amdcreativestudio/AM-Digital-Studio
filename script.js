@@ -1586,20 +1586,7 @@ results.forEach(item => {
 
             return;
 
-        }
-
-
-        // ------------------------------------
-        // OTHER RESULTS → NORMAL NAVIGATION
-        // ------------------------------------
-
-        searchResults.classList.remove("active");
-
-        searchInput.value = "";
-
-    });
-
-
+    
     // Append result AFTER adding click handler
     searchResults.appendChild(link);
 
