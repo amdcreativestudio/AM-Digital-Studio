@@ -4165,3 +4165,58 @@ html[data-theme="dark"] .search-result-description {
     }
 
 }
+
+
+
+
+/* ========================================
+   EMAIL FORM - SHOW SEND BUTTON
+======================================== */
+
+#emailPopup {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+#emailPopup .email-popup-content,
+#emailPopup .popup-content,
+#emailPopup .modal-content {
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    box-sizing: border-box;
+    padding-bottom: 40px !important;
+}
+
+/* Send button එක hide වෙලා නම් පෙන්වන්න */
+#emailPopup button[type="submit"],
+#emailPopup .send-btn,
+#emailPopup .submit-btn {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom: 20px !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    #emailPopup .email-popup-content,
+    #emailPopup .popup-content,
+    #emailPopup .modal-content {
+        max-height: 85vh !important;
+        padding-bottom: 50px !important;
+    }
+
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    #emailPopup .email-popup-content,
+    #emailPopup .popup-content,
+    #emailPopup .modal-content {
+        max-height: 88vh !important;
+        padding-bottom: 50px !important;
+    }
+
+}
