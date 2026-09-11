@@ -1486,7 +1486,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-    results.forEach(item => {
+results.forEach(item => {
 
     const link = document.createElement("a");
 
@@ -1529,57 +1529,81 @@ document.addEventListener("DOMContentLoaded", () => {
     // SPECIAL SEARCH RESULT ACTIONS
     // ========================================
 
-   // ========================================
-// SPECIAL SEARCH RESULT ACTIONS
-// ========================================
+    link.addEventListener("click", (e) => {
 
-link.addEventListener("click", (e) => {
 
-    // ------------------------------------
-    // EMAIL US → OPEN POPUP
-    // ------------------------------------
+        // ------------------------------------
+        // EMAIL US → OPEN POPUP
+        // ------------------------------------
 
-    if (item.title === "Email Us") {
+        if (item.title === "Email Us") {
 
-        e.preventDefault();
+            e.preventDefault();
 
-        const popup =
-            document.getElementById("emailPopup");
+            const popup =
+                document.getElementById("emailPopup");
 
-        if (popup) {
+            if (popup) {
 
-            popup.classList.add("active");
+                popup.classList.add("active");
 
-            document.body.style.overflow = "hidden";
+                document.body.style.overflow = "hidden";
+
+            }
+
+            searchResults.classList.remove("active");
+
+            searchInput.value = "";
+
+            return;
 
         }
+
+
+        // ------------------------------------
+        // RATINGS AND REVIEWS → SCROLL
+        // ------------------------------------
+
+        if (item.title === "Ratings And Reviews") {
+
+            e.preventDefault();
+
+            const reviewsSection =
+                document.getElementById("reviews");
+
+            if (reviewsSection) {
+
+                reviewsSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+
+            searchResults.classList.remove("active");
+
+            searchInput.value = "";
+
+            return;
+
+        }
+
+
+        // ------------------------------------
+        // OTHER RESULTS → NORMAL NAVIGATION
+        // ------------------------------------
 
         searchResults.classList.remove("active");
 
         searchInput.value = "";
 
-        return;
-
-    }
+    });
 
 
-    // ------------------------------------
-    // RATINGS AND REVIEWS → SCROLL
-    // ------------------------------------
+    // Append result AFTER adding click handler
+    searchResults.appendChild(link);
 
-    if (item.title === "Ratings And Reviews") {
-
-        e.preventDefault();
-
-        const reviewsSection =
-            document.getElementById("reviews");
-
-        if (reviewsSection) {
-
-            reviewsSection.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+});
 
         }
 
@@ -1603,19 +1627,6 @@ link.addEventListener("click", (e) => {
 });
 
 
-// Append result AFTER adding click handler
-searchResults.appendChild(link);
-
-
-        // ------------------------------------
-        // OTHER RESULTS → NORMAL NAVIGATION
-        // ------------------------------------
-
-        searchResults.classList.remove("active");
-
-        searchInput.value = "";
-
-    });
 
 
     searchResults.appendChild(link);
