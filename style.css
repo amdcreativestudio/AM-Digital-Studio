@@ -3827,3 +3827,134 @@ html[data-theme="dark"] .search-result-description {
     }
 
 }
+/* =========================================
+   EMAIL POPUP — ALL DEVICES
+========================================= */
+
+.email-popup {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px;
+
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    z-index: 999999 !important;
+
+    overflow-y: auto;
+}
+
+.email-popup.active {
+    display: flex !important;
+}
+
+/* Popup Window */
+
+.email-popup-box {
+    position: relative;
+
+    width: 100%;
+    max-width: 550px;
+
+    max-height: calc(100dvh - 32px);
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35);
+
+    animation: emailPopupShow 0.25s ease;
+}
+
+/* Popup Animation */
+
+@keyframes emailPopupShow {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .email-popup {
+        padding: 24px;
+    }
+
+    .email-popup-box {
+        max-width: 560px;
+        padding: 32px;
+    }
+
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .email-popup {
+        padding: 12px;
+    }
+
+    .email-popup-box {
+        max-width: 100%;
+        max-height: calc(100dvh - 24px);
+
+        padding: 24px 20px;
+
+        border-radius: 16px;
+    }
+
+    .email-popup-header h2 {
+        font-size: 24px;
+    }
+
+    .email-field {
+        margin-bottom: 14px;
+    }
+
+    .email-field input,
+    .email-field textarea {
+        padding: 12px 14px;
+    }
+
+    .email-field textarea {
+        min-height: 100px;
+    }
+
+    .send-email-btn {
+        min-height: 52px;
+    }
+
+}
