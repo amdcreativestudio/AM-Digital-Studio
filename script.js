@@ -1056,21 +1056,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Close dropdown after selecting
 
+      
+
         document
-            .querySelectorAll(".search-result")
-            .forEach(result => {
+    .querySelectorAll(".search-result")
+    .forEach(result => {
 
-                result.addEventListener("click", () => {
+        result.addEventListener("click", (e) => {
 
-                    searchResults.classList.remove("active");
+            const url = result.getAttribute("href");
 
-                    searchInput.value = "";
+            // Same-page section links: prevent page reload
+            if (url && url.includes("#")) {
 
-                    clearSearch.style.display = "none";
+                const [page, hash] = url.split("#");
 
-                });
+                if (page === "index.html" || page === "") {
 
-            });
+                    e.preventDefault();
+
+                    const target = document.getElementById(hash);
+
+                    if (target) {
+
+                        target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }
+
+                }
+
+            }
+
+            searchResults.classList.remove("active");
+
+            searchInput.value = "";
+
+            clearSearch.style.display = "none";
+
+        });
+
+    });
 
     }
 
