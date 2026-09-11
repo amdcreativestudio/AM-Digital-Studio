@@ -1605,33 +1605,7 @@ results.forEach(item => {
 
 });
 
-        }
-
-        searchResults.classList.remove("active");
-
-        searchInput.value = "";
-
-        return;
-
-    }
-
-
-    // ------------------------------------
-    // OTHER RESULTS → NORMAL NAVIGATION
-    // ------------------------------------
-
-    searchResults.classList.remove("active");
-
-    searchInput.value = "";
-
-});
-
-
-
-
-    searchResults.appendChild(link);
-
-});
+  
 
 
         searchResults.classList.add("active");
