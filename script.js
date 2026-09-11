@@ -1490,7 +1490,7 @@ results.forEach(item => {
 
     link.className = "search-result";
 
-    link.href = item.url;
+    link.href = item.url || "#";
 
     if (item.external) {
         link.target = "_blank";
@@ -1498,64 +1498,49 @@ results.forEach(item => {
     }
 
     link.innerHTML = `
-
         <div class="search-result-icon">
-
-            <i class="${item.icon.includes("fab")
+            <i class="${item.icon && item.icon.includes("fab")
                 ? item.icon
-                : "fas " + item.icon}">
+                : "fas " + (item.icon || "fa-search")}">
             </i>
-
         </div>
 
         <div class="search-result-text">
-
             <span class="search-result-title">
                 ${item.title}
             </span>
 
             <span class="search-result-type">
-                ${item.type}
+                ${item.type || ""}
             </span>
-
         </div>
-
     `;
 
-
+    // ========================================
     // SPECIAL SEARCH RESULT ACTIONS
+    // ========================================
 
     link.addEventListener("click", (e) => {
 
-
         // EMAIL US → OPEN POPUP
-
         if (item.title === "Email Us") {
 
             e.preventDefault();
 
-            const popup =
-                document.getElementById("emailPopup");
+            const popup = document.getElementById("emailPopup");
 
             if (popup) {
-
                 popup.classList.add("active");
-
                 document.body.style.overflow = "hidden";
-
             }
 
             searchResults.classList.remove("active");
-
             searchInput.value = "";
 
             return;
-
         }
 
-
         // RATINGS AND REVIEWS → SCROLL
-
         if (item.title === "Ratings And Reviews") {
 
             e.preventDefault();
@@ -1564,56 +1549,28 @@ results.forEach(item => {
                 document.getElementById("reviews");
 
             if (reviewsSection) {
-
                 reviewsSection.scrollIntoView({
                     behavior: "smooth",
                     block: "start"
                 });
-
             }
 
             searchResults.classList.remove("active");
-
             searchInput.value = "";
 
             return;
-
         }
 
-
         // OTHER RESULTS → NORMAL NAVIGATION
-
         searchResults.classList.remove("active");
-
         searchInput.value = "";
 
     });
 
-
-    // Append result AFTER adding click handler
-
-    searchResults.appendChild(link);
-
-});
-            }
-
-            searchResults.classList.remove("active");
-
-            searchInput.value = "";
-
-            return;
-
-    
     // Append result AFTER adding click handler
     searchResults.appendChild(link);
 
 });
-
-  
-
-
-        searchResults.classList.add("active");
-    }
 
 
     /* ========================================
