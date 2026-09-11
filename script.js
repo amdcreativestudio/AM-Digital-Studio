@@ -1261,6 +1261,14 @@ document.addEventListener("DOMContentLoaded", () => {
         },
 
         {
+    title: "Ratings And Reviews",
+    keywords: "rating ratings review reviews trustpilot stars feedback customer reviews testimonials",
+    type: "Page",
+    url: "index.html#reviews",
+    icon: "fa-star"
+},
+
+        {
             title: "Contact Us",
             keywords: "contact contact us business inquiry",
             type: "Page",
