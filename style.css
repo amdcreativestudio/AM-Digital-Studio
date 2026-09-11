@@ -4251,3 +4251,27 @@ html[data-theme="dark"] .search-result-description {
     z-index: 10 !important;
     margin-bottom: 30px !important;
 }
+/* ========================================
+   EMAIL POPUP - FIX SEND BUTTON VISIBILITY
+======================================== */
+
+#emailPopup {
+    overflow-y: auto;
+}
+
+#emailPopup .email-popup-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#emailPopup form {
+    padding-bottom: 30px;
+}
+
+#emailPopup button[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+    z-index: 10;
+}
