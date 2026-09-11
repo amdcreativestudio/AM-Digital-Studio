@@ -1486,97 +1486,122 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        results.forEach(item => {
+    results.forEach(item => {
 
-            const link = document.createElement("a");
+    const link = document.createElement("a");
 
-            link.className = "search-result";
+    link.className = "search-result";
 
-            link.href = item.url;
+    link.href = item.url;
 
-            if (item.external) {
-                link.target = "_blank";
-                link.rel = "noopener noreferrer";
+    if (item.external) {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+    }
+
+    link.innerHTML = `
+
+        <div class="search-result-icon">
+
+            <i class="${item.icon.includes("fab")
+                ? item.icon
+                : "fas " + item.icon}">
+            </i>
+
+        </div>
+
+        <div class="search-result-text">
+
+            <span class="search-result-title">
+                ${item.title}
+            </span>
+
+            <span class="search-result-type">
+                ${item.type}
+            </span>
+
+        </div>
+
+    `;
+
+
+    // ========================================
+    // SPECIAL SEARCH RESULT ACTIONS
+    // ========================================
+
+    link.addEventListener("click", (e) => {
+
+        // ------------------------------------
+        // EMAIL US → OPEN POPUP
+        // ------------------------------------
+
+        if (item.title === "Email Us") {
+
+            e.preventDefault();
+
+            const popup =
+                document.getElementById("emailPopup");
+
+            if (popup) {
+
+                popup.classList.add("active");
+
+                document.body.style.overflow = "hidden";
+
             }
 
-            link.innerHTML = `
+            searchResults.classList.remove("active");
 
-                <div class="search-result-icon">
+            searchInput.value = "";
 
-                    <i class="${item.icon.includes("fab")
-                        ? item.icon
-                        : "fas " + item.icon}">
-                    </i>
-
-                </div>
-
-                <div class="search-result-text">
-
-                    <span class="search-result-title">
-                        ${item.title}
-                    </span>
-
-                    <span class="search-result-type">
-                        ${item.type}
-                    </span>
-
-                </div>
-
-            `;
-
-            searchResults.appendChild(link);
-// Handle special search results
-link.addEventListener("click", (e) => {
-
-    // Email Us → Open popup
-    if (item.title === "Email Us") {
-
-        e.preventDefault();
-
-        if (emailPopup) {
-
-            emailPopup.classList.add("active");
-
-            document.body.style.overflow = "hidden";
+            return;
 
         }
+
+
+        // ------------------------------------
+        // RATINGS AND REVIEWS → SCROLL
+        // ------------------------------------
+
+        if (item.title === "Ratings And Reviews") {
+
+            e.preventDefault();
+
+            const reviewsSection =
+                document.getElementById("reviews");
+
+            if (reviewsSection) {
+
+                reviewsSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+
+            searchResults.classList.remove("active");
+
+            searchInput.value = "";
+
+            return;
+
+        }
+
+
+        // ------------------------------------
+        // OTHER RESULTS → NORMAL NAVIGATION
+        // ------------------------------------
 
         searchResults.classList.remove("active");
 
         searchInput.value = "";
 
-        return;
+    });
 
-    }
 
-    // Ratings And Reviews → Scroll to reviews
-    if (item.title === "Ratings And Reviews") {
-
-        e.preventDefault();
-
-        const reviewsSection =
-            document.getElementById("reviews");
-
-        if (reviewsSection) {
-
-            reviewsSection.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-
-        searchResults.classList.remove("active");
-
-        searchInput.value = "";
-
-        return;
-
-    }
+    searchResults.appendChild(link);
 
 });
-            
-        });
 
 
         searchResults.classList.add("active");
