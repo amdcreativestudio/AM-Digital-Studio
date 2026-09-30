@@ -1,7 +1,7 @@
 /* =========================================================
    AMD DIGITAL STUDIO
    PROFESSIONAL CV BUILDER
-   CV.JS
+   CV.JS — COMPLETE VERSION
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,27 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const previewPhoto = document.getElementById("previewPhoto");
 
     const previewSummary = document.getElementById("previewSummary");
-
-    const previewExperience =
-        document.getElementById("previewExperience");
-
-    const previewEducation =
-        document.getElementById("previewEducation");
-
-    const previewSkills =
-        document.getElementById("previewSkills");
-
-    const previewProjects =
-        document.getElementById("previewProjects");
-
-    const previewCertificates =
-        document.getElementById("previewCertificates");
-
-    const previewLanguages =
-        document.getElementById("previewLanguages");
-
-    const previewAchievements =
-        document.getElementById("previewAchievements");
+    const previewExperience = document.getElementById("previewExperience");
+    const previewEducation = document.getElementById("previewEducation");
+    const previewSkills = document.getElementById("previewSkills");
+    const previewProjects = document.getElementById("previewProjects");
+    const previewCertificates = document.getElementById("previewCertificates");
+    const previewLanguages = document.getElementById("previewLanguages");
+    const previewAchievements = document.getElementById("previewAchievements");
 
     const previewSummarySection =
         document.getElementById("previewSummarySection");
@@ -122,44 +108,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       HELPER FUNCTIONS
+       SAFETY / HELPERS
     ====================================================== */
 
-    function escapeHTML(value) {
-
-        if (value === null || value === undefined) {
-            return "";
-        }
-
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-
-
     function clean(value) {
-
         return String(value || "").trim();
-
     }
 
 
     function hasValue(value) {
-
         return clean(value).length > 0;
-
-    }
-
-
-    function getInputs(selector) {
-
-        return Array.from(
-            document.querySelectorAll(selector)
-        );
-
     }
 
 
@@ -169,9 +127,23 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        section.style.display = visible
-            ? ""
-            : "none";
+        section.style.display = visible ? "" : "none";
+    }
+
+
+    function createElement(tag, className, text = "") {
+
+        const element = document.createElement(tag);
+
+        if (className) {
+            element.className = className;
+        }
+
+        if (text) {
+            element.textContent = text;
+        }
+
+        return element;
     }
 
 
@@ -181,40 +153,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updatePersonalInfo() {
 
-        const name =
-            clean(fullName.value);
+        const name = clean(fullName?.value);
+        const job = clean(jobTitle?.value);
+        const mail = clean(email?.value);
+        const mobile = clean(phone?.value);
+        const place = clean(location?.value);
 
-        const job =
-            clean(jobTitle.value);
+        if (previewName) {
+            previewName.textContent =
+                name || DEFAULT_NAME;
+        }
 
-        const mail =
-            clean(email.value);
+        if (previewJob) {
+            previewJob.textContent =
+                job || DEFAULT_JOB;
+        }
 
-        const mobile =
-            clean(phone.value);
+        if (previewEmail) {
+            previewEmail.textContent =
+                mail || DEFAULT_EMAIL;
+        }
 
-        const place =
-            clean(location.value);
+        if (previewPhone) {
+            previewPhone.textContent =
+                mobile || DEFAULT_PHONE;
+        }
 
-
-        previewName.textContent =
-            name || DEFAULT_NAME;
-
-        previewJob.textContent =
-            job || DEFAULT_JOB;
-
-        previewEmail.textContent =
-            mail || DEFAULT_EMAIL;
-
-        previewPhone.textContent =
-            mobile || DEFAULT_PHONE;
-
-        previewLocation.textContent =
-            place || DEFAULT_LOCATION;
-
+        if (previewLocation) {
+            previewLocation.textContent =
+                place || DEFAULT_LOCATION;
+        }
 
         updateContactLinks();
-
     }
 
 
@@ -231,38 +201,26 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         contactContainer.innerHTML = "";
 
 
         const contactItems = [
-            {
-                value: clean(email.value),
-                type: "email"
-            },
-            {
-                value: clean(phone.value),
-                type: "phone"
-            },
-            {
-                value: clean(location.value),
-                type: "location"
-            }
+            clean(email?.value),
+            clean(phone?.value),
+            clean(location?.value)
         ];
 
 
-        contactItems.forEach(item => {
+        contactItems.forEach(value => {
 
-            if (!item.value) {
+            if (!value) {
                 return;
             }
-
 
             const span =
                 document.createElement("span");
 
-            span.textContent =
-                item.value;
+            span.textContent = value;
 
             contactContainer.appendChild(span);
 
@@ -271,15 +229,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const socialLinks = [
             {
-                value: clean(linkedin.value),
+                value: clean(linkedin?.value),
                 label: "LinkedIn"
             },
             {
-                value: clean(github.value),
+                value: clean(github?.value),
                 label: "GitHub"
             },
             {
-                value: clean(portfolio.value),
+                value: clean(portfolio?.value),
                 label: "Portfolio"
             }
         ];
@@ -291,33 +249,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-
             const link =
                 document.createElement("a");
 
-            link.href =
-                item.value;
+            link.href = item.value;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
 
-            link.target =
-                "_blank";
+            link.textContent = item.label;
 
-            link.rel =
-                "noopener noreferrer";
-
-            link.textContent =
-                item.label;
-
-            link.style.color =
-                "#246bfe";
-
-            link.style.fontSize =
-                "0.68rem";
-
-            link.style.fontWeight =
-                "700";
-
-            link.style.textDecoration =
-                "none";
+            link.style.color = "#246bfe";
+            link.style.fontSize = "0.68rem";
+            link.style.fontWeight = "700";
+            link.style.textDecoration = "none";
 
             contactContainer.appendChild(link);
 
@@ -329,13 +273,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const span =
                 document.createElement("span");
 
-            span.textContent =
-                DEFAULT_EMAIL;
+            span.textContent = DEFAULT_EMAIL;
 
             contactContainer.appendChild(span);
-
         }
-
     }
 
 
@@ -346,31 +287,20 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateSummary() {
 
         const value =
-            clean(summary.value);
+            clean(summary?.value);
 
-
-        if (value) {
-
-            previewSummary.textContent =
-                value;
-
-            setSectionVisibility(
-                previewSummarySection,
-                true
-            );
-
-        } else {
-
-            previewSummary.textContent =
-                "Add a professional summary about yourself.";
-
-            setSectionVisibility(
-                previewSummarySection,
-                true
-            );
-
+        if (!previewSummary) {
+            return;
         }
 
+        previewSummary.textContent =
+            value ||
+            "Add a professional summary about yourself.";
+
+        setSectionVisibility(
+            previewSummarySection,
+            true
+        );
     }
 
 
@@ -378,50 +308,55 @@ document.addEventListener("DOMContentLoaded", () => {
        PROFILE PHOTO
     ====================================================== */
 
-    profilePhoto.addEventListener(
-        "change",
-        function () {
+    if (profilePhoto) {
 
-            const file =
-                this.files[0];
+        profilePhoto.addEventListener(
+            "change",
+            function () {
 
-            if (!file) {
-                return;
-            }
+                const file =
+                    this.files?.[0];
 
-
-            if (!file.type.startsWith("image/")) {
-
-                alert(
-                    "Please select a valid image file."
-                );
-
-                this.value = "";
-
-                return;
-            }
+                if (!file) {
+                    return;
+                }
 
 
-            const reader =
-                new FileReader();
+                if (!file.type.startsWith("image/")) {
+
+                    alert(
+                        "Please select a valid image file."
+                    );
+
+                    this.value = "";
+
+                    return;
+                }
 
 
-            reader.onload =
-                function (event) {
+                const reader =
+                    new FileReader();
+
+
+                reader.onload = function (event) {
+
+                    if (!previewPhoto) {
+                        return;
+                    }
 
                     previewPhoto.src =
                         event.target.result;
 
                     previewPhoto.style.display =
                         "block";
-
                 };
 
 
-            reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
 
-        }
-    );
+            }
+        );
+    }
 
 
     /* =====================================================
@@ -430,14 +365,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateEducation() {
 
+        if (!previewEducation) {
+            return;
+        }
+
         const items =
             document.querySelectorAll(
                 ".education-item"
             );
 
-
         previewEducation.innerHTML = "";
-
 
         let validCount = 0;
 
@@ -479,66 +416,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             const wrapper =
-                document.createElement("div");
-
-            wrapper.className =
-                "preview-item";
+                createElement(
+                    "div",
+                    "preview-item"
+                );
 
 
             const title =
-                document.createElement("div");
-
-            title.className =
-                "preview-item-title";
-
-            title.textContent =
-                qualification ||
-                "Qualification";
-
-
-            const subtitle =
-                document.createElement("div");
-
-            subtitle.className =
-                "preview-item-subtitle";
-
-            subtitle.textContent =
-                institution ||
-                "Institution";
-
-
-            const fieldText =
-                document.createElement("div");
-
-            fieldText.className =
-                "preview-item-description";
-
-            fieldText.textContent =
-                field;
-
-
-            const date =
-                document.createElement("div");
-
-            date.className =
-                "preview-item-date";
-
-            date.textContent =
-                year;
+                createElement(
+                    "div",
+                    "preview-item-title",
+                    qualification ||
+                    "Qualification"
+                );
 
 
             wrapper.appendChild(title);
 
+
             if (hasValue(institution)) {
-                wrapper.appendChild(subtitle);
+
+                wrapper.appendChild(
+                    createElement(
+                        "div",
+                        "preview-item-subtitle",
+                        institution
+                    )
+                );
             }
+
 
             if (hasValue(field)) {
-                wrapper.appendChild(fieldText);
+
+                wrapper.appendChild(
+                    createElement(
+                        "div",
+                        "preview-item-description",
+                        field
+                    )
+                );
             }
 
+
             if (hasValue(year)) {
-                wrapper.appendChild(date);
+
+                wrapper.appendChild(
+                    createElement(
+                        "div",
+                        "preview-item-date",
+                        year
+                    )
+                );
             }
 
 
@@ -555,7 +483,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 `<p class="empty-preview">
                     Add your educational qualifications.
                 </p>`;
-
         }
 
 
@@ -563,7 +490,6 @@ document.addEventListener("DOMContentLoaded", () => {
             previewEducationSection,
             validCount > 0
         );
-
     }
 
 
@@ -573,14 +499,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateExperience() {
 
+        if (!previewExperience) {
+            return;
+        }
+
         const items =
             document.querySelectorAll(
                 ".experience-item"
             );
 
-
         previewExperience.innerHTML = "";
-
 
         let validCount = 0;
 
@@ -622,82 +550,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             const wrapper =
-                document.createElement("div");
-
-            wrapper.className =
-                "preview-item";
-
-
-            const titleElement =
-                document.createElement("div");
-
-            titleElement.className =
-                "preview-item-title";
-
-            titleElement.textContent =
-                title ||
-                "Job Position";
-
-
-            const companyElement =
-                document.createElement("div");
-
-            companyElement.className =
-                "preview-item-subtitle";
-
-            companyElement.textContent =
-                company;
-
-
-            const dateElement =
-                document.createElement("div");
-
-            dateElement.className =
-                "preview-item-date";
-
-            dateElement.textContent =
-                duration;
-
-
-            const descriptionElement =
-                document.createElement("div");
-
-            descriptionElement.className =
-                "preview-item-description";
-
-            descriptionElement.textContent =
-                description;
+                createElement(
+                    "div",
+                    "preview-item"
+                );
 
 
             wrapper.appendChild(
-                titleElement
+                createElement(
+                    "div",
+                    "preview-item-title",
+                    title || "Job Position"
+                )
             );
 
 
             if (hasValue(company)) {
 
                 wrapper.appendChild(
-                    companyElement
+                    createElement(
+                        "div",
+                        "preview-item-subtitle",
+                        company
+                    )
                 );
-
             }
 
 
             if (hasValue(duration)) {
 
                 wrapper.appendChild(
-                    dateElement
+                    createElement(
+                        "div",
+                        "preview-item-date",
+                        duration
+                    )
                 );
-
             }
 
 
             if (hasValue(description)) {
 
                 wrapper.appendChild(
-                    descriptionElement
+                    createElement(
+                        "div",
+                        "preview-item-description",
+                        description
+                    )
                 );
-
             }
 
 
@@ -714,7 +614,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 `<p class="empty-preview">
                     Add your work experience.
                 </p>`;
-
         }
 
 
@@ -722,7 +621,6 @@ document.addEventListener("DOMContentLoaded", () => {
             previewExperienceSection,
             validCount > 0
         );
-
     }
 
 
@@ -732,19 +630,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateSkills() {
 
-        const value =
-            clean(skills.value);
+        if (!previewSkills) {
+            return;
+        }
 
+        const value =
+            clean(skills?.value);
 
         previewSkills.innerHTML = "";
 
 
         if (!value) {
-
-            previewSkills.innerHTML =
-                `<span>
-                    Add your skills
-                </span>`;
 
             setSectionVisibility(
                 previewSkillsSection,
@@ -767,12 +663,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const span =
                 document.createElement("span");
 
-            span.textContent =
-                skill;
+            span.textContent = skill;
 
-            previewSkills.appendChild(
-                span
-            );
+            previewSkills.appendChild(span);
 
         });
 
@@ -781,7 +674,6 @@ document.addEventListener("DOMContentLoaded", () => {
             previewSkillsSection,
             skillArray.length > 0
         );
-
     }
 
 
@@ -791,14 +683,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateProjects() {
 
+        if (!previewProjects) {
+            return;
+        }
+
         const items =
             document.querySelectorAll(
                 ".project-item"
             );
 
-
         previewProjects.innerHTML = "";
-
 
         let validCount = 0;
 
@@ -834,24 +728,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             const wrapper =
-                document.createElement("div");
-
-            wrapper.className =
-                "preview-item";
-
-
-            const title =
-                document.createElement("div");
-
-            title.className =
-                "preview-item-title";
-
-            title.textContent =
-                name ||
-                "Project";
+                createElement(
+                    "div",
+                    "preview-item"
+                );
 
 
-            wrapper.appendChild(title);
+            wrapper.appendChild(
+                createElement(
+                    "div",
+                    "preview-item-title",
+                    name || "Project"
+                )
+            );
 
 
             if (hasValue(link)) {
@@ -859,17 +748,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const projectLink =
                     document.createElement("a");
 
-                projectLink.href =
-                    link;
-
-                projectLink.target =
-                    "_blank";
-
+                projectLink.href = link;
+                projectLink.target = "_blank";
                 projectLink.rel =
                     "noopener noreferrer";
 
-                projectLink.textContent =
-                    link;
+                projectLink.textContent = link;
 
                 projectLink.style.color =
                     "#246bfe";
@@ -883,25 +767,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 wrapper.appendChild(
                     projectLink
                 );
-
             }
 
 
             if (hasValue(description)) {
 
-                const desc =
-                    document.createElement("div");
-
-                desc.className =
-                    "preview-item-description";
-
-                desc.textContent =
-                    description;
-
                 wrapper.appendChild(
-                    desc
+                    createElement(
+                        "div",
+                        "preview-item-description",
+                        description
+                    )
                 );
-
             }
 
 
@@ -918,7 +795,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 `<p class="empty-preview">
                     Add your projects.
                 </p>`;
-
         }
 
 
@@ -926,31 +802,28 @@ document.addEventListener("DOMContentLoaded", () => {
             previewProjectsSection,
             validCount > 0
         );
-
     }
 
 
     /* =====================================================
-       SIMPLE SECTIONS
+       CERTIFICATES / LANGUAGES / ACHIEVEMENTS
     ====================================================== */
 
     function updateSimpleSections() {
 
         const certificateValue =
-            clean(certificates.value);
+            clean(certificates?.value);
 
         const languageValue =
-            clean(languages.value);
+            clean(languages?.value);
 
         const achievementValue =
-            clean(achievements.value);
+            clean(achievements?.value);
 
 
-        if (certificateValue) {
-
+        if (previewCertificates) {
             previewCertificates.textContent =
                 certificateValue;
-
         }
 
         setSectionVisibility(
@@ -959,11 +832,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        if (languageValue) {
-
+        if (previewLanguages) {
             previewLanguages.textContent =
                 languageValue;
-
         }
 
         setSectionVisibility(
@@ -972,18 +843,15 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        if (achievementValue) {
-
+        if (previewAchievements) {
             previewAchievements.textContent =
                 achievementValue;
-
         }
 
         setSectionVisibility(
             previewAchievementsSection,
             hasValue(achievementValue)
         );
-
     }
 
 
@@ -1007,6 +875,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateSimpleSections();
 
+        prepareJobSpecificCV();
     }
 
 
@@ -1014,224 +883,210 @@ document.addEventListener("DOMContentLoaded", () => {
        ADD EDUCATION
     ====================================================== */
 
-    addEducation.addEventListener(
-        "click",
-        () => {
+    if (addEducation && educationContainer) {
 
-            const item =
-                document.createElement("div");
+        addEducation.addEventListener(
+            "click",
+            () => {
 
-            item.className =
-                "dynamic-item education-item";
+                const item =
+                    document.createElement("div");
 
-
-            item.innerHTML = `
-
-                <div class="form-grid">
-
-                    <div class="form-group">
-
-                        <label>
-                            Institution
-                        </label>
-
-                        <input
-                            type="text"
-                            name="educationInstitution[]"
-                            placeholder="School / University">
-
-                    </div>
+                item.className =
+                    "dynamic-item education-item";
 
 
-                    <div class="form-group">
+                item.innerHTML = `
+                    <div class="form-grid">
 
-                        <label>
-                            Qualification
-                        </label>
+                        <div class="form-group">
+                            <label>Institution</label>
 
-                        <input
-                            type="text"
-                            name="educationQualification[]"
-                            placeholder="e.g. BSc in Computer Science">
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Field / Specialization
-                        </label>
-
-                        <input
-                            type="text"
-                            name="educationField[]"
-                            placeholder="e.g. Software Engineering">
-
-                    </div>
+                            <input
+                                type="text"
+                                name="educationInstitution[]"
+                                placeholder="School / University">
+                        </div>
 
 
-                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Qualification</label>
 
-                        <label>
-                            Year
-                        </label>
+                            <input
+                                type="text"
+                                name="educationQualification[]"
+                                placeholder="e.g. BSc in Computer Science">
+                        </div>
 
-                        <input
-                            type="text"
-                            name="educationYear[]"
-                            placeholder="2023 - 2026">
+
+                        <div class="form-group">
+                            <label>Field / Specialization</label>
+
+                            <input
+                                type="text"
+                                name="educationField[]"
+                                placeholder="e.g. Software Engineering">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Year</label>
+
+                            <input
+                                type="text"
+                                name="educationYear[]"
+                                placeholder="2023 - 2026">
+                        </div>
 
                     </div>
 
-                </div>
 
-                <button
-                    type="button"
-                    class="remove-item">
-                    Remove
-                </button>
-
-            `;
+                    <button
+                        type="button"
+                        class="remove-item">
+                        Remove
+                    </button>
+                `;
 
 
-            educationContainer.appendChild(
-                item
-            );
+                educationContainer.appendChild(item);
 
+                attachDynamicListeners();
 
-            attachDynamicListeners();
-
-        }
-    );
+                updateCV();
+            }
+        );
+    }
 
 
     /* =====================================================
        ADD EXPERIENCE
     ====================================================== */
 
-    addExperience.addEventListener(
-        "click",
-        () => {
+    if (addExperience && experienceContainer) {
 
-            const item =
-                document.createElement("div");
+        addExperience.addEventListener(
+            "click",
+            () => {
 
-            item.className =
-                "dynamic-item experience-item";
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "dynamic-item experience-item";
 
 
-            item.innerHTML = `
+                item.innerHTML = `
+                    <div class="form-grid">
 
-                <div class="form-grid">
+                        <div class="form-group">
+                            <label>Job Title</label>
+
+                            <input
+                                type="text"
+                                name="experienceTitle[]"
+                                placeholder="e.g. Graphic Designer">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Company</label>
+
+                            <input
+                                type="text"
+                                name="experienceCompany[]"
+                                placeholder="Company Name">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Duration</label>
+
+                            <input
+                                type="text"
+                                name="experienceDuration[]"
+                                placeholder="2024 - 2026">
+                        </div>
+
+                    </div>
+
 
                     <div class="form-group">
 
-                        <label>
-                            Job Title
-                        </label>
+                        <label>Description</label>
 
-                        <input
-                            type="text"
-                            name="experienceTitle[]"
-                            placeholder="e.g. Graphic Designer">
+                        <textarea
+                            name="experienceDescription[]"
+                            rows="4"
+                            placeholder="Describe your responsibilities and achievements..."></textarea>
 
                     </div>
 
 
-                    <div class="form-group">
-
-                        <label>
-                            Company
-                        </label>
-
-                        <input
-                            type="text"
-                            name="experienceCompany[]"
-                            placeholder="Company Name">
-
-                    </div>
+                    <button
+                        type="button"
+                        class="remove-item">
+                        Remove
+                    </button>
+                `;
 
 
-                    <div class="form-group">
+                experienceContainer.appendChild(item);
 
-                        <label>
-                            Duration
-                        </label>
+                attachDynamicListeners();
 
-                        <input
-                            type="text"
-                            name="experienceDuration[]"
-                            placeholder="2024 - Present">
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Responsibilities
-                    </label>
-
-                    <textarea
-                        name="experienceDescription[]"
-                        rows="4"
-                        placeholder="Describe your responsibilities and achievements..."></textarea>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="remove-item">
-                    Remove
-                </button>
-
-            `;
-
-
-            experienceContainer.appendChild(
-                item
-            );
-
-
-            attachDynamicListeners();
-
-        }
-    );
+                updateCV();
+            }
+        );
+    }
 
 
     /* =====================================================
        ADD PROJECT
     ====================================================== */
 
-    addProject.addEventListener(
-        "click",
-        () => {
+    if (addProject && projectsContainer) {
 
-            const item =
-                document.createElement("div");
+        addProject.addEventListener(
+            "click",
+            () => {
 
-            item.className =
-                "dynamic-item project-item";
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "dynamic-item project-item";
 
 
-            item.innerHTML = `
+                item.innerHTML = `
+                    <div class="form-grid">
 
-                <div class="form-grid">
+                        <div class="form-group">
 
-                    <div class="form-group">
+                            <label>
+                                Project Name
+                            </label>
 
-                        <label>
-                            Project Name
-                        </label>
+                            <input
+                                type="text"
+                                name="projectName[]"
+                                placeholder="Project Name">
 
-                        <input
-                            type="text"
-                            name="projectName[]"
-                            placeholder="Project Name">
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Project Link
+                            </label>
+
+                            <input
+                                type="url"
+                                name="projectLink[]"
+                                placeholder="https://...">
+
+                        </div>
 
                     </div>
 
@@ -1239,51 +1094,33 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="form-group">
 
                         <label>
-                            Project Link
+                            Project Description
                         </label>
 
-                        <input
-                            type="url"
-                            name="projectLink[]"
-                            placeholder="https://...">
+                        <textarea
+                            name="projectDescription[]"
+                            rows="3"
+                            placeholder="Describe your project..."></textarea>
 
                     </div>
 
-                </div>
+
+                    <button
+                        type="button"
+                        class="remove-item">
+                        Remove
+                    </button>
+                `;
 
 
-                <div class="form-group">
+                projectsContainer.appendChild(item);
 
-                    <label>
-                        Project Description
-                    </label>
+                attachDynamicListeners();
 
-                    <textarea
-                        name="projectDescription[]"
-                        rows="3"
-                        placeholder="Describe your project..."></textarea>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="remove-item">
-                    Remove
-                </button>
-
-            `;
-
-
-            projectsContainer.appendChild(
-                item
-            );
-
-
-            attachDynamicListeners();
-
-        }
-    );
+                updateCV();
+            }
+        );
+    }
 
 
     /* =====================================================
@@ -1299,7 +1136,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .forEach(input => {
 
                 if (
-                    input.dataset.listenerAttached
+                    input.dataset.listenerAttached ===
+                    "true"
                 ) {
                     return;
                 }
@@ -1324,7 +1162,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .forEach(button => {
 
                 if (
-                    button.dataset.listenerAttached
+                    button.dataset.listenerAttached ===
+                    "true"
                 ) {
                     return;
                 }
@@ -1338,17 +1177,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     "click",
                     () => {
 
-                        button
-                            .closest(".dynamic-item")
-                            ?.remove();
+                        const item =
+                            button.closest(
+                                ".dynamic-item"
+                            );
+
+                        if (item) {
+                            item.remove();
+                        }
 
                         updateCV();
-
                     }
                 );
 
             });
-
     }
 
 
@@ -1374,162 +1216,196 @@ document.addEventListener("DOMContentLoaded", () => {
        FORM SUBMIT
     ====================================================== */
 
-    form.addEventListener(
-        "submit",
-        event => {
+    if (form) {
 
-            event.preventDefault();
+        form.addEventListener(
+            "submit",
+            event => {
 
+                event.preventDefault();
 
-            updateCV();
-
-
-            cvPreview.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+                updateCV();
 
 
-            const button =
-                document.getElementById(
-                    "generateCV"
-                );
+                if (cvPreview) {
+
+                    cvPreview.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
 
 
-            const originalText =
-                button.innerHTML;
+                const button =
+                    document.getElementById(
+                        "generateCV"
+                    );
 
 
-            button.innerHTML =
-                "✓ CV Generated";
+                if (!button) {
+                    return;
+                }
 
 
-            setTimeout(() => {
+                const originalText =
+                    button.innerHTML;
+
 
                 button.innerHTML =
-                    originalText;
+                    "✓ CV Generated";
 
-            }, 1800);
 
-        }
-    );
+                setTimeout(() => {
+
+                    button.innerHTML =
+                        originalText;
+
+                }, 1800);
+
+            }
+        );
+    }
 
 
     /* =====================================================
        PDF DOWNLOAD
     ====================================================== */
 
-    downloadPDF.addEventListener(
-        "click",
-        async () => {
+    if (downloadPDF) {
 
-            updateCV();
+        downloadPDF.addEventListener(
+            "click",
+            async () => {
 
-
-            const name =
-                clean(fullName.value) ||
-                "Professional-CV";
+                updateCV();
 
 
-            const originalText =
-                downloadPDF.textContent;
+                if (
+                    typeof html2pdf !==
+                    "function"
+                ) {
 
+                    alert(
+                        "PDF generator could not be loaded. Please check your internet connection and try again."
+                    );
 
-            downloadPDF.textContent =
-                "⏳ Generating PDF...";
-
-
-            downloadPDF.disabled =
-                true;
-
-
-            cvPreview.classList.add(
-                "pdf-mode"
-            );
-
-
-            const options = {
-
-                margin: 0,
-
-                filename:
-                    `${name.replace(
-                        /[^a-z0-9]/gi,
-                        "_"
-                    )}_CV.pdf`,
-
-                image: {
-                    type: "jpeg",
-                    quality: 0.98
-                },
-
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    backgroundColor: "#ffffff"
-                },
-
-                jsPDF: {
-                    unit: "mm",
-                    format: "a4",
-                    orientation: "portrait"
-                },
-
-                pagebreak: {
-                    mode: [
-                        "css",
-                        "legacy"
-                    ]
+                    return;
                 }
 
-            };
+
+                const name =
+                    clean(fullName?.value) ||
+                    "Professional-CV";
 
 
-            try {
-
-                await html2pdf()
-                    .set(options)
-                    .from(cvPreview)
-                    .save();
-
-            } catch (error) {
-
-                console.error(
-                    "PDF generation error:",
-                    error
-                );
+                const originalText =
+                    downloadPDF.textContent;
 
 
-                alert(
-                    "Sorry, the PDF could not be generated. Please try again."
-                );
+                downloadPDF.textContent =
+                    "⏳ Generating PDF...";
+
+
+                downloadPDF.disabled =
+                    true;
+
+
+                if (cvPreview) {
+
+                    cvPreview.classList.add(
+                        "pdf-mode"
+                    );
+                }
+
+
+                const options = {
+
+                    margin: 0,
+
+                    filename:
+                        `${name.replace(
+                            /[^a-z0-9]/gi,
+                            "_"
+                        )}_CV.pdf`,
+
+                    image: {
+                        type: "jpeg",
+                        quality: 0.98
+                    },
+
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor:
+                            "#ffffff"
+                    },
+
+                    jsPDF: {
+                        unit: "mm",
+                        format: "a4",
+                        orientation:
+                            "portrait"
+                    },
+
+                    pagebreak: {
+                        mode: [
+                            "css",
+                            "legacy"
+                        ]
+                    }
+                };
+
+
+                try {
+
+                    await html2pdf()
+                        .set(options)
+                        .from(cvPreview)
+                        .save();
+
+                } catch (error) {
+
+                    console.error(
+                        "PDF generation error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Sorry, the PDF could not be generated. Please try again."
+                    );
+
+                } finally {
+
+                    if (cvPreview) {
+
+                        cvPreview.classList.remove(
+                            "pdf-mode"
+                        );
+                    }
+
+
+                    downloadPDF.textContent =
+                        originalText;
+
+
+                    downloadPDF.disabled =
+                        false;
+                }
 
             }
-
-
-            cvPreview.classList.remove(
-                "pdf-mode"
-            );
-
-
-            downloadPDF.textContent =
-                originalText;
-
-            downloadPDF.disabled =
-                false;
-
-        }
-    );
+        );
+    }
 
 
     /* =====================================================
-       JOB-SPECIFIC CV PREPARATION
+       JOB CATEGORY DETECTION
     ====================================================== */
 
     function detectJobCategory() {
 
         const job =
-            clean(jobTitle.value)
+            clean(jobTitle?.value)
                 .toLowerCase();
 
 
@@ -1538,83 +1414,106 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
+        /* TECHNOLOGY */
+
         if (
             job.includes("developer") ||
             job.includes("software") ||
             job.includes("programmer") ||
             job.includes("web") ||
             job.includes("engineer") ||
-            job.includes("it")
+            job.includes("technology") ||
+            job.includes("technician") ||
+            job.includes("it ") ||
+            job === "it"
         ) {
 
             return "technology";
-
         }
 
+
+        /* DESIGN */
 
         if (
             job.includes("designer") ||
             job.includes("graphic") ||
             job.includes("creative") ||
             job.includes("ui") ||
-            job.includes("ux")
+            job.includes("ux") ||
+            job.includes("video editor") ||
+            job.includes("editor")
         ) {
 
             return "design";
-
         }
 
+
+        /* FINANCE */
 
         if (
             job.includes("account") ||
             job.includes("finance") ||
-            job.includes("bank")
+            job.includes("bank") ||
+            job.includes("auditor")
         ) {
 
             return "finance";
-
         }
 
+
+        /* EDUCATION */
 
         if (
             job.includes("teacher") ||
             job.includes("lecturer") ||
-            job.includes("education")
+            job.includes("education") ||
+            job.includes("tutor")
         ) {
 
             return "education";
-
         }
 
+
+        /* MARKETING */
 
         if (
             job.includes("marketing") ||
             job.includes("sales") ||
-            job.includes("social media")
+            job.includes("social media") ||
+            job.includes("seo")
         ) {
 
             return "marketing";
-
         }
 
+
+        /* MANAGEMENT */
 
         if (
             job.includes("manager") ||
             job.includes("management") ||
-            job.includes("administrator")
+            job.includes("administrator") ||
+            job.includes("supervisor")
         ) {
 
             return "management";
-
         }
 
 
         return "general";
-
     }
 
 
+    /* =====================================================
+       JOB-SPECIFIC CV PREPARATION
+    ====================================================== */
+
     function prepareJobSpecificCV() {
+
+        if (!cvPreview) {
+            return;
+        }
+
 
         const category =
             detectJobCategory();
@@ -1622,11 +1521,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         cvPreview.dataset.jobCategory =
             category;
+    }
 
 
-        /*
-         * This system does NOT invent
-         * qualifications or experience.
-         *
-         * It only stores the target job
-         * category so
+    /* =====================================================
+       INITIALIZATION
+    ====================================================== */
+
+    attachDynamicListeners();
+
+    updateCV();
+
+    console.log(
+        "AMD Professional CV Builder loaded successfully."
+    );
+
+});
