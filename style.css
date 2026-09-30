@@ -4275,3 +4275,175 @@ html[data-theme="dark"] .search-result-description {
     position: relative;
     z-index: 10;
 }
+/* =========================================
+   SERVICE BUY NOW BUTTON
+========================================= */
+
+.service-buy-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: 28px;
+
+    padding: 14px 22px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #1677ff,
+        #00bfff,
+        #7b61ff
+    );
+
+    color: #ffffff;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    letter-spacing: .3px;
+
+    box-shadow:
+        0 8px 22px rgba(22,119,255,.22);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        filter .3s ease;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+/* Shine Effect */
+
+.service-buy-btn::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 80%;
+
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.45),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    transition: left .6s ease;
+
+}
+
+
+/* Arrow */
+
+.service-buy-btn span {
+
+    font-size: 1.2rem;
+
+    transition:
+        transform .3s ease;
+
+}
+
+
+/* Hover */
+
+.service-buy-btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 30px rgba(22,119,255,.35);
+
+    filter: brightness(1.08);
+
+    color: #ffffff;
+
+}
+
+
+.service-buy-btn:hover::before {
+
+    left: 130%;
+
+}
+
+
+.service-buy-btn:hover span {
+
+    transform: translateX(5px);
+
+}
+
+
+/* Active */
+
+.service-buy-btn:active {
+
+    transform: translateY(0) scale(.98);
+
+}
+
+
+/* =========================================
+   SERVICE CARD - BUTTON SPACING
+========================================= */
+
+.service-card {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.service-card p {
+
+    flex-grow: 1;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width:768px) {
+
+    .service-buy-btn {
+
+        padding: 13px 20px;
+
+        margin-top: 24px;
+
+        font-size: .95rem;
+
+    }
+
+}
