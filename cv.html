@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Create a professional CV with AMD Digital Studio's Professional CV Builder.">
+
+    <title>Professional CV Builder | AMD Digital Studio</title>
+
+    <!-- CV CSS -->
+    <link rel="stylesheet" href="cv.css">
+
+    <!-- PDF Generator -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+    </script>
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         PAGE HEADER
+    ========================================== -->
+
+    <header class="cv-header">
+
+        <div class="cv-header-inner">
+
+            <a href="index.html" class="cv-logo">
+                AMD Digital Studio
+            </a>
+
+            <a href="index.html" class="back-home">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN CV BUILDER
+    ========================================== -->
+
+    <main class="cv-builder">
+
+        <!-- =====================================
+             INTRO
+        ====================================== -->
+
+        <section class="cv-intro">
+
+            <span class="intro-badge">
+                PROFESSIONAL CV BUILDER
+            </span>
+
+            <h1>
+                Create Your Professional CV
+            </h1>
+
+            <p>
+                Enter your information below and build a
+                professional CV ready for your next job opportunity.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================
+             BUILDER LAYOUT
+        ====================================== -->
+
+        <div class="builder-container">
+
+
+            <!-- =================================
+                 LEFT SIDE — FORM
+            ================================== -->
+
+            <section class="cv-form-section">
+
+                <form id="cvForm">
+
+
+                    <!-- =============================
+                         01 PERSONAL INFORMATION
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                01
+                            </span>
+
+                            <div>
+                                <h2>Personal Information</h2>
+                                <p>
+                                    Tell us about yourself
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="fullName">
+                                    Full Name *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="e.g. John Smith"
+                                    required>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="jobTitle">
+                                    Target Job Title *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="jobTitle"
+                                    name="jobTitle"
+                                    placeholder="e.g. Web Developer"
+                                    required>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="email">
+                                    Email *
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="your@email.com"
+                                    required>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="phone">
+                                    Phone Number *
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="+94 XX XXX XXXX"
+                                    required>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="location">
+                                    Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="location"
+                                    name="location"
+                                    placeholder="City, Country">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="linkedin">
+                                    LinkedIn
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="linkedin"
+                                    name="linkedin"
+                                    placeholder="https://linkedin.com/in/yourname">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="github">
+                                    GitHub
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="github"
+                                    name="github"
+                                    placeholder="https://github.com/username">
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="portfolio">
+                                    Portfolio Website
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="portfolio"
+                                    name="portfolio"
+                                    placeholder="https://yourwebsite.com">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PROFILE PHOTO -->
+
+                        <div class="photo-upload">
+
+                            <label>
+                                Profile Photo
+                            </label>
+
+                            <div class="photo-upload-box">
+
+                                <input
+                                    type="file"
+                                    id="profilePhoto"
+                                    name="profilePhoto"
+                                    accept="image/*">
+
+                                <span>
+                                    Upload your professional photo
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         02 PROFESSIONAL SUMMARY
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                02
+                            </span>
+
+                            <div>
+                                <h2>Professional Summary</h2>
+                                <p>
+                                    Briefly introduce yourself
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="summary">
+                                About You
+                            </label>
+
+                            <textarea
+                                id="summary"
+                                name="summary"
+                                rows="5"
+                                placeholder="Write a short description about yourself, your experience, strengths and career goals..."></textarea>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         03 EDUCATION
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                03
+                            </span>
+
+                            <div>
+                                <h2>Education</h2>
+                                <p>
+                                    Add your educational qualifications
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div id="educationContainer">
+
+                            <div class="dynamic-item education-item">
+
+                                <div class="form-grid">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Institution
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="educationInstitution[]"
+                                            placeholder="School / University">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Qualification
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="educationQualification[]"
+                                            placeholder="e.g. BSc in Computer Science">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Field / Specialization
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="educationField[]"
+                                            placeholder="e.g. Software Engineering">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Year
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="educationYear[]"
+                                            placeholder="2023 - 2026">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="add-btn"
+                            id="addEducation">
+
+                            + Add Education
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         04 WORK EXPERIENCE
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                04
+                            </span>
+
+                            <div>
+                                <h2>Work Experience</h2>
+                                <p>
+                                    Add your professional experience
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div id="experienceContainer">
+
+                            <div class="dynamic-item experience-item">
+
+                                <div class="form-grid">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Job Title
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="experienceTitle[]"
+                                            placeholder="e.g. Graphic Designer">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Company
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="experienceCompany[]"
+                                            placeholder="Company Name">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Duration
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="experienceDuration[]"
+                                            placeholder="2024 - Present">
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Responsibilities
+                                    </label>
+
+                                    <textarea
+                                        name="experienceDescription[]"
+                                        rows="4"
+                                        placeholder="Describe your responsibilities and achievements..."></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="add-btn"
+                            id="addExperience">
+
+                            + Add Experience
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         05 SKILLS
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                05
+                            </span>
+
+                            <div>
+                                <h2>Skills</h2>
+                                <p>
+                                    Add your professional skills
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="skills">
+                                Skills *
+                            </label>
+
+                            <textarea
+                                id="skills"
+                                name="skills"
+                                rows="4"
+                                placeholder="HTML, CSS, JavaScript, Photoshop, Video Editing..."></textarea>
+
+                            <small>
+                                Separate skills using commas.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         06 PROJECTS
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                06
+                            </span>
+
+                            <div>
+                                <h2>Projects</h2>
+                                <p>
+                                    Showcase your best projects
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div id="projectsContainer">
+
+                            <div class="dynamic-item project-item">
+
+                                <div class="form-grid">
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Project Name
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="projectName[]"
+                                            placeholder="Project Name">
+
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label>
+                                            Project Link
+                                        </label>
+
+                                        <input
+                                            type="url"
+                                            name="projectLink[]"
+                                            placeholder="https://...">
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Project Description
+                                    </label>
+
+                                    <textarea
+                                        name="projectDescription[]"
+                                        rows="3"
+                                        placeholder="Describe your project..."></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="add-btn"
+                            id="addProject">
+
+                            + Add Project
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         07 CERTIFICATES
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                07
+                            </span>
+
+                            <div>
+                                <h2>Certificates</h2>
+                                <p>
+                                    Add your certifications
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="certificates">
+                                Certificates
+                            </label>
+
+                            <textarea
+                                id="certificates"
+                                name="certificates"
+                                rows="4"
+                                placeholder="Certificate name — Institution — Year"></textarea>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         08 LANGUAGES
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                08
+                            </span>
+
+                            <div>
+                                <h2>Languages</h2>
+                                <p>
+                                    Add the languages you know
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="languages">
+                                Languages
+                            </label>
+
+                            <input
+                                type="text"
+                                id="languages"
+                                name="languages"
+                                placeholder="English, Sinhala, Tamil">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         09 ACHIEVEMENTS
+                    ============================== -->
+
+                    <div class="form-card">
+
+                        <div class="form-card-title">
+
+                            <span class="step-number">
+                                09
+                            </span>
+
+                            <div>
+                                <h2>Achievements</h2>
+                                <p>
+                                    Add awards and achievements
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="achievements">
+                                Achievements
+                            </label>
+
+                            <textarea
+                                id="achievements"
+                                name="achievements"
+                                rows="4"
+                                placeholder="Awards, competitions, achievements..."></textarea>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =============================
+                         GENERATE BUTTON
+                    ============================== -->
+
+                    <div class="generate-area">
+
+                        <button
+                            type="submit"
+                            id="generateCV"
+                            class="generate-btn">
+
+                            <span>
+                                Generate Professional CV
+                            </span>
+
+                            <span class="generate-arrow">
+                                →
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </section>
+
+
+
+            <!-- =================================
+                 RIGHT SIDE — LIVE PREVIEW
+            ================================== -->
+
+            <aside class="cv-preview-section">
+
+                <div class="preview-header">
+
+                    <div>
+
+                        <span>
+                            LIVE PREVIEW
+                        </span>
+
+                        <h2>
+                            Your CV
+                        </h2>
+
+                    </div>
+
+                    <span class="preview-status">
+                        ● Live
+                    </span>
+
+                </div>
+
+
+                <!-- =================================
+                     CV DOCUMENT
+                ================================== -->
+
+                <div
+                    id="cvPreview"
+                    class="cv-document">
+
+
+                    <!-- CV HEADER -->
+
+                    <div class="cv-document-header">
+
+                        <div class="cv-profile-photo">
+
+                            <img
+                                id="previewPhoto"
+                                src=""
+                                alt="Profile Photo">
+
+                        </div>
+
+
+                        <div class="cv-name-area">
+
+                            <h1 id="previewName">
+                                Your Name
+                            </h1>
+
+                            <h2 id="previewJob">
+                                Your Target Job
+                            </h2>
+
+                            <div class="cv-contact">
+
+                                <span id="previewEmail">
+                                    email@example.com
+                                </span>
+
+                                <span id="previewPhone">
+                                    +94 XX XXX XXXX
+                                </span>
+
+                                <span id="previewLocation">
+                                    Your Location
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CV BODY -->
+
+                    <div class="cv-document-body">
+
+
+                        <!-- SUMMARY -->
+
+                        <section
+                            class="cv-section"
+                            id="previewSummarySection">
+
+                            <h3>
+                                PROFILE
+                            </h3>
+
+                            <p id="previewSummary">
+                                Your professional summary will
+                                appear here.
+                            </p>
+
+                        </section>
+
+
+                        <!-- EXPERIENCE -->
+
+                        <section
+                            class="cv-section"
+                            id="previewExperienceSection">
+
+                            <h3>
+                                EXPERIENCE
+                            </h3>
+
+                            <div id="previewExperience">
+
+                                <p class="empty-preview">
+                                    Your work experience will
+                                    appear here.
+                                </p>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- EDUCATION -->
+
+                        <section
+                            class="cv-section"
+                            id="previewEducationSection">
+
+                            <h3>
+                                EDUCATION
+                            </h3>
+
+                            <div id="previewEducation">
+
+                                <p class="empty-preview">
+                                    Your education will
+                                    appear here.
+                                </p>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- SKILLS -->
+
+                        <section
+                            class="cv-section"
+                            id="previewSkillsSection">
+
+                            <h3>
+                                SKILLS
+                            </h3>
+
+                            <div
+                                id="previewSkills"
+                                class="skills-list">
+
+                                <span>
+                                    Your skills
+                                </span>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- PROJECTS -->
+
+                        <section
+                            class="cv-section"
+                            id="previewProjectsSection">
+
+                            <h3>
+                                PROJECTS
+                            </h3>
+
+                            <div id="previewProjects">
+
+                                <p class="empty-preview">
+                                    Your projects will
+                                    appear here.
+                                </p>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- CERTIFICATES -->
+
+                        <section
+                            class="cv-section"
+                            id="previewCertificatesSection">
+
+                            <h3>
+                                CERTIFICATIONS
+                            </h3>
+
+                            <p id="previewCertificates">
+                                Your certificates will
+                                appear here.
+                            </p>
+
+                        </section>
+
+
+                        <!-- ACHIEVEMENTS -->
+
+                        <section
+                            class="cv-section"
+                            id="previewAchievementsSection">
+
+                            <h3>
+                                ACHIEVEMENTS
+                            </h3>
+
+                            <p id="previewAchievements">
+                                Your achievements will
+                                appear here.
+                            </p>
+
+                        </section>
+
+
+                        <!-- LANGUAGES -->
+
+                        <section
+                            class="cv-section"
+                            id="previewLanguagesSection">
+
+                            <h3>
+                                LANGUAGES
+                            </h3>
+
+                            <p id="previewLanguages">
+                                Your languages will
+                                appear here.
+                            </p>
+
+                        </section>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     DOWNLOAD BUTTON
+                ================================== -->
+
+                <div class="download-area">
+
+                    <button
+                        type="button"
+                        id="downloadPDF"
+                        class="download-btn">
+
+                        📄 Download CV as PDF
+
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="cv-footer">
+
+        <p>
+            © 2026 AMD Digital Studio.
+            Professional CV Builder.
+        </p>
+
+    </footer>
+
+
+    <!-- CV JavaScript -->
+
+    <script src="cv.js"></script>
+
+</body>
+
+</html>
