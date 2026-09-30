@@ -1,14 +1,8 @@
-/* =========================================================
-   AMD DIGITAL STUDIO
-   PROFESSIONAL CV BUILDER
-   CV.JS — A4 PDF VERSION
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
-       FORM ELEMENTS
-    ====================================================== */
+       ELEMENTS
+    ===================================================== */
 
     const cvForm = document.getElementById("cvForm");
 
@@ -24,64 +18,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const summary = document.getElementById("summary");
     const skills = document.getElementById("skills");
+    const certificates = document.getElementById("certificates");
+    const languages = document.getElementById("languages");
+    const achievements = document.getElementById("achievements");
+    const profilePhoto = document.getElementById("profilePhoto");
 
-    const certificates =
-        document.getElementById("certificates");
+    const cvPreview = document.getElementById("cvPreview");
 
-    const languages =
-        document.getElementById("languages");
-
-    const achievements =
-        document.getElementById("achievements");
-
-    const profilePhoto =
-        document.getElementById("profilePhoto");
-
-
-    /* =====================================================
-       PREVIEW ELEMENTS
-    ====================================================== */
-
-    const cvPreview =
-        document.getElementById("cvPreview");
-
-    const previewPhoto =
-        document.getElementById("previewPhoto");
-
-    const previewName =
-        document.getElementById("previewName");
-
-    const previewJob =
-        document.getElementById("previewJob");
-
-    const previewSummary =
-        document.getElementById("previewSummary");
-
-    const previewEducation =
-        document.getElementById("previewEducation");
-
-    const previewExperience =
-        document.getElementById("previewExperience");
-
-    const previewSkills =
-        document.getElementById("previewSkills");
-
-    const previewProjects =
-        document.getElementById("previewProjects");
-
-    const previewCertificates =
-        document.getElementById("previewCertificates");
-
-    const previewLanguages =
-        document.getElementById("previewLanguages");
-
-    const previewAchievements =
-        document.getElementById("previewAchievements");
-
-
-    /* =====================================================
-       PREVIEW SECTIONS
-    ====================================================== */
+    const previewPhoto = document.getElementById("previewPhoto");
+    const previewName = document.getElementById("previewName");
+    const previewJob = document.getElementById("previewJob");
+    const previewSummary = document.getElementById("previewSummary");
+    const previewEducation = document.getElementById("previewEducation");
+    const previewExperience = document.getElementById("previewExperience");
+    const previewSkills = document.getElementById("previewSkills");
+    const previewProjects = document.getElementById("previewProjects");
+    const previewCertificates = document.getElementById("previewCertificates");
+    const previewLanguages = document.getElementById("previewLanguages");
+    const previewAchievements = document.getElementById("previewAchievements");
 
     const previewSummarySection =
         document.getElementById("previewSummarySection");
@@ -107,11 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const previewAchievementsSection =
         document.getElementById("previewAchievementsSection");
 
-
-    /* =====================================================
-       BUTTONS / CONTAINERS
-    ====================================================== */
-
     const downloadPDF =
         document.getElementById("downloadPDF");
 
@@ -135,132 +84,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       DEFAULT VALUES
-    ====================================================== */
-
-    const DEFAULT_NAME = "Your Name";
-    const DEFAULT_JOB = "Your Target Job";
-    const DEFAULT_EMAIL = "email@example.com";
-    const DEFAULT_PHONE = "+94 XX XXX XXXX";
-    const DEFAULT_LOCATION = "Your Location";
-
-
-    /* =====================================================
        HELPERS
-    ====================================================== */
+    ===================================================== */
 
     function clean(value) {
         return String(value || "").trim();
     }
 
-
     function hasValue(value) {
         return clean(value).length > 0;
     }
 
-
-    function setSectionVisibility(section, visible) {
-
-        if (!section) {
-            return;
+    function showSection(section, show) {
+        if (section) {
+            section.style.display = show ? "" : "none";
         }
-
-        section.style.display =
-            visible ? "" : "none";
     }
 
 
     /* =====================================================
        PERSONAL INFORMATION
-    ====================================================== */
+    ===================================================== */
 
-    function updatePersonalInfo() {
+    function updatePersonal() {
 
-        const name = clean(fullName?.value);
-        const job = clean(jobTitle?.value);
-        const mail = clean(email?.value);
-        const mobile = clean(phone?.value);
-        const place = clean(location?.value);
+        if (previewName) {
+            previewName.textContent =
+                clean(fullName?.value) || "Your Name";
+        }
 
-        previewName.textContent =
-            name || DEFAULT_NAME;
+        if (previewJob) {
+            previewJob.textContent =
+                clean(jobTitle?.value) || "Your Target Job";
+        }
 
-        previewJob.textContent =
-            job || DEFAULT_JOB;
-
-        updateContactLinks();
+        updateContacts();
     }
 
 
     /* =====================================================
        CONTACT INFORMATION
-    ====================================================== */
+    ===================================================== */
 
-    function updateContactLinks() {
+    function updateContacts() {
 
-        const contactContainer =
+        const container =
             document.querySelector(".cv-contact");
 
-        if (!contactContainer) {
+        if (!container) {
             return;
         }
 
-        contactContainer.innerHTML = "";
+        container.innerHTML = "";
 
-        const items = [
-            {
-                value: clean(email?.value),
-                type: "email"
-            },
-            {
-                value: clean(phone?.value),
-                type: "phone"
-            },
-            {
-                value: clean(location?.value),
-                type: "location"
-            }
-        ];
+        const contactValues = [
+            clean(email?.value),
+            clean(phone?.value),
+            clean(location?.value)
+        ].filter(Boolean);
 
-
-        items.forEach(item => {
-
-            if (!item.value) {
-                return;
-            }
+        contactValues.forEach(value => {
 
             const span =
                 document.createElement("span");
 
-            span.textContent =
-                item.value;
+            span.textContent = value;
 
-            contactContainer.appendChild(span);
-
+            container.appendChild(span);
         });
 
 
-        const socials = [
-
+        const socialValues = [
             {
                 value: clean(linkedin?.value),
                 label: "LinkedIn"
             },
-
             {
                 value: clean(github?.value),
                 label: "GitHub"
             },
-
             {
                 value: clean(portfolio?.value),
                 label: "Portfolio"
             }
-
         ];
 
 
-        socials.forEach(item => {
+        socialValues.forEach(item => {
 
             if (!item.value) {
                 return;
@@ -269,62 +179,50 @@ document.addEventListener("DOMContentLoaded", () => {
             const link =
                 document.createElement("a");
 
-            link.href =
-                item.value;
+            link.href = item.value;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = item.label;
 
-            link.target =
-                "_blank";
+            link.style.color = "#246bfe";
+            link.style.fontSize = "0.68rem";
+            link.style.fontWeight = "700";
+            link.style.textDecoration = "none";
 
-            link.rel =
-                "noopener noreferrer";
-
-            link.textContent =
-                item.label;
-
-            link.style.color =
-                "#246bfe";
-
-            link.style.fontSize =
-                "0.68rem";
-
-            link.style.fontWeight =
-                "700";
-
-            link.style.textDecoration =
-                "none";
-
-            contactContainer.appendChild(link);
-
+            container.appendChild(link);
         });
 
 
-        if (!contactContainer.children.length) {
+        if (!container.children.length) {
 
             const span =
                 document.createElement("span");
 
             span.textContent =
-                DEFAULT_EMAIL;
+                "email@example.com";
 
-            contactContainer.appendChild(span);
+            container.appendChild(span);
         }
     }
 
 
     /* =====================================================
        SUMMARY
-    ====================================================== */
+    ===================================================== */
 
     function updateSummary() {
 
         const value =
             clean(summary?.value);
 
-        previewSummary.textContent =
-            value ||
-            "Add a professional summary about yourself.";
+        if (previewSummary) {
 
-        setSectionVisibility(
+            previewSummary.textContent =
+                value ||
+                "Add a professional summary about yourself.";
+        }
+
+        showSection(
             previewSummarySection,
             true
         );
@@ -333,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        PROFILE PHOTO
-    ====================================================== */
+    ===================================================== */
 
     if (profilePhoto) {
 
@@ -359,21 +257,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-
                 const reader =
                     new FileReader();
 
-
                 reader.onload =
-                    function (event) {
+                    event => {
 
-                        previewPhoto.src =
-                            event.target.result;
+                        if (previewPhoto) {
 
-                        previewPhoto.style.display =
-                            "block";
+                            previewPhoto.src =
+                                event.target.result;
+
+                            previewPhoto.style.display =
+                                "block";
+                        }
                     };
-
 
                 reader.readAsDataURL(file);
             }
@@ -383,18 +281,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        EDUCATION
-    ====================================================== */
+    ===================================================== */
 
     function updateEducation() {
+
+        if (!previewEducation) {
+            return;
+        }
+
+        previewEducation.innerHTML = "";
 
         const items =
             document.querySelectorAll(
                 ".education-item"
             );
 
-        previewEducation.innerHTML = "";
-
-        let validCount = 0;
+        let count = 0;
 
 
         items.forEach(item => {
@@ -421,16 +323,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (
-                !hasValue(institution) &&
-                !hasValue(qualification) &&
-                !hasValue(field) &&
-                !hasValue(year)
+                !institution &&
+                !qualification &&
+                !field &&
+                !year
             ) {
                 return;
             }
 
 
-            validCount++;
+            count++;
 
 
             const wrapper =
@@ -440,7 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "preview-item";
 
 
-            if (hasValue(qualification)) {
+            if (qualification) {
 
                 const title =
                     document.createElement("div");
@@ -455,7 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            if (hasValue(institution)) {
+            if (institution) {
 
                 const subtitle =
                     document.createElement("div");
@@ -470,22 +372,22 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            if (hasValue(field)) {
+            if (field) {
 
-                const fieldElement =
+                const description =
                     document.createElement("div");
 
-                fieldElement.className =
+                description.className =
                     "preview-item-description";
 
-                fieldElement.textContent =
+                description.textContent =
                     field;
 
-                wrapper.appendChild(fieldElement);
+                wrapper.appendChild(description);
             }
 
 
-            if (hasValue(year)) {
+            if (year) {
 
                 const date =
                     document.createElement("div");
@@ -503,11 +405,10 @@ document.addEventListener("DOMContentLoaded", () => {
             previewEducation.appendChild(
                 wrapper
             );
-
         });
 
 
-        if (validCount === 0) {
+        if (!count) {
 
             previewEducation.innerHTML =
                 `<p class="empty-preview">
@@ -516,27 +417,31 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        setSectionVisibility(
+        showSection(
             previewEducationSection,
-            validCount > 0
+            count > 0
         );
     }
 
 
     /* =====================================================
        EXPERIENCE
-    ====================================================== */
+    ===================================================== */
 
     function updateExperience() {
+
+        if (!previewExperience) {
+            return;
+        }
+
+        previewExperience.innerHTML = "";
 
         const items =
             document.querySelectorAll(
                 ".experience-item"
             );
 
-        previewExperience.innerHTML = "";
-
-        let validCount = 0;
+        let count = 0;
 
 
         items.forEach(item => {
@@ -563,16 +468,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (
-                !hasValue(title) &&
-                !hasValue(company) &&
-                !hasValue(duration) &&
-                !hasValue(description)
+                !title &&
+                !company &&
+                !duration &&
+                !description
             ) {
                 return;
             }
 
 
-            validCount++;
+            count++;
 
 
             const wrapper =
@@ -582,82 +487,73 @@ document.addEventListener("DOMContentLoaded", () => {
                 "preview-item";
 
 
-            if (hasValue(title)) {
+            if (title) {
 
-                const titleElement =
+                const element =
                     document.createElement("div");
 
-                titleElement.className =
+                element.className =
                     "preview-item-title";
 
-                titleElement.textContent =
+                element.textContent =
                     title;
 
-                wrapper.appendChild(
-                    titleElement
-                );
+                wrapper.appendChild(element);
             }
 
 
-            if (hasValue(company)) {
+            if (company) {
 
-                const companyElement =
+                const element =
                     document.createElement("div");
 
-                companyElement.className =
+                element.className =
                     "preview-item-subtitle";
 
-                companyElement.textContent =
+                element.textContent =
                     company;
 
-                wrapper.appendChild(
-                    companyElement
-                );
+                wrapper.appendChild(element);
             }
 
 
-            if (hasValue(duration)) {
+            if (duration) {
 
-                const dateElement =
+                const element =
                     document.createElement("div");
 
-                dateElement.className =
+                element.className =
                     "preview-item-date";
 
-                dateElement.textContent =
+                element.textContent =
                     duration;
 
-                wrapper.appendChild(
-                    dateElement
-                );
+                wrapper.appendChild(element);
             }
 
 
-            if (hasValue(description)) {
+            if (description) {
 
-                const descriptionElement =
+                const element =
                     document.createElement("div");
 
-                descriptionElement.className =
+                element.className =
                     "preview-item-description";
 
-                descriptionElement.textContent =
+                element.textContent =
                     description;
 
-                wrapper.appendChild(
-                    descriptionElement
-                );
+                wrapper.appendChild(element);
             }
 
 
             previewExperience.appendChild(
                 wrapper
             );
-
         });
 
 
-        if (validCount === 0) {
+        if (!count) {
 
             previewExperience.innerHTML =
                 `<p class="empty-preview">
@@ -666,33 +562,31 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        setSectionVisibility(
+        showSection(
             previewExperienceSection,
-            validCount > 0
+            count > 0
         );
     }
 
 
     /* =====================================================
        SKILLS
-    ====================================================== */
+    ===================================================== */
 
     function updateSkills() {
+
+        if (!previewSkills) {
+            return;
+        }
+
+        previewSkills.innerHTML = "";
 
         const value =
             clean(skills?.value);
 
-        previewSkills.innerHTML = "";
-
-
         if (!value) {
 
-            previewSkills.innerHTML =
-                `<span>
-                    Add your skills
-                </span>`;
-
-            setSectionVisibility(
+            showSection(
                 previewSkillsSection,
                 false
             );
@@ -701,14 +595,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        const skillArray =
+        const skillList =
             value
                 .split(",")
-                .map(skill => clean(skill))
+                .map(item => clean(item))
                 .filter(Boolean);
 
 
-        skillArray.forEach(skill => {
+        skillList.forEach(skill => {
 
             const span =
                 document.createElement("span");
@@ -716,33 +610,35 @@ document.addEventListener("DOMContentLoaded", () => {
             span.textContent =
                 skill;
 
-            previewSkills.appendChild(
-                span
-            );
+            previewSkills.appendChild(span);
         });
 
 
-        setSectionVisibility(
+        showSection(
             previewSkillsSection,
-            skillArray.length > 0
+            skillList.length > 0
         );
     }
 
 
     /* =====================================================
        PROJECTS
-    ====================================================== */
+    ===================================================== */
 
     function updateProjects() {
+
+        if (!previewProjects) {
+            return;
+        }
+
+        previewProjects.innerHTML = "";
 
         const items =
             document.querySelectorAll(
                 ".project-item"
             );
 
-        previewProjects.innerHTML = "";
-
-        let validCount = 0;
+        let count = 0;
 
 
         items.forEach(item => {
@@ -764,15 +660,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (
-                !hasValue(name) &&
-                !hasValue(link) &&
-                !hasValue(description)
+                !name &&
+                !link &&
+                !description
             ) {
                 return;
             }
 
 
-            validCount++;
+            count++;
 
 
             const wrapper =
@@ -794,7 +690,7 @@ document.addEventListener("DOMContentLoaded", () => {
             wrapper.appendChild(title);
 
 
-            if (hasValue(link)) {
+            if (link) {
 
                 const projectLink =
                     document.createElement("a");
@@ -826,7 +722,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            if (hasValue(description)) {
+            if (description) {
 
                 const desc =
                     document.createElement("div");
@@ -844,11 +740,10 @@ document.addEventListener("DOMContentLoaded", () => {
             previewProjects.appendChild(
                 wrapper
             );
-
         });
 
 
-        if (validCount === 0) {
+        if (!count) {
 
             previewProjects.innerHTML =
                 `<p class="empty-preview">
@@ -857,16 +752,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        setSectionVisibility(
+        showSection(
             previewProjectsSection,
-            validCount > 0
+            count > 0
         );
     }
 
 
     /* =====================================================
-       SIMPLE SECTIONS
-    ====================================================== */
+       CERTIFICATES / LANGUAGES / ACHIEVEMENTS
+    ===================================================== */
 
     function updateSimpleSections() {
 
@@ -880,43 +775,49 @@ document.addEventListener("DOMContentLoaded", () => {
             clean(achievements?.value);
 
 
-        previewCertificates.textContent =
-            certificateValue ||
-            "Your certificates will appear here.";
+        if (previewCertificates) {
+            previewCertificates.textContent =
+                certificateValue ||
+                "Your certificates will appear here.";
+        }
 
-        previewLanguages.textContent =
-            languageValue ||
-            "Your languages will appear here.";
+        if (previewLanguages) {
+            previewLanguages.textContent =
+                languageValue ||
+                "Your languages will appear here.";
+        }
 
-        previewAchievements.textContent =
-            achievementValue ||
-            "Your achievements will appear here.";
+        if (previewAchievements) {
+            previewAchievements.textContent =
+                achievementValue ||
+                "Your achievements will appear here.";
+        }
 
 
-        setSectionVisibility(
+        showSection(
             previewCertificatesSection,
-            hasValue(certificateValue)
+            !!certificateValue
         );
 
-        setSectionVisibility(
+        showSection(
             previewLanguagesSection,
-            hasValue(languageValue)
+            !!languageValue
         );
 
-        setSectionVisibility(
+        showSection(
             previewAchievementsSection,
-            hasValue(achievementValue)
+            !!achievementValue
         );
     }
 
 
     /* =====================================================
        UPDATE EVERYTHING
-    ====================================================== */
+    ===================================================== */
 
     function updateCV() {
 
-        updatePersonalInfo();
+        updatePersonal();
 
         updateSummary();
 
@@ -934,9 +835,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        ADD EDUCATION
-    ====================================================== */
+    ===================================================== */
 
-    if (addEducation) {
+    if (addEducation && educationContainer) {
 
         addEducation.addEventListener(
             "click",
@@ -948,83 +849,56 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.className =
                     "dynamic-item education-item";
 
-
                 item.innerHTML = `
 
                     <div class="form-grid">
 
                         <div class="form-group">
-
-                            <label>
-                                Institution
-                            </label>
+                            <label>Institution</label>
 
                             <input
                                 type="text"
                                 name="educationInstitution[]"
                                 placeholder="School / University">
-
                         </div>
 
-
                         <div class="form-group">
-
-                            <label>
-                                Qualification
-                            </label>
+                            <label>Qualification</label>
 
                             <input
                                 type="text"
                                 name="educationQualification[]"
                                 placeholder="e.g. BSc in Computer Science">
-
                         </div>
 
-
                         <div class="form-group">
-
-                            <label>
-                                Field / Specialization
-                            </label>
+                            <label>Field / Specialization</label>
 
                             <input
                                 type="text"
                                 name="educationField[]"
                                 placeholder="e.g. Software Engineering">
-
                         </div>
 
-
                         <div class="form-group">
-
-                            <label>
-                                Year
-                            </label>
+                            <label>Year</label>
 
                             <input
                                 type="text"
                                 name="educationYear[]"
                                 placeholder="2023 - 2026">
-
                         </div>
 
                     </div>
 
-
                     <button
                         type="button"
                         class="remove-item">
-
                         Remove
-
                     </button>
-
                 `;
 
-
-                educationContainer.appendChild(
-                    item
-                );
+                educationContainer.appendChild(item);
 
                 attachDynamicListeners();
 
@@ -1036,9 +910,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        ADD EXPERIENCE
-    ====================================================== */
+    ===================================================== */
 
-    if (addExperience) {
+    if (addExperience && experienceContainer) {
 
         addExperience.addEventListener(
             "click",
@@ -1050,83 +924,55 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.className =
                     "dynamic-item experience-item";
 
-
                 item.innerHTML = `
 
                     <div class="form-grid">
 
                         <div class="form-group">
-
-                            <label>
-                                Job Title
-                            </label>
+                            <label>Job Title</label>
 
                             <input
                                 type="text"
                                 name="experienceTitle[]"
                                 placeholder="e.g. Graphic Designer">
-
                         </div>
 
-
                         <div class="form-group">
-
-                            <label>
-                                Company
-                            </label>
+                            <label>Company</label>
 
                             <input
                                 type="text"
                                 name="experienceCompany[]"
                                 placeholder="Company name">
-
                         </div>
 
-
                         <div class="form-group">
-
-                            <label>
-                                Duration
-                            </label>
+                            <label>Duration</label>
 
                             <input
                                 type="text"
                                 name="experienceDuration[]"
                                 placeholder="2024 - Present">
-
                         </div>
 
-
                         <div class="form-group">
-
-                            <label>
-                                Description
-                            </label>
+                            <label>Description</label>
 
                             <textarea
                                 name="experienceDescription[]"
-                                placeholder="Describe your responsibilities...">
-                            </textarea>
-
+                                placeholder="Describe your responsibilities..."></textarea>
                         </div>
 
                     </div>
 
-
                     <button
                         type="button"
                         class="remove-item">
-
                         Remove
-
                     </button>
-
                 `;
 
-
-                experienceContainer.appendChild(
-                    item
-                );
+                experienceContainer.appendChild(item);
 
                 attachDynamicListeners();
 
@@ -1138,9 +984,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        ADD PROJECT
-    ====================================================== */
+    ===================================================== */
 
-    if (addProject) {
+    if (addProject && projectsContainer) {
 
         addProject.addEventListener(
             "click",
@@ -1152,71 +998,50 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.className =
                     "dynamic-item project-item";
 
-
                 item.innerHTML = `
 
                     <div class="form-grid">
 
                         <div class="form-group">
-
-                            <label>
-                                Project Name
-                            </label>
+                            <label>Project Name</label>
 
                             <input
                                 type="text"
                                 name="projectName[]"
                                 placeholder="Project name">
-
                         </div>
 
-
                         <div class="form-group">
-
-                            <label>
-                                Project Link
-                            </label>
+                            <label>Project Link</label>
 
                             <input
                                 type="text"
                                 name="projectLink[]"
                                 placeholder="https://...">
-
                         </div>
-
 
                         <div
                             class="form-group"
                             style="grid-column:1/-1;">
 
-                            <label>
-                                Description
-                            </label>
+                            <label>Description</label>
 
                             <textarea
                                 name="projectDescription[]"
-                                placeholder="Describe your project...">
-                            </textarea>
+                                placeholder="Describe your project..."></textarea>
 
                         </div>
 
                     </div>
 
-
                     <button
                         type="button"
                         class="remove-item">
-
                         Remove
-
                     </button>
-
                 `;
 
-
-                projectsContainer.appendChild(
-                    item
-                );
+                projectsContainer.appendChild(item);
 
                 attachDynamicListeners();
 
@@ -1228,7 +1053,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        DYNAMIC LISTENERS
-    ====================================================== */
+    ===================================================== */
 
     function attachDynamicListeners() {
 
@@ -1246,10 +1071,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-
             field.dataset.cvListener =
                 "true";
-
 
             field.addEventListener(
                 "input",
@@ -1272,18 +1095,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-
             button.dataset.cvListener =
                 "true";
-
 
             button.addEventListener(
                 "click",
                 () => {
 
-                    button
-                        .closest(".dynamic-item")
-                        ?.remove();
+                    const item =
+                        button.closest(
+                            ".dynamic-item"
+                        );
+
+                    if (item) {
+                        item.remove();
+                    }
 
                     updateCV();
                 }
@@ -1294,7 +1120,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        NORMAL INPUT LISTENERS
-    ====================================================== */
+    ===================================================== */
 
     const normalFields =
         document.querySelectorAll(
@@ -1313,7 +1139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        FORM SUBMIT
-    ====================================================== */
+    ===================================================== */
 
     if (cvForm) {
 
@@ -1325,18 +1151,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 updateCV();
 
-                cvPreview.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
+                if (cvPreview) {
+
+                    cvPreview.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
             }
         );
     }
 
 
     /* =====================================================
-       PDF DOWNLOAD — A4
-    ====================================================== */
+       PDF DOWNLOAD
+       CANVAS → A4 PDF
+       MULTIPLE PAGES SUPPORTED
+    ===================================================== */
 
     if (downloadPDF) {
 
@@ -1346,266 +1177,266 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 updateCV();
 
-
                 const name =
                     clean(fullName?.value) ||
                     "Professional-CV";
 
-
                 const originalText =
                     downloadPDF.textContent;
 
-
                 downloadPDF.textContent =
-                    "⏳ Generating PDF...";
-
+                    "Generating PDF...";
 
                 downloadPDF.disabled =
                     true;
 
 
-                const originalWidth =
-                    cvPreview.style.width;
+                if (!cvPreview) {
 
-                const originalMinHeight =
-                    cvPreview.style.minHeight;
+                    alert(
+                        "CV preview was not found."
+                    );
 
-                const originalHeight =
-                    cvPreview.style.height;
+                    downloadPDF.textContent =
+                        originalText;
 
-                const originalBoxShadow =
-                    cvPreview.style.boxShadow;
+                    downloadPDF.disabled =
+                        false;
 
-                const originalMargin =
-                    cvPreview.style.margin;
+                    return;
+                }
+
+
+                const originalStyle = {
+
+                    width:
+                        cvPreview.style.width,
+
+                    height:
+                        cvPreview.style.height,
+
+                    minHeight:
+                        cvPreview.style.minHeight,
+
+                    margin:
+                        cvPreview.style.margin,
+
+                    boxShadow:
+                        cvPreview.style.boxShadow,
+
+                    position:
+                        cvPreview.style.position,
+
+                    overflow:
+                        cvPreview.style.overflow
+                };
 
 
                 try {
-/* =====================================================
-   PDF DOWNLOAD — RELIABLE CANVAS METHOD
-====================================================== */
 
-if (downloadPDF) {
+                    if (
+                        typeof window.html2canvas !==
+                        "function"
+                    ) {
 
-    downloadPDF.addEventListener(
-        "click",
-        async () => {
-
-            updateCV();
-
-            const name =
-                clean(fullName?.value) ||
-                "Professional-CV";
-
-            const originalText =
-                downloadPDF.textContent;
-
-            downloadPDF.textContent =
-                "⏳ Generating PDF...";
-
-            downloadPDF.disabled = true;
+                        throw new Error(
+                            "html2canvas is not loaded."
+                        );
+                    }
 
 
-            /* -----------------------------------------
-               SAVE ORIGINAL STYLES
-            ----------------------------------------- */
+                    if (
+                        !window.jspdf ||
+                        !window.jspdf.jsPDF
+                    ) {
 
-            const originalStyle = {
-                width: cvPreview.style.width,
-                height: cvPreview.style.height,
-                minHeight: cvPreview.style.minHeight,
-                margin: cvPreview.style.margin,
-                boxShadow: cvPreview.style.boxShadow,
-                position: cvPreview.style.position,
-                overflow: cvPreview.style.overflow
-            };
+                        throw new Error(
+                            "jsPDF is not loaded."
+                        );
+                    }
 
 
-            try {
+                    /* ---------------------------------
+                       PREPARE CV FOR PDF
+                    --------------------------------- */
 
-                /* -------------------------------------
-                   TEMPORARY PDF SIZE
-                ------------------------------------- */
+                    cvPreview.style.width =
+                        "794px";
 
-                cvPreview.style.width = "794px";
-                cvPreview.style.height = "auto";
-                cvPreview.style.minHeight = "0";
-                cvPreview.style.margin = "0";
-                cvPreview.style.boxShadow = "none";
-                cvPreview.style.position = "relative";
-                cvPreview.style.overflow = "visible";
+                    cvPreview.style.height =
+                        "auto";
 
+                    cvPreview.style.minHeight =
+                        "0";
 
-                /* -------------------------------------
-                   WAIT FOR DOM / IMAGES
-                ------------------------------------- */
+                    cvPreview.style.margin =
+                        "0";
 
-                await new Promise(resolve => {
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(resolve);
-                    });
-                });
+                    cvPreview.style.boxShadow =
+                        "none";
+
+                    cvPreview.style.position =
+                        "relative";
+
+                    cvPreview.style.overflow =
+                        "visible";
 
 
-                /* -------------------------------------
-                   WAIT FOR IMAGES
-                ------------------------------------- */
+                    /* ---------------------------------
+                       WAIT FOR RENDER
+                    --------------------------------- */
 
-                const images =
-                    cvPreview.querySelectorAll("img");
+                    await new Promise(resolve => {
 
-                await Promise.all(
-                    Array.from(images).map(img => {
+                        requestAnimationFrame(() => {
 
-                        if (img.complete) {
-                            return Promise.resolve();
-                        }
-
-                        return new Promise(resolve => {
-
-                            img.onload = resolve;
-                            img.onerror = resolve;
+                            requestAnimationFrame(resolve);
 
                         });
 
-                    })
-                );
-
-
-                /* -------------------------------------
-                   CREATE CANVAS
-                ------------------------------------- */
-
-                const canvas =
-                    await html2canvas(
-                        cvPreview,
-                        {
-                            scale: 2,
-
-                            useCORS: true,
-
-                            allowTaint: true,
-
-                            backgroundColor:
-                                "#ffffff",
-
-                            logging: false,
-
-                            imageTimeout: 15000,
-
-                            scrollX: 0,
-
-                            scrollY: 0,
-
-                            width:
-                                cvPreview.scrollWidth,
-
-                            height:
-                                cvPreview.scrollHeight,
-
-                            windowWidth: 794,
-
-                            windowHeight:
-                                cvPreview.scrollHeight
-                        }
-                    );
-
-
-                /* -------------------------------------
-                   CREATE PDF
-                ------------------------------------- */
-
-                const {
-                    jsPDF
-                } = window.jspdf || {};
-
-
-                let pdf;
-
-
-                if (jsPDF) {
-
-                    pdf = new jsPDF({
-                        orientation: "portrait",
-                        unit: "mm",
-                        format: "a4",
-                        compress: true
                     });
 
-                } else {
 
-                    throw new Error(
-                        "jsPDF is not available."
+                    /* ---------------------------------
+                       WAIT FOR IMAGES
+                    --------------------------------- */
+
+                    const images =
+                        Array.from(
+                            cvPreview.querySelectorAll("img")
+                        );
+
+
+                    await Promise.all(
+
+                        images.map(img => {
+
+                            if (img.complete) {
+
+                                return Promise.resolve();
+                            }
+
+                            return new Promise(resolve => {
+
+                                img.addEventListener(
+                                    "load",
+                                    resolve,
+                                    { once: true }
+                                );
+
+                                img.addEventListener(
+                                    "error",
+                                    resolve,
+                                    { once: true }
+                                );
+
+                            });
+
+                        })
+
                     );
 
-                }
+
+                    /* ---------------------------------
+                       CREATE CANVAS
+                    --------------------------------- */
+
+                    const canvas =
+                        await window.html2canvas(
+                            cvPreview,
+                            {
+
+                                scale: 2,
+
+                                useCORS: true,
+
+                                allowTaint: true,
+
+                                backgroundColor:
+                                    "#ffffff",
+
+                                logging: false,
+
+                                imageTimeout:
+                                    15000,
+
+                                scrollX: 0,
+
+                                scrollY: 0,
+
+                                width:
+                                    cvPreview.scrollWidth,
+
+                                height:
+                                    cvPreview.scrollHeight,
+
+                                windowWidth:
+                                    794,
+
+                                windowHeight:
+                                    Math.max(
+                                        cvPreview.scrollHeight,
+                                        1123
+                                    )
+                            }
+                        );
 
 
-                /* -------------------------------------
-                   A4 DIMENSIONS
-                ------------------------------------- */
+                    if (
+                        !canvas ||
+                        !canvas.width ||
+                        !canvas.height
+                    ) {
 
-                const pageWidth = 210;
-                const pageHeight = 297;
-
-                const margin = 0;
-
-
-                /* -------------------------------------
-                   CANVAS → PDF SCALE
-                ------------------------------------- */
-
-                const canvasWidth =
-                    canvas.width;
-
-                const canvasHeight =
-                    canvas.height;
+                        throw new Error(
+                            "The CV canvas is empty."
+                        );
+                    }
 
 
-                const pdfImageWidth =
-                    pageWidth;
+                    /* ---------------------------------
+                       CREATE A4 PDF
+                    --------------------------------- */
 
-                const pdfImageHeight =
-                    (
-                        canvasHeight /
-                        canvasWidth
-                    ) *
-                    pdfImageWidth;
+                    const jsPDF =
+                        window.jspdf.jsPDF;
 
 
-                /* -------------------------------------
-                   ONE PAGE?
-                ------------------------------------- */
+                    const pdf =
+                        new jsPDF({
+                            orientation: "portrait",
+                            unit: "mm",
+                            format: "a4",
+                            compress: true
+                        });
 
-                if (
-                    pdfImageHeight <=
-                    pageHeight
-                ) {
 
-                    pdf.addImage(
-                        canvas.toDataURL(
-                            "image/jpeg",
-                            0.98
-                        ),
-                        "JPEG",
-                        margin,
-                        margin,
-                        pdfImageWidth,
-                        pdfImageHeight
-                    );
+                    const PAGE_WIDTH =
+                        210;
 
-                }
+                    const PAGE_HEIGHT =
+                        297;
 
-                /* -------------------------------------
-                   MULTIPLE PAGES
-                ------------------------------------- */
 
-                else {
+                    /* ---------------------------------
+                       PAGE HEIGHT IN PIXELS
+                    --------------------------------- */
+
+                    const pagePixelHeight =
+                        Math.floor(
+                            (
+                                PAGE_HEIGHT /
+                                PAGE_WIDTH
+                            ) *
+                            canvas.width
+                        );
+
 
                     const pageCanvas =
                         document.createElement(
                             "canvas"
                         );
+
 
                     const ctx =
                         pageCanvas.getContext(
@@ -1613,42 +1444,39 @@ if (downloadPDF) {
                         );
 
 
-                    const pagePixelHeight =
-                        Math.floor(
-                            (
-                                pageHeight /
-                                pageWidth
-                            ) *
-                            canvasWidth
+                    if (!ctx) {
+
+                        throw new Error(
+                            "Could not create canvas context."
                         );
+                    }
 
 
                     pageCanvas.width =
-                        canvasWidth;
-
-                    pageCanvas.height =
-                        pagePixelHeight;
+                        canvas.width;
 
 
-                    let sourceY = 0;
+                    let sourceY =
+                        0;
 
-                    let pageNumber = 0;
+                    let pageNumber =
+                        0;
 
+
+                    /* ---------------------------------
+                       CREATE ALL PDF PAGES
+                    --------------------------------- */
 
                     while (
                         sourceY <
-                        canvasHeight
+                        canvas.height
                     ) {
-
-                        const remaining =
-                            canvasHeight -
-                            sourceY;
-
 
                         const currentHeight =
                             Math.min(
                                 pagePixelHeight,
-                                remaining
+                                canvas.height -
+                                sourceY
                             );
 
 
@@ -1659,25 +1487,38 @@ if (downloadPDF) {
                         ctx.clearRect(
                             0,
                             0,
-                            canvasWidth,
-                            currentHeight
+                            pageCanvas.width,
+                            pageCanvas.height
+                        );
+
+
+                        ctx.fillStyle =
+                            "#ffffff";
+
+                        ctx.fillRect(
+                            0,
+                            0,
+                            pageCanvas.width,
+                            pageCanvas.height
                         );
 
 
                         ctx.drawImage(
+
                             canvas,
 
                             0,
                             sourceY,
 
-                            canvasWidth,
+                            canvas.width,
                             currentHeight,
 
                             0,
                             0,
 
-                            canvasWidth,
+                            canvas.width,
                             currentHeight
+
                         );
 
 
@@ -1688,28 +1529,34 @@ if (downloadPDF) {
                             );
 
 
-                        if (pageNumber > 0) {
+                        if (
+                            pageNumber > 0
+                        ) {
 
                             pdf.addPage();
-
                         }
 
 
-                        const currentPdfHeight =
+                        const pdfHeight =
                             (
                                 currentHeight /
-                                canvasWidth
+                                canvas.width
                             ) *
-                            pageWidth;
+                            PAGE_WIDTH;
 
 
                         pdf.addImage(
+
                             imageData,
+
                             "JPEG",
+
                             0,
                             0,
-                            pageWidth,
-                            currentPdfHeight
+
+                            PAGE_WIDTH,
+                            pdfHeight
+
                         );
 
 
@@ -1717,91 +1564,91 @@ if (downloadPDF) {
                             currentHeight;
 
                         pageNumber++;
-
                     }
 
+
+                    /* ---------------------------------
+                       SAVE PDF
+                    --------------------------------- */
+
+                    const safeName =
+                        name
+                            .replace(
+                                /[^a-z0-9]/gi,
+                                "_"
+                            )
+                            .replace(
+                                /_+/g,
+                                "_"
+                            )
+                            .replace(
+                                /^_+|_+$/g,
+                                ""
+                            ) ||
+                        "Professional-CV";
+
+
+                    pdf.save(
+                        `${safeName}_CV.pdf`
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "PDF generation error:",
+                        error
+                    );
+
+
+                    alert(
+                        "PDF generation failed. Check the browser console for details."
+                    );
+
+
+                } finally {
+
+                    /* ---------------------------------
+                       RESTORE LIVE PREVIEW
+                    --------------------------------- */
+
+                    cvPreview.style.width =
+                        originalStyle.width;
+
+                    cvPreview.style.height =
+                        originalStyle.height;
+
+                    cvPreview.style.minHeight =
+                        originalStyle.minHeight;
+
+                    cvPreview.style.margin =
+                        originalStyle.margin;
+
+                    cvPreview.style.boxShadow =
+                        originalStyle.boxShadow;
+
+                    cvPreview.style.position =
+                        originalStyle.position;
+
+                    cvPreview.style.overflow =
+                        originalStyle.overflow;
+
+
+                    downloadPDF.textContent =
+                        originalText;
+
+                    downloadPDF.disabled =
+                        false;
                 }
 
-
-                /* -------------------------------------
-                   SAVE PDF
-                ------------------------------------- */
-
-                const safeName =
-                    name
-                        .replace(
-                            /[^a-z0-9]/gi,
-                            "_"
-                        )
-                        .replace(
-                            /_+/g,
-                            "_"
-                        );
-
-
-                pdf.save(
-                    `${safeName}_CV.pdf`
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "PDF generation error:",
-                    error
-                );
-
-
-                alert(
-                    "PDF generation failed. Please check the browser console."
-                );
-
-
-            } finally {
-
-                /* ---------------------------------
-                   RESTORE LIVE PREVIEW
-                --------------------------------- */
-
-                cvPreview.style.width =
-                    originalStyle.width;
-
-                cvPreview.style.height =
-                    originalStyle.height;
-
-                cvPreview.style.minHeight =
-                    originalStyle.minHeight;
-
-                cvPreview.style.margin =
-                    originalStyle.margin;
-
-                cvPreview.style.boxShadow =
-                    originalStyle.boxShadow;
-
-                cvPreview.style.position =
-                    originalStyle.position;
-
-                cvPreview.style.overflow =
-                    originalStyle.overflow;
-
-
-                downloadPDF.textContent =
-                    originalText;
-
-                downloadPDF.disabled =
-                    false;
-
             }
-
-        }
-    );
-
-}
+        );
+    }
 
 
     /* =====================================================
        INITIALIZE
-    ====================================================== */
+    ===================================================== */
 
     attachDynamicListeners();
 
