@@ -1381,64 +1381,105 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 try {
+/* =====================================================
+   PDF DOWNLOAD — RELIABLE CANVAS METHOD
+====================================================== */
 
-                    /* ---------------------------------
-                       A4 WORK AREA
-                    --------------------------------- */
+if (downloadPDF) {
 
-                    cvPreview.style.width =
-                        "794px";
+    downloadPDF.addEventListener(
+        "click",
+        async () => {
 
-                    cvPreview.style.minHeight =
-                        "1123px";
+            updateCV();
 
-                    cvPreview.style.height =
-                        "auto";
+            const name =
+                clean(fullName?.value) ||
+                "Professional-CV";
 
-                    cvPreview.style.margin =
-                        "0";
+            const originalText =
+                downloadPDF.textContent;
 
-                    cvPreview.style.boxShadow =
-                        "none";
+            downloadPDF.textContent =
+                "⏳ Generating PDF...";
 
-
-                    /* ---------------------------------
-                       WAIT FOR RENDER
-                    --------------------------------- */
-
-                    await new Promise(
-                        resolve =>
-                            setTimeout(
-                                resolve,
-                                500
-                            )
-                    );
+            downloadPDF.disabled = true;
 
 
-                    /* ---------------------------------
-                       PDF OPTIONS
-                    --------------------------------- */
+            /* -----------------------------------------
+               SAVE ORIGINAL STYLES
+            ----------------------------------------- */
 
-                    const options = {
-
-                        margin: 0,
-
-                        filename:
-                            `${name.replace(
-                                /[^a-z0-9]/gi,
-                                "_"
-                            )}_CV.pdf`,
-
-                        image: {
-
-                            type: "jpeg",
-
-                            quality: 1
-                        },
+            const originalStyle = {
+                width: cvPreview.style.width,
+                height: cvPreview.style.height,
+                minHeight: cvPreview.style.minHeight,
+                margin: cvPreview.style.margin,
+                boxShadow: cvPreview.style.boxShadow,
+                position: cvPreview.style.position,
+                overflow: cvPreview.style.overflow
+            };
 
 
-                        html2canvas: {
+            try {
 
+                /* -------------------------------------
+                   TEMPORARY PDF SIZE
+                ------------------------------------- */
+
+                cvPreview.style.width = "794px";
+                cvPreview.style.height = "auto";
+                cvPreview.style.minHeight = "0";
+                cvPreview.style.margin = "0";
+                cvPreview.style.boxShadow = "none";
+                cvPreview.style.position = "relative";
+                cvPreview.style.overflow = "visible";
+
+
+                /* -------------------------------------
+                   WAIT FOR DOM / IMAGES
+                ------------------------------------- */
+
+                await new Promise(resolve => {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(resolve);
+                    });
+                });
+
+
+                /* -------------------------------------
+                   WAIT FOR IMAGES
+                ------------------------------------- */
+
+                const images =
+                    cvPreview.querySelectorAll("img");
+
+                await Promise.all(
+                    Array.from(images).map(img => {
+
+                        if (img.complete) {
+                            return Promise.resolve();
+                        }
+
+                        return new Promise(resolve => {
+
+                            img.onload = resolve;
+                            img.onerror = resolve;
+
+                        });
+
+                    })
+                );
+
+
+                /* -------------------------------------
+                   CREATE CANVAS
+                ------------------------------------- */
+
+                const canvas =
+                    await html2canvas(
+                        cvPreview,
+                        {
                             scale: 2,
 
                             useCORS: true,
@@ -1450,95 +1491,312 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             logging: false,
 
+                            imageTimeout: 15000,
+
                             scrollX: 0,
 
                             scrollY: 0,
+
+                            width:
+                                cvPreview.scrollWidth,
+
+                            height:
+                                cvPreview.scrollHeight,
 
                             windowWidth: 794,
 
                             windowHeight:
                                 cvPreview.scrollHeight
-                        },
-
-
-                        jsPDF: {
-
-                            unit: "mm",
-
-                            format: "a4",
-
-                            orientation:
-                                "portrait",
-
-                            compress: true
-                        },
-
-
-                        pagebreak: {
-
-                            mode: []
                         }
-
-                    };
-
-
-                    /* ---------------------------------
-                       GENERATE PDF
-                    --------------------------------- */
-
-                    await html2pdf()
-
-                        .set(options)
-
-                        .from(cvPreview)
-
-                        .save();
-
-
-                } catch (error) {
-
-                    console.error(
-                        "PDF generation error:",
-                        error
                     );
 
 
-                    alert(
-                        "PDF generation failed. Please try again."
+                /* -------------------------------------
+                   CREATE PDF
+                ------------------------------------- */
+
+                const {
+                    jsPDF
+                } = window.jspdf || {};
+
+
+                let pdf;
+
+
+                if (jsPDF) {
+
+                    pdf = new jsPDF({
+                        orientation: "portrait",
+                        unit: "mm",
+                        format: "a4",
+                        compress: true
+                    });
+
+                } else {
+
+                    throw new Error(
+                        "jsPDF is not available."
                     );
 
-                } finally {
-
-                    /* -----------------------------
-                       RESTORE LIVE PREVIEW
-                    ----------------------------- */
-
-                    cvPreview.style.width =
-                        originalWidth;
-
-                    cvPreview.style.minHeight =
-                        originalMinHeight;
-
-                    cvPreview.style.height =
-                        originalHeight;
-
-                    cvPreview.style.boxShadow =
-                        originalBoxShadow;
-
-                    cvPreview.style.margin =
-                        originalMargin;
-
-
-                    downloadPDF.textContent =
-                        originalText;
-
-                    downloadPDF.disabled =
-                        false;
                 }
 
+
+                /* -------------------------------------
+                   A4 DIMENSIONS
+                ------------------------------------- */
+
+                const pageWidth = 210;
+                const pageHeight = 297;
+
+                const margin = 0;
+
+
+                /* -------------------------------------
+                   CANVAS → PDF SCALE
+                ------------------------------------- */
+
+                const canvasWidth =
+                    canvas.width;
+
+                const canvasHeight =
+                    canvas.height;
+
+
+                const pdfImageWidth =
+                    pageWidth;
+
+                const pdfImageHeight =
+                    (
+                        canvasHeight /
+                        canvasWidth
+                    ) *
+                    pdfImageWidth;
+
+
+                /* -------------------------------------
+                   ONE PAGE?
+                ------------------------------------- */
+
+                if (
+                    pdfImageHeight <=
+                    pageHeight
+                ) {
+
+                    pdf.addImage(
+                        canvas.toDataURL(
+                            "image/jpeg",
+                            0.98
+                        ),
+                        "JPEG",
+                        margin,
+                        margin,
+                        pdfImageWidth,
+                        pdfImageHeight
+                    );
+
+                }
+
+                /* -------------------------------------
+                   MULTIPLE PAGES
+                ------------------------------------- */
+
+                else {
+
+                    const pageCanvas =
+                        document.createElement(
+                            "canvas"
+                        );
+
+                    const ctx =
+                        pageCanvas.getContext(
+                            "2d"
+                        );
+
+
+                    const pagePixelHeight =
+                        Math.floor(
+                            (
+                                pageHeight /
+                                pageWidth
+                            ) *
+                            canvasWidth
+                        );
+
+
+                    pageCanvas.width =
+                        canvasWidth;
+
+                    pageCanvas.height =
+                        pagePixelHeight;
+
+
+                    let sourceY = 0;
+
+                    let pageNumber = 0;
+
+
+                    while (
+                        sourceY <
+                        canvasHeight
+                    ) {
+
+                        const remaining =
+                            canvasHeight -
+                            sourceY;
+
+
+                        const currentHeight =
+                            Math.min(
+                                pagePixelHeight,
+                                remaining
+                            );
+
+
+                        pageCanvas.height =
+                            currentHeight;
+
+
+                        ctx.clearRect(
+                            0,
+                            0,
+                            canvasWidth,
+                            currentHeight
+                        );
+
+
+                        ctx.drawImage(
+                            canvas,
+
+                            0,
+                            sourceY,
+
+                            canvasWidth,
+                            currentHeight,
+
+                            0,
+                            0,
+
+                            canvasWidth,
+                            currentHeight
+                        );
+
+
+                        const imageData =
+                            pageCanvas.toDataURL(
+                                "image/jpeg",
+                                0.98
+                            );
+
+
+                        if (pageNumber > 0) {
+
+                            pdf.addPage();
+
+                        }
+
+
+                        const currentPdfHeight =
+                            (
+                                currentHeight /
+                                canvasWidth
+                            ) *
+                            pageWidth;
+
+
+                        pdf.addImage(
+                            imageData,
+                            "JPEG",
+                            0,
+                            0,
+                            pageWidth,
+                            currentPdfHeight
+                        );
+
+
+                        sourceY +=
+                            currentHeight;
+
+                        pageNumber++;
+
+                    }
+
+                }
+
+
+                /* -------------------------------------
+                   SAVE PDF
+                ------------------------------------- */
+
+                const safeName =
+                    name
+                        .replace(
+                            /[^a-z0-9]/gi,
+                            "_"
+                        )
+                        .replace(
+                            /_+/g,
+                            "_"
+                        );
+
+
+                pdf.save(
+                    `${safeName}_CV.pdf`
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "PDF generation error:",
+                    error
+                );
+
+
+                alert(
+                    "PDF generation failed. Please check the browser console."
+                );
+
+
+            } finally {
+
+                /* ---------------------------------
+                   RESTORE LIVE PREVIEW
+                --------------------------------- */
+
+                cvPreview.style.width =
+                    originalStyle.width;
+
+                cvPreview.style.height =
+                    originalStyle.height;
+
+                cvPreview.style.minHeight =
+                    originalStyle.minHeight;
+
+                cvPreview.style.margin =
+                    originalStyle.margin;
+
+                cvPreview.style.boxShadow =
+                    originalStyle.boxShadow;
+
+                cvPreview.style.position =
+                    originalStyle.position;
+
+                cvPreview.style.overflow =
+                    originalStyle.overflow;
+
+
+                downloadPDF.textContent =
+                    originalText;
+
+                downloadPDF.disabled =
+                    false;
+
             }
-        );
-    }
+
+        }
+    );
+
+}
 
 
     /* =====================================================
