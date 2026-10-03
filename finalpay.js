@@ -855,3 +855,122 @@ window.addEventListener("load", () => {
     document.body.classList.add("page-loaded");
 
 });
+
+/* =========================================
+   PAYPAL CHECKOUT — SANDBOX
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+    const API_URL =
+        "https://am-digital-studio-api.amdcreativestudio1.workers.dev";
+
+    const statusBox = document.getElementById("paypal-payment-status");
+    const buttonContainer = document.getElementById("paypal-button-container");
+
+    if (!statusBox || !buttonContainer) return;
+
+    const order = window.finalOrderData || {};
+
+    // Convert displayed service names to server-approved IDs.
+    const serviceMap = {
+        "video editing": "video-editing",
+        "logo design": "logo-design",
+        "poster design": "poster-design",
+        "thumbnail design": "thumbnail-design",
+        "youtube thumbnail design": "thumbnail-design",
+        "web development": "web-development",
+        "fiverr gig seo": "fiverr-seo"
+    };
+
+    const service = serviceMap[
+        String(order.service || "").trim().toLowerCase()
+    ];
+
+    const packageName =
+        String(order.package || "").trim().toLowerCase();
+
+    const delivery =
+        String(order.delivery || "standard").trim().toLowerCase();
+
+    if (!service || !["basic", "standard", "premium"].includes(packageName)) {
+        statusBox.textContent =
+            "Order details are incomplete. Please return to the order page.";
+        return;
+    }
+
+    if (!["standard", "express"].includes(delivery)) {
+        statusBox.textContent = "Invalid delivery option.";
+        return;
+    }
+
+    if (!window.paypal) {
+        statusBox.textContent =
+            "PayPal could not load. Please refresh and try again.";
+        return;
+    }
+
+    paypal.Buttons({
+        createOrder: async () => {
+            statusBox.textContent = "Preparing your PayPal order...";
+
+            const response = await fetch(`${API_URL}/api/create-order`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    service,
+                    package: packageName,
+                    delivery
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.id) {
+                throw new Error(data.error || "Could not create PayPal order.");
+            }
+
+            return data.id;
+        },
+
+        onApprove: async (data) => {
+            statusBox.textContent = "Confirming payment securely...";
+
+            const response = await fetch(`${API_URL}/api/capture-order`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    orderID: data.orderID,
+                    service,
+                    package: packageName,
+                    delivery
+                })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || result.status !== "COMPLETED") {
+                throw new Error(result.error || "Payment could not be confirmed.");
+            }
+
+            localStorage.setItem("paypalPaymentStatus", "COMPLETED");
+            localStorage.setItem("paypalOrderID", result.orderID);
+            localStorage.setItem("paypalPaidAmount", result.amount);
+            localStorage.setItem("paypalPaidCurrency", result.currency);
+
+            statusBox.textContent =
+                `Payment confirmed: ${result.amount} USD. Order ID: ${result.orderID}`;
+
+            statusBox.style.color = "green";
+        },
+
+        onCancel: () => {
+            statusBox.textContent = "Payment cancelled. No payment confirmation received.";
+        },
+
+        onError: (error) => {
+            console.error("PayPal error:", error);
+            statusBox.textContent =
+                "PayPal payment failed. Please try again or contact support.";
+        }
+    }).render("#paypal-button-container");
+});
