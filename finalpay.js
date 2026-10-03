@@ -413,14 +413,22 @@ Project Description:
 ${projectDescription}
 
 
+
 PAYMENT
 
-Payment has been completed.
-
-I will send the payment receipt
-or payment confirmation screenshot
-in this chat.
-
+Status: ${
+    localStorage.getItem("paypalPaymentStatus") === "COMPLETED"
+        ? "PayPal payment confirmed"
+        : "Payment not confirmed"
+}
+PayPal Order ID: ${
+    localStorage.getItem("paypalOrderID") || "Not available"
+}
+Amount: ${
+    localStorage.getItem("paypalPaidAmount") || "Not paid"
+} ${
+    localStorage.getItem("paypalPaidCurrency") || ""
+}
 
 ==============================
 
