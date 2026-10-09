@@ -2294,3 +2294,77 @@ footer hr{
     }
 
 }
+
+/* Glassmorphism Temporary Payment Notice */
+.payment-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin: 18px 0;
+    padding: 18px 20px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(239, 246, 255, 0.92),
+        rgba(245, 243, 255, 0.92)
+    );
+
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-left: 4px solid #635BFF;
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 24px rgba(99, 91, 255, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.payment-notice-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    background: linear-gradient(135deg, #4F46E5, #9333EA);
+    color: #FFFFFF;
+    font-size: 19px;
+    font-weight: 800;
+
+    box-shadow: 0 4px 12px rgba(99, 91, 255, 0.25);
+}
+
+.payment-notice-content h4 {
+    margin: 2px 0 7px;
+    color: #312E81;
+    font-size: 16px;
+    font-weight: 750;
+}
+
+.payment-notice-content p {
+    margin: 0;
+    color: #374151;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+    .payment-notice {
+        gap: 11px;
+        padding: 15px;
+    }
+
+    .payment-notice-content h4 {
+        font-size: 15px;
+    }
+
+    .payment-notice-content p {
+        font-size: 13px;
+    }
+}
+
