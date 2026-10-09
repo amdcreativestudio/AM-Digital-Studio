@@ -2368,3 +2368,31 @@ footer hr{
     }
 }
 
+/* Center the payment notice and PayPal section */
+.payment-notice,
+.bank-details {
+    width: calc(100% - 32px);
+    max-width: 834px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box;
+}
+
+/* Consistent spacing */
+.payment-notice {
+    margin-top: 18px !important;
+    margin-bottom: 18px !important;
+}
+
+.bank-details {
+    margin-top: 18px !important;
+    margin-bottom: 24px !important;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+    .payment-notice,
+    .bank-details {
+        width: calc(100% - 24px);
+    }
+}
