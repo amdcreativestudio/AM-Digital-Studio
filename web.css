@@ -2860,3 +2860,21 @@ img{
     }
 
 }
+.usd-price {
+    margin-top: -12px;
+    margin-bottom: 18px;
+    color: #635BFF;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.pricing-card .price {
+    margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+    .usd-price {
+        font-size: 15px;
+    }
+}
