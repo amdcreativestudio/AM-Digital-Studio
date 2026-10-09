@@ -602,19 +602,46 @@ if (summaryDelivery) {
 }
 
 
-if (summaryPrice) {
 
-    summaryPrice.textContent =
-        "Rs." + currentPrice + "/-";
+/* ========================================
+   LKR + USD Price Display
+======================================== */
 
+const USD_TO_LKR_RATE = 335.5;
+
+function formatDualCurrency(lkrAmount) {
+
+    const amountLKR = Number(lkrAmount) || 0;
+    const amountUSD = amountLKR / USD_TO_LKR_RATE;
+
+    return "Rs. " +
+        amountLKR.toLocaleString("en-US", {
+            maximumFractionDigits: 0
+        }) +
+        "/- (≈ $" +
+        amountUSD.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }) +
+        " USD)";
 }
 
+if (summaryPrice) {
+    summaryPrice.textContent =
+        formatDualCurrency(currentPrice);
+}
 
 if (totalPrice) {
-
     totalPrice.textContent =
-        "Rs." + finalPrice + "/-";
+        formatDualCurrency(finalPrice);
+}
 
+const summaryDeliveryFee =
+    document.getElementById("summaryDeliveryFee");
+
+if (summaryDeliveryFee) {
+    summaryDeliveryFee.textContent =
+        formatDualCurrency(deliveryExtra);
 }
 
 
