@@ -1,4 +1,4 @@
-```css
+
 /* =========================================================
    AM DIGITAL STUDIO — ABOUT PAGE
    Theme: White + Blue/Purple Gradient
@@ -1970,4 +1970,39 @@ svg {
         transition-duration: 0.01ms !important;
     }
 }
-```
+```css
+/* Fix About page button text visibility */
+.about-hero .hero-buttons a,
+.about-hero .hero-buttons .btn,
+.about-hero .hero-buttons button {
+    color: #2736A3 !important;
+    -webkit-text-fill-color: #2736A3;
+    font-weight: 700;
+    opacity: 1;
+}
+
+/* Discover Our Story button */
+.about-hero .hero-buttons a:first-child,
+.about-hero .hero-buttons .btn:first-child {
+    color: #2736A3 !important;
+    -webkit-text-fill-color: #2736A3;
+}
+
+/* Get In Touch button */
+.about-hero .hero-buttons a:last-child,
+.about-hero .hero-buttons .btn:last-child {
+    color: #172554 !important;
+    -webkit-text-fill-color: #172554;
+    background: #FFFFFF;
+    border: 1px solid #172554;
+}
+
+/* Hover effect */
+.about-hero .hero-buttons a:hover,
+.about-hero .hero-buttons .btn:hover,
+.about-hero .hero-buttons button:hover {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF;
+    background: linear-gradient(135deg, #4338CA, #7C3AED);
+}
+
