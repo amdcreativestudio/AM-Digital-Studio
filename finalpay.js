@@ -312,20 +312,56 @@ function fillOrderSummary(orderData) {
     }
 
 
-    if (summaryEstimatedPrice) {
+/* LKR + USD price display */
 
-        summaryEstimatedPrice.textContent =
-            price;
+const USD_TO_LKR_RATE = 335.5;
 
-    }
+function formatDualCurrency(amount) {
+    const lkr = Number(amount) || 0;
+    const usd = lkr / USD_TO_LKR_RATE;
 
+    return "Rs. " +
+        lkr.toLocaleString("en-US", {
+            maximumFractionDigits: 0
+        }) +
+        "/- (≈ $" +
+        usd.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }) +
+        " USD)";
+}
 
-    if (summaryTotal) {
+const basePrice = Number(
+    localStorage.getItem("selectedBasePrice")
+) || Number(price) || 0;
 
-        summaryTotal.textContent =
-            price;
+const deliveryExtra = Number(
+    localStorage.getItem("selectedDeliveryExtra")
+) || 0;
 
-    }
+const totalPrice = Number(
+    localStorage.getItem("selectedPrice")
+) || Number(price) || 0;
+
+if (summaryEstimatedPrice) {
+    summaryEstimatedPrice.textContent =
+        formatDualCurrency(basePrice);
+}
+
+if (summaryTotal) {
+    summaryTotal.textContent =
+        formatDualCurrency(totalPrice);
+}
+
+const deliveryFeeElement =
+    document.getElementById("summaryDeliveryFee");
+
+if (deliveryFeeElement) {
+    deliveryFeeElement.textContent =
+        formatDualCurrency(deliveryExtra);
+}
+
 
 
     console.log(
