@@ -23,6 +23,7 @@
     panY: 0,
     drag: null,
     wireStart: null,
+    wirePoints: [],
     history: [],
     historyIndex: -1,
     language: localStorage.getItem("amd-circuit-language") || "en",
@@ -558,6 +559,21 @@ function toggleLanguage() {
     });
   }
 
+  // Build a right-angle (orthogonal) path through user-placed waypoints.
+  function orthogonalPath(start, points, end) {
+    const all = [...(points || []), end];
+    let x = start.x, y = start.y;
+    let d = `M${x} ${y}`;
+    all.forEach(pt => {
+      const px = snap(pt.x), py = snap(pt.y);
+      // Each click adds a horizontal segment followed by a vertical segment.
+      if (Math.abs(px - x) > 0.1) d += ` L${px} ${y}`;
+      if (Math.abs(py - y) > 0.1) d += ` L${px} ${py}`;
+      x = px; y = py;
+    });
+    return d;
+  }
+
   function renderWires() {
     const layer = $("wireLayer");
     layer.replaceChildren();
@@ -565,10 +581,8 @@ function toggleLanguage() {
     state.wires.forEach(w => {
       const a = getPin(w.from), b = getPin(w.to);
       if (!a || !b) return;
-      const mx = snap((a.x + b.x) / 2);
-      const d = `M${a.x} ${a.y} L${mx} ${a.y} L${mx} ${b.y} L${b.x} ${b.y}`;
+      const d = orthogonalPath(a, w.points || [], b);
 
-      // Wide transparent hit path makes deleting/selecting a wire easier.
       layer.appendChild(svgEl("path", {
         d, fill: "none", stroke: "transparent", "stroke-width": 14,
         "data-wire-id": w.id, cursor: "pointer"
@@ -616,13 +630,17 @@ function toggleLanguage() {
 
     const start = getPin(state.wireStart);
     if (!start) return;
-    const end = state.previewPoint;
-    const mx = snap((start.x + end.x) / 2);
+    const d = orthogonalPath(start, state.wirePoints || [], state.previewPoint);
     layer.appendChild(svgEl("path", {
-      d: `M${start.x} ${start.y} L${mx} ${start.y} L${mx} ${end.y} L${end.x} ${end.y}`,
-      fill: "none", stroke: "#00d9ff", "stroke-width": 2,
-      "stroke-dasharray": "5 4", "pointer-events": "none"
+      d, fill: "none", stroke: "#00d9ff", "stroke-width": 2,
+      "stroke-dasharray": "5 4", "stroke-linejoin": "round",
+      "stroke-linecap": "round", "pointer-events": "none"
     }));
+    // Mark the manual bend points so users can see where each click landed.
+    (state.wirePoints || []).forEach(pt => layer.appendChild(svgEl("circle", {
+      cx: snap(pt.x), cy: snap(pt.y), r: 3.5, fill: "#00d9ff",
+      stroke: "#e0fbff", "stroke-width": 1, "pointer-events": "none"
+    })));
   }
 
   function renderAll() {
@@ -671,41 +689,62 @@ function toggleLanguage() {
     msg(`${part.label} added.`);
   }
 
+  function cancelWire() {
+    state.wireStart = null;
+    state.wirePoints = [];
+    state.previewPoint = null;
+    renderAll();
+  }
+
+  function addWireWaypoint(point) {
+    if (!state.wireStart) return;
+    const waypoint = { x: snap(point.x), y: snap(point.y) };
+    const previous = state.wirePoints[state.wirePoints.length - 1] ||
+      getPin(state.wireStart);
+    if (previous && Math.hypot(previous.x - waypoint.x, previous.y - waypoint.y) < GRID) {
+      return;
+    }
+    state.wirePoints.push(waypoint);
+    state.previewPoint = waypoint;
+    renderPreview();
+  }
+
   function connectPin(pin) {
     if (!state.wireStart) {
       state.wireStart = pin.id;
+      state.wirePoints = [];
       state.previewPoint = { x: pin.x, y: pin.y };
       renderPins();
       renderPreview();
       msg(state.language === "si"
-        ? "පළමු pin එක තෝරා ඇත. දැන් දෙවන pin එක තෝරන්න."
-        : "First pin selected. Select the destination pin.");
+        ? "ආරම්භක pin එක තෝරා ඇත. වංගු තැන්වල වම්-click කර අවසාන pin එක තෝරන්න."
+        : "Start pin selected. Left-click to add bends, then click the destination pin.");
       return;
     }
 
     if (state.wireStart === pin.id) {
-      state.wireStart = null;
-      state.previewPoint = null;
-      renderAll();
+      cancelWire();
       return;
     }
 
     if (state.wires.some(w =>
       (w.from === state.wireStart && w.to === pin.id) ||
       (w.to === state.wireStart && w.from === pin.id))) {
-      state.wireStart = null;
-      state.previewPoint = null;
-      renderAll();
-      msg("Those pins are already connected.");
+      cancelWire();
+      msg(state.language === "si" ? "මෙම pins දෙක දැනටමත් සම්බන්ධයි." : "Those pins are already connected.");
       return;
     }
 
     pushHistory();
     state.wires.push({
-      id: `W${state.nextId++}`, from: state.wireStart,
-      to: pin.id, color: "#4ea1ff"
+      id: `W${state.nextId++}`,
+      from: state.wireStart,
+      to: pin.id,
+      points: state.wirePoints.map(pt => ({ x: pt.x, y: pt.y })),
+      color: "#4ea1ff"
     });
     state.wireStart = null;
+    state.wirePoints = [];
     state.previewPoint = null;
     state.simulation = null;
     renderAll();
@@ -715,6 +754,7 @@ function toggleLanguage() {
   function setTool(tool) {
     state.tool = tool;
     state.wireStart = null;
+    state.wirePoints = [];
     state.previewPoint = null;
 
     const ids = { selectTool: "select", wireTool: "wire", deleteTool: "delete" };
@@ -1343,6 +1383,19 @@ function toggleLanguage() {
         return;
       }
 
+      // While routing a wire, clicking empty canvas records a manual bend.
+      // Clicking a component body away from a pin also records a bend.
+      if (state.tool === "wire" && state.wireStart) {
+        const hitPin = pinTarget ? getPin(pinTarget.dataset.pinId) : nearestPin(point, 16);
+        if (hitPin) {
+          connectPin(hitPin);
+        } else {
+          addWireWaypoint(point);
+        }
+        event.preventDefault();
+        return;
+      }
+
       const partTarget = event.target.closest?.("[data-part-body]");
       if (partTarget) {
         const id = partTarget.dataset.partBody;
@@ -1471,6 +1524,8 @@ function toggleLanguage() {
         else deletePart(state.selected);
       } else if (event.key.toLowerCase() === "w") {
         setTool("wire");
+      } else if (event.key === "Escape" && state.wireStart) {
+        cancelWire();
       } else if (event.key.toLowerCase() === "v" || event.key === "Escape") {
         setTool("select");
       } else if (event.key.toLowerCase() === "r") {
