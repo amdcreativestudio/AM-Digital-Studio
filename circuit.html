@@ -7,589 +7,724 @@
     <meta name="theme-color" content="#0b1020">
 
     <title>Circuit Studio | AM Digital Studio</title>
-    <meta name="description" content="Design, connect and learn low-voltage DC circuits with the AM Digital Studio interactive electronics lab.">
+    <meta name="description" content="Design, simulate and understand DC electronic circuits with AM Digital Studio's interactive student electronics lab.">
     <meta name="author" content="AM Digital Studio">
+    <meta name="robots" content="index, follow">
 
     <link rel="icon" type="image/png" href="wdf.png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+    <!-- 3D renderer dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- AM Digital Studio styles -->
     <link rel="stylesheet" href="theme.css">
     <link rel="stylesheet" href="circuit.css">
 
     <script src="theme.js" defer></script>
-    <script src="loader.js" defer></script>
     <script src="circuit.js" defer></script>
 </head>
 
 <body class="circuit-page">
 
+<!-- HEADER -->
 <header class="circuit-header">
-    <nav class="navbar circuit-navbar" aria-label="Main navigation">
-        <div class="logo">
-            <a href="index.html">AM Digital Studio</a>
+    <nav class="circuit-navbar" aria-label="Main navigation">
+        <a class="circuit-brand" href="index.html">
+            <span class="brand-mark">AM</span>
+            <span>Digital Studio<small>CIRCUIT LAB</small></span>
+        </a>
+
+        <div class="circuit-nav-links" id="circuitNavLinks">
+            <a href="index.html">Home</a>
+            <a href="#circuitLab">Designer</a>
+            <a href="#simulationResults">Simulation</a>
+            <a href="#learningZone">Learn</a>
         </div>
 
-        <button
-            class="circuit-menu-toggle"
-            id="circuitMenuToggle"
-            type="button"
-            aria-label="Toggle navigation"
-            aria-expanded="false">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <div class="circuit-header-actions">
+            <button id="languageToggle" class="icon-button" type="button"
+                    aria-label="Change language" title="Change language">
+                <i class="fa-solid fa-language"></i>
+                <span>සිංහල</span>
+            </button>
 
-        <ul class="nav-links circuit-nav-links" id="circuitNavLinks">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="index.html#contact">Contact Us</a></li>
-            <li><a href="circuit.html" class="circuit-nav-active">Circuit Studio</a></li>
-        </ul>
+            <button id="themeToggle" class="icon-button" type="button"
+                    aria-label="Toggle theme" title="Toggle theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <button id="mobileMenuToggle" class="icon-button mobile-menu-button"
+                    type="button" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
     </nav>
 </header>
 
-<div class="theme-toggle-wrap">
-    <button id="themeToggle" class="theme-toggle" type="button">
-        <span class="theme-icon">☾</span>
-        <span class="theme-text">Light Mode</span>
-    </button>
-
-    <button id="languageToggle" class="theme-toggle" type="button">
-        English
-    </button>
-</div>
-
 <main>
 
-    <!-- HERO -->
+    <!-- INTRODUCTION -->
     <section class="circuit-hero">
-        <div class="circuit-container hero-grid">
+        <div class="circuit-container circuit-hero-inner">
 
-            <div class="hero-copy">
+            <div class="circuit-hero-copy">
                 <span class="circuit-eyebrow">
-                    <span class="eyebrow-dot"></span>
-                    <span data-en="STUDENT ELECTRONICS LAB"
-                          data-si="සිසු ඉලෙක්ට්‍රොනික විද්‍යාගාරය">
-                        STUDENT ELECTRONICS LAB
-                    </span>
+                    <i class="fa-solid fa-microchip"></i>
+                    STUDENT ELECTRONICS LAB
                 </span>
 
-                <h1 data-en-html="Design circuits.<br><span>Learn by experimenting.</span>"
-                    data-si-html="පරිපථ නිර්මාණය කරන්න.<br><span>අත්හදා බලමින් ඉගෙන ගන්න.</span>">
-                    Design circuits.<br>
-                    <span>Learn by experimenting.</span>
+                <h1>
+                    Build circuits.<br>
+                    <span>Understand electricity.</span>
                 </h1>
 
-                <p data-en="Build your own low-voltage DC circuits, connect components, explore 3D views and understand electronics interactively."
-                   data-si="ඔබේම අඩු වෝල්ටීයතා DC පරිපථ නිර්මාණය කරන්න. Components සම්බන්ධ කරමින් 3D දර්ශන සහ ඉලෙක්ට්‍රොනික විද්‍යාව අත්හදා බලන්න.">
-                    Build your own low-voltage DC circuits, connect components,
-                    explore 3D views and understand electronics interactively.
+                <p data-i18n="heroDescription">
+                    Design low-voltage DC circuits, connect electronic
+                    components, run simulations and learn through experiments.
                 </p>
 
-                <div class="hero-actions">
-                    <a href="#circuitLab" class="circuit-btn primary-btn">
-                        <i class="fa-solid fa-bolt"></i>
-                        <span data-en="Start designing"
-                              data-si="නිර්මාණය අරඹන්න">Start designing</span>
-                    </a>
-
-                    <a href="#learn" class="circuit-btn secondary-btn">
-                        <i class="fa-solid fa-book-open"></i>
-                        <span data-en="Learning zone"
-                              data-si="ඉගෙනුම් කලාපය">Learning zone</span>
-                    </a>
+                <div class="hero-feature-list">
+                    <span><i class="fa-solid fa-diagram-project"></i> 2D Schematic</span>
+                    <span><i class="fa-solid fa-cube"></i> 3D View</span>
+                    <span><i class="fa-solid fa-calculator"></i> DC Analysis</span>
                 </div>
 
-                <div class="hero-pills">
-                    <span>2D SCHEMATIC</span>
-                    <span>3D PREVIEW</span>
-                    <span>DC ONLY</span>
-                </div>
+                <a href="#circuitLab" class="circuit-button primary-button">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Start designing
+                </a>
             </div>
 
-            <div class="hero-visual" aria-hidden="true">
-                <div class="hero-orbit orbit-one"></div>
-                <div class="hero-orbit orbit-two"></div>
-
-                <div class="hero-chip">
-                    <span>AM</span>
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i>
+            <div class="circuit-hero-art" aria-hidden="true">
+                <div class="hero-art-ring ring-one"></div>
+                <div class="hero-art-ring ring-two"></div>
+                <div class="hero-art-chip">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>DC</span>
                 </div>
-
-                <div class="hero-float voltage-float">
-                    <small>DC LAB</small>
-                    <b>12 V MAX</b>
-                </div>
-
-                <div class="hero-float current-float">
-                    <small>DESIGN</small>
-                    <b>YOUR CIRCUIT</b>
-                </div>
+                <span class="hero-art-label art-label-one">VOLTAGE</span>
+                <span class="hero-art-label art-label-two">CURRENT</span>
             </div>
 
         </div>
     </section>
 
-    <!-- CIRCUIT DESIGN WORKSPACE -->
-    <section class="circuit-workspace circuit-container" id="circuitLab">
+    <!-- PROJECT TOOLBAR -->
+    <section class="circuit-container circuit-project-toolbar" id="circuitLab">
 
-        <div class="circuit-section-heading">
+        <div class="project-heading">
             <div>
-                <span class="circuit-section-label">01 / DESIGN LAB</span>
-                <h2 data-en="Your circuit workspace"
-                    data-si="ඔබේ පරිපථ වැඩබිම">Your circuit workspace</h2>
-
-                <p data-en="Add components, position them, connect wires and test your DC circuit."
-                   data-si="Components එකතු කර ස්ථානගත කරන්න. Wires සම්බන්ධ කර DC පරිපථය පරීක්ෂා කරන්න.">
-                    Add components, position them, connect wires and test your DC circuit.
-                </p>
+                <span class="section-kicker">01 / DESIGN ENVIRONMENT</span>
+                <h2>Circuit Designer</h2>
+                <p>Create your own circuit from an empty workspace.</p>
             </div>
 
-            <div class="workspace-actions">
-                <button class="circuit-btn secondary-btn" id="undoCircuit" type="button">
-                    <i class="fa-solid fa-rotate-left"></i> Undo
-                </button>
-
-                <button class="circuit-btn secondary-btn" id="redoCircuit" type="button">
-                    <i class="fa-solid fa-rotate-right"></i> Redo
-                </button>
-
-                <button class="circuit-btn secondary-btn" id="clearCircuit" type="button">
-                    <i class="fa-solid fa-trash"></i>
-                    <span data-en="Clear board" data-si="Board එක හිස් කරන්න">Clear board</span>
-                </button>
-
-                <button class="circuit-btn primary-btn" id="saveCircuit" type="button">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    <span data-en="Save project" data-si="Project එක save කරන්න">Save project</span>
-                </button>
-            </div>
+            <span class="project-status" id="projectStatus">
+                <i class="fa-solid fa-circle"></i> Ready
+            </span>
         </div>
 
-        <div class="lab-layout">
+        <div class="project-actions">
+            <div class="project-name-field">
+                <label for="projectName">Project name</label>
+                <input id="projectName" type="text"
+                       maxlength="100" value="My DC Circuit">
+            </div>
 
-            <!-- COMPONENT LIBRARY -->
-            <aside class="circuit-panel library-panel">
+            <button class="circuit-button secondary-button" id="newProjectButton" type="button">
+                <i class="fa-solid fa-file-circle-plus"></i> New
+            </button>
 
+            <button class="circuit-button secondary-button" id="openProjectButton" type="button">
+                <i class="fa-solid fa-folder-open"></i> Open
+            </button>
+
+            <input id="projectFileInput" type="file"
+                   accept=".json,application/json" hidden>
+
+            <button class="circuit-button secondary-button" id="saveProjectButton" type="button">
+                <i class="fa-solid fa-floppy-disk"></i> Save
+            </button>
+
+            <button class="circuit-button secondary-button" id="undoButton" type="button">
+                <i class="fa-solid fa-rotate-left"></i> Undo
+            </button>
+
+            <button class="circuit-button secondary-button" id="redoButton" type="button">
+                <i class="fa-solid fa-rotate-right"></i> Redo
+            </button>
+        </div>
+    </section>
+
+    <!-- MAIN EDITOR -->
+    <section class="circuit-container editor-layout">
+
+        <!-- COMPONENT LIBRARY -->
+        <aside class="circuit-panel component-sidebar" aria-label="Component library">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="section-kicker">COMPONENTS</span>
+                    <h3>Component library</h3>
+                </div>
+                <span class="component-total" id="componentTotal">0</span>
+            </div>
+
+            <label class="search-field" for="componentSearch">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input id="componentSearch" type="search"
+                       placeholder="Search components..." autocomplete="off">
+            </label>
+
+            <div class="component-categories" id="componentCategories">
+                <button type="button" class="category-button active" data-category="all">
+                    All
+                </button>
+                <button type="button" class="category-button" data-category="power">
+                    Power
+                </button>
+                <button type="button" class="category-button" data-category="passive">
+                    Passive
+                </button>
+                <button type="button" class="category-button" data-category="semiconductor">
+                    Semiconductors
+                </button>
+                <button type="button" class="category-button" data-category="output">
+                    Outputs
+                </button>
+                <button type="button" class="category-button" data-category="digital">
+                    Digital
+                </button>
+            </div>
+
+            <div class="component-library" id="componentLibrary">
+
+                <button type="button" class="component-item" data-part="battery" data-category="power">
+                    <span class="component-symbol"><i class="fa-solid fa-battery-full"></i></span>
+                    <span><b>DC Voltage Source</b><small>Battery / supply</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="ground" data-category="power">
+                    <span class="component-symbol"><i class="fa-solid fa-plug"></i></span>
+                    <span><b>Ground</b><small>Reference node</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="resistor" data-category="passive">
+                    <span class="component-symbol"><i class="fa-solid fa-wave-square"></i></span>
+                    <span><b>Resistor</b><small>Resistance · Ω</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="capacitor" data-category="passive">
+                    <span class="component-symbol"><i class="fa-solid fa-grip-lines-vertical"></i></span>
+                    <span><b>Capacitor</b><small>Capacitance · F</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="inductor" data-category="passive">
+                    <span class="component-symbol"><i class="fa-solid fa-ring"></i></span>
+                    <span><b>Inductor</b><small>Inductance · H</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="switch" data-category="passive">
+                    <span class="component-symbol"><i class="fa-solid fa-toggle-on"></i></span>
+                    <span><b>Switch</b><small>Open / closed</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="led" data-category="semiconductor">
+                    <span class="component-symbol"><i class="fa-solid fa-lightbulb"></i></span>
+                    <span><b>LED</b><small>Light-emitting diode</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="diode" data-category="semiconductor">
+                    <span class="component-symbol"><i class="fa-solid fa-play"></i></span>
+                    <span><b>Diode</b><small>PN junction</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="zener" data-category="semiconductor">
+                    <span class="component-symbol"><i class="fa-solid fa-bolt"></i></span>
+                    <span><b>Zener diode</b><small>Voltage regulation</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="npn" data-category="semiconductor">
+                    <span class="component-symbol"><i class="fa-solid fa-code-branch"></i></span>
+                    <span><b>NPN transistor</b><small>BJT · three terminals</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="pnp" data-category="semiconductor">
+                    <span class="component-symbol"><i class="fa-solid fa-code-branch"></i></span>
+                    <span><b>PNP transistor</b><small>BJT · three terminals</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="nmos" data-category="semiconductor">
+                    <span class="component-symbol"><i class="fa-solid fa-microchip"></i></span>
+                    <span><b>N-channel MOSFET</b><small>Gate / drain / source</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="motor" data-category="output">
+                    <span class="component-symbol"><i class="fa-solid fa-fan"></i></span>
+                    <span><b>DC Motor</b><small>Motor load model</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="lamp" data-category="output">
+                    <span class="component-symbol"><i class="fa-solid fa-lightbulb"></i></span>
+                    <span><b>Indicator lamp</b><small>Resistive load</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="arduino" data-category="digital">
+                    <span class="component-symbol"><i class="fa-solid fa-microchip"></i></span>
+                    <span><b>Arduino Uno</b><small>Pin-level board model</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="and" data-category="digital">
+                    <span class="component-symbol"><i class="fa-solid fa-code"></i></span>
+                    <span><b>AND gate</b><small>Digital logic</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="or" data-category="digital">
+                    <span class="component-symbol"><i class="fa-solid fa-code"></i></span>
+                    <span><b>OR gate</b><small>Digital logic</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="not" data-category="digital">
+                    <span class="component-symbol"><i class="fa-solid fa-code"></i></span>
+                    <span><b>NOT gate</b><small>Inverter</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+                <button type="button" class="component-item" data-part="pushbutton" data-category="digital">
+                    <span class="component-symbol"><i class="fa-solid fa-hand-pointer"></i></span>
+                    <span><b>Push button</b><small>Digital input</small></span>
+                    <i class="fa-solid fa-plus component-add"></i>
+                </button>
+
+            </div>
+
+            <div class="safety-notice">
+                <i class="fa-solid fa-shield-halved"></i>
+                <div>
+                    <b>Educational DC only</b>
+                    <p>AC mains and 230 V circuits are not supported.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- WORK AREA -->
+        <section class="circuit-panel design-panel">
+
+            <div class="design-toolbar">
+                <div class="design-toolbar-left">
+                    <span class="live-indicator"></span>
+                    <div>
+                        <b>2D Schematic</b>
+                        <small id="canvasStatus">Empty workspace</small>
+                    </div>
+                </div>
+
+                <div class="design-toolbar-right">
+                    <button type="button" class="tool-button active"
+                            id="selectTool" title="Select and move">
+                        <i class="fa-solid fa-arrow-pointer"></i>
+                        <span>Select</span>
+                    </button>
+
+                    <button type="button" class="tool-button"
+                            id="wireTool" title="Connect component terminals">
+                        <i class="fa-solid fa-share-nodes"></i>
+                        <span>Wire</span>
+                    </button>
+
+                    <button type="button" class="tool-button"
+                            id="deleteTool" title="Delete component or wire">
+                        <i class="fa-solid fa-trash"></i>
+                        <span>Delete</span>
+                    </button>
+
+                    <button type="button" class="tool-button"
+                            id="rotateButton" title="Rotate selected component">
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>Rotate</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="canvas-viewport" id="canvasViewport">
+                <svg id="circuitSvg"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 1200 800"
+                     role="application"
+                     aria-label="Interactive DC circuit schematic editor">
+
+                    <defs>
+                        <pattern id="smallGrid" width="10" height="10"
+                                 patternUnits="userSpaceOnUse">
+                            <path d="M 10 0 L 0 0 0 10"
+                                  fill="none" stroke="#263247"
+                                  stroke-width="0.5"/>
+                        </pattern>
+
+                        <pattern id="largeGrid" width="50" height="50"
+                                 patternUnits="userSpaceOnUse">
+                            <rect width="50" height="50" fill="url(#smallGrid)"/>
+                            <path d="M 50 0 L 0 0 0 50"
+                                  fill="none" stroke="#33445d"
+                                  stroke-width="0.8"/>
+                        </pattern>
+                    </defs>
+
+                    <rect id="canvasBackground"
+                          width="1200" height="800"
+                          fill="url(#largeGrid)"/>
+
+                    <!-- JS renders actual components, pins and wires here. -->
+                    <g id="wireLayer"></g>
+                    <g id="componentLayer"></g>
+                    <g id="pinLayer"></g>
+                    <g id="selectionLayer"></g>
+                    <g id="previewLayer"></g>
+                </svg>
+
+                <div class="canvas-empty-state" id="emptyBoardMessage">
+                    <i class="fa-solid fa-diagram-project"></i>
+                    <h3>Your workspace is empty</h3>
+                    <p>Add a component from the library or choose a starting template.</p>
+                </div>
+
+                <div class="canvas-coordinate-readout" id="coordinateReadout">
+                    X: — &nbsp; Y: —
+                </div>
+            </div>
+
+            <div class="canvas-footer">
+                <span id="toolStatus">Select a component to get started.</span>
+
+                <div class="canvas-zoom-controls">
+                    <button type="button" id="zoomOut" aria-label="Zoom out">−</button>
+                    <span id="zoomValue">100%</span>
+                    <button type="button" id="zoomIn" aria-label="Zoom in">+</button>
+                    <button type="button" id="fitCanvas" title="Fit drawing">
+                        <i class="fa-solid fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="canvas-export-toolbar">
+                <button type="button" class="text-tool-button" id="exportSvgButton">
+                    <i class="fa-solid fa-image"></i> Export SVG
+                </button>
+
+                <button type="button" class="text-tool-button" id="exportPngButton">
+                    <i class="fa-solid fa-file-image"></i> Export PNG
+                </button>
+
+                <button type="button" class="text-tool-button" id="downloadProjectButton">
+                    <i class="fa-solid fa-download"></i> Download project
+                </button>
+
+                <button type="button" class="text-tool-button danger-tool-button"
+                        id="clearBoardButton">
+                    <i class="fa-solid fa-eraser"></i> Clear board
+                </button>
+            </div>
+
+        </section>
+
+        <!-- PROPERTIES AND SIMULATION -->
+        <aside class="circuit-panel right-sidebar">
+
+            <section class="inspector-section">
                 <div class="panel-heading">
-                    <h3 data-en="Component library"
-                        data-si="Component library">Component library</h3>
-                    <span class="library-count" id="componentCount">0</span>
-                </div>
-
-                <p class="panel-subtitle"
-                   data-en="Select a component to add it to the empty board."
-                   data-si="හිස් board එකට එක් කිරීමට component එකක් තෝරන්න.">
-                    Select a component to add it to the empty board.
-                </p>
-
-                <div class="component-library" id="componentLibrary">
-
-                    <button type="button" class="component-choice" data-part="battery">
-                        <span class="part-icon battery-part">
-                            <i class="fa-solid fa-battery-half"></i>
-                        </span>
-                        <span><b>DC Battery</b><small>1.5–12 V</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="resistor">
-                        <span class="part-icon resistor-part">
-                            <i class="fa-solid fa-wave-square"></i>
-                        </span>
-                        <span><b>Resistor</b><small>Resistance · Ω</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="led">
-                        <span class="part-icon led-part">
-                            <i class="fa-solid fa-lightbulb"></i>
-                        </span>
-                        <span><b>LED</b><small>Polarity-sensitive</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="switch">
-                        <span class="part-icon switch-part">
-                            <i class="fa-solid fa-toggle-on"></i>
-                        </span>
-                        <span><b>Switch</b><small>Open / closed</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="capacitor">
-                        <span class="part-icon capacitor-part">
-                            <i class="fa-solid fa-grip-lines-vertical"></i>
-                        </span>
-                        <span><b>Capacitor</b><small>Capacitance · F</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="diode">
-                        <span class="part-icon diode-part">
-                            <i class="fa-solid fa-play"></i>
-                        </span>
-                        <span><b>Diode</b><small>Forward / reverse</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="transistor">
-                        <span class="part-icon transistor-part">
-                            <i class="fa-solid fa-code-branch"></i>
-                        </span>
-                        <span><b>Transistor</b><small>NPN / PNP</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="motor">
-                        <span class="part-icon motor-part">
-                            <i class="fa-solid fa-fan"></i>
-                        </span>
-                        <span><b>DC Motor</b><small>Low-voltage DC</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="arduino">
-                        <span class="part-icon arduino-part">
-                            <i class="fa-solid fa-microchip"></i>
-                        </span>
-                        <span><b>Arduino Uno</b><small>5 V logic board</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                    <button type="button" class="component-choice" data-part="logic">
-                        <span class="part-icon logic-part">
-                            <i class="fa-solid fa-code"></i>
-                        </span>
-                        <span><b>Logic gates</b><small>AND / OR / NOT</small></span>
-                        <i class="fa-solid fa-plus add-part"></i>
-                    </button>
-
-                </div>
-
-                <div class="dc-safety">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <p data-en="Educational low-voltage DC only. AC and 230 V circuits are excluded."
-                       data-si="අඩු වෝල්ටීයතා DC ඉගෙනුම් සඳහා පමණි. AC සහ 230 V පරිපථ ඇතුළත් නොවේ.">
-                        Educational low-voltage DC only. AC and 230 V circuits are excluded.
-                    </p>
-                </div>
-            </aside>
-
-            <!-- MAIN WORK AREA -->
-            <section class="circuit-panel schematic-panel">
-
-                <div class="schematic-toolbar">
-                    <div class="schematic-title">
-                        <span class="online-dot"></span>
-                        <div>
-                            <h3>2D Circuit Board</h3>
-                            <small id="boardStatus">Empty workspace · Ready to design</small>
-                        </div>
+                    <div>
+                        <span class="section-kicker">COMPONENT SETTINGS</span>
+                        <h3>Properties</h3>
                     </div>
-
-                    <div class="schematic-tools">
-                        <button type="button" id="selectTool" class="mini-tool">
-                            <i class="fa-solid fa-arrow-pointer"></i> Select
-                        </button>
-
-                        <button type="button" id="wireMode" class="mini-tool">
-                            <i class="fa-solid fa-share-nodes"></i> Wire
-                        </button>
-
-                        <button type="button" id="deleteTool" class="mini-tool">
-                            <i class="fa-solid fa-trash"></i> Delete
-                        </button>
-
-                        <button type="button" id="rotateComponent" class="mini-tool">
-                            <i class="fa-solid fa-rotate"></i> Rotate
-                        </button>
-
-                        <button type="button" id="open3D" class="mini-tool">
-                            <i class="fa-solid fa-cube"></i> 3D
-                        </button>
-                    </div>
-                </div>
-
-                <div class="schematic-canvas" id="schematicCanvas">
-                    <svg id="circuitSvg"
-                         viewBox="0 0 1000 650"
-                         role="application"
-                         aria-label="Interactive circuit design board">
-
-                        <defs>
-                            <pattern id="circuitGrid"
-                                     width="20"
-                                     height="20"
-                                     patternUnits="userSpaceOnUse">
-                                <circle cx="1" cy="1" r="1" fill="#8795ad"/>
-                            </pattern>
-                        </defs>
-
-                        <rect id="canvasBackground"
-                              width="100%"
-                              height="100%"
-                              fill="url(#circuitGrid)"/>
-
-                        <!-- Intentionally empty.
-                             circuit.js will render user-created components and wires here. -->
-                        <g id="wireLayer"></g>
-                        <g id="componentLayer"></g>
-                        <g id="interactionLayer"></g>
-                    </svg>
-
-                    <div class="empty-board-message" id="emptyBoardMessage">
-                        <i class="fa-solid fa-circle-nodes"></i>
-                        <h3 data-en="Your board is ready"
-                            data-si="ඔබේ board එක සූදානම්">Your board is ready</h3>
-                        <p data-en="Choose a component from the library to begin."
-                           data-si="ආරම්භ කිරීමට වම් පස library එකෙන් component එකක් තෝරන්න.">
-                            Choose a component from the library to begin.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="schematic-footer">
-                    <span id="toolStatus">Select a component to get started.</span>
-                    <span class="simulation-status" id="simulationStatus">Not simulated</span>
-                </div>
-
-                <div class="board-bottom-tools">
-                    <button type="button" class="mini-tool" id="zoomOut">−</button>
-                    <button type="button" class="mini-tool" id="zoomReset">100%</button>
-                    <button type="button" class="mini-tool" id="zoomIn">+</button>
-
-                    <span class="board-tool-spacer"></span>
-
-                    <button type="button" class="mini-tool" id="exportCircuit">
-                        <i class="fa-solid fa-download"></i> Export SVG
-                    </button>
-
-                    <button type="button" class="mini-tool" id="downloadProject">
-                        <i class="fa-solid fa-file-arrow-down"></i> Download project
-                    </button>
-                </div>
-
-            </section>
-
-            <!-- PROPERTIES / SIMULATION -->
-            <aside class="circuit-panel inspector-panel">
-
-                <div class="panel-heading">
-                    <h3 data-en="Properties"
-                        data-si="ගුණාංග">Properties</h3>
                     <i class="fa-solid fa-sliders"></i>
                 </div>
 
-                <div id="noSelectionMessage" class="no-selection-message">
-                    Select a component on the board to edit its properties.
+                <div id="noSelectionMessage" class="inspector-empty">
+                    <i class="fa-solid fa-mouse-pointer"></i>
+                    <p>Select a component on the canvas to inspect its properties and terminals.</p>
                 </div>
 
-                <div id="componentProperties" hidden>
-                    <h4 id="selectedComponentName">Component</h4>
+                <form id="componentProperties" hidden>
+                    <input type="hidden" id="selectedComponentId">
 
-                    <label for="componentLabel">Label</label>
-                    <input id="componentLabel" type="text" maxlength="40">
+                    <label for="componentLabel">Reference / label</label>
+                    <input id="componentLabel" name="label"
+                           type="text" maxlength="40">
 
-                    <label for="componentValue">Component value</label>
-                    <input id="componentValue" type="number" step="any">
-
-                    <label for="componentUnit">Unit</label>
-                    <select id="componentUnit">
-                        <option value="V">V — Volts</option>
-                        <option value="ohm">Ω — Ohms</option>
-                        <option value="uF">µF — Microfarads</option>
-                        <option value="mA">mA — Milliamps</option>
-                        <option value="none">None</option>
+                    <label for="componentModel">Component model</label>
+                    <select id="componentModel" name="model">
+                        <option value="default">Default model</option>
+                        <option value="ideal">Idealized model</option>
                     </select>
 
-                    <label for="componentType">Component type</label>
-                    <select id="componentType">
-                        <option value="default">Default</option>
-                        <option value="npn">NPN transistor</option>
-                        <option value="pnp">PNP transistor</option>
-                        <option value="and">AND gate</option>
-                        <option value="or">OR gate</option>
-                        <option value="not">NOT gate</option>
+                    <div id="dynamicPropertyFields"></div>
+
+                    <div class="property-actions">
+                        <button type="submit" class="circuit-button primary-button">
+                            Apply changes
+                        </button>
+
+                        <button type="button" class="circuit-button secondary-button"
+                                id="resetPropertiesButton">
+                            Reset
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="inspector-section simulation-section" id="simulationResults">
+                <div class="panel-heading">
+                    <div>
+                        <span class="section-kicker">DC ANALYSIS</span>
+                        <h3>Simulation</h3>
+                    </div>
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+
+                <p class="panel-description">
+                    Solve the circuit's supported DC operating point and inspect the results.
+                </p>
+
+                <div class="simulation-controls">
+                    <label for="simulationMode">Analysis mode</label>
+                    <select id="simulationMode">
+                        <option value="operating-point">DC operating point</option>
+                        <option value="node-voltage">Node voltages</option>
+                        <option value="branch-current">Branch currents</option>
                     </select>
 
-                    <button type="button" class="circuit-btn secondary-btn" id="applyProperties">
-                        Apply changes
+                    <label for="solverTolerance">Solver tolerance</label>
+                    <select id="solverTolerance">
+                        <option value="0.001">1 mV / 1 mA</option>
+                        <option value="0.0001" selected>0.1 mV / 0.1 mA</option>
+                        <option value="0.00001">0.01 mV / 0.01 mA</option>
+                    </select>
+
+                    <button type="button" id="runSimulationButton"
+                            class="circuit-button primary-button simulation-run-button">
+                        <i class="fa-solid fa-play"></i>
+                        Run DC simulation
+                    </button>
+
+                    <button type="button" id="stopSimulationButton"
+                            class="circuit-button secondary-button" disabled>
+                        <i class="fa-solid fa-stop"></i> Stop
                     </button>
                 </div>
 
-                <hr>
-
-                <h3 data-en="DC simulation"
-                    data-si="DC simulation">DC simulation</h3>
-
-                <label for="supplyVoltage">Supply voltage</label>
-                <div class="input-with-unit">
-                    <input id="supplyVoltage" type="number"
-                           min="1" max="12" step="0.5" value="5">
-                    <span>V</span>
+                <div class="simulation-state" id="simulationState" role="status">
+                    <span class="state-dot"></span>
+                    <span id="simulationStateText">Not simulated</span>
                 </div>
 
-                <label for="resistanceValue">Resistance</label>
-                <div class="input-with-unit">
-                    <input id="resistanceValue" type="number"
-                           min="100" max="10000" step="10" value="220">
-                    <span>Ω</span>
+                <div class="simulation-error" id="simulationError" hidden>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <p id="simulationErrorText"></p>
                 </div>
 
-                <label for="switchValue">Switch state</label>
-                <select id="switchValue">
-                    <option value="closed">Closed</option>
-                    <option value="open">Open</option>
-                </select>
+                <div class="simulation-metrics">
+                    <article class="metric-card">
+                        <small>Nodes</small>
+                        <b id="nodeCount">—</b>
+                    </article>
 
-                <button type="button" id="simulateCircuit"
-                        class="circuit-btn primary-btn simulate-btn">
-                    <i class="fa-solid fa-play"></i>
-                    Run simulation
-                </button>
+                    <article class="metric-card">
+                        <small>Branches</small>
+                        <b id="branchCount">—</b>
+                    </article>
 
-                <div class="result-grid">
-                    <div class="result-card">
-                        <small>Current</small>
-                        <b id="currentResult">—</b>
-                    </div>
+                    <article class="metric-card">
+                        <small>Iterations</small>
+                        <b id="iterationCount">—</b>
+                    </article>
 
-                    <div class="result-card">
-                        <small>LED state</small>
-                        <b id="ledResult">—</b>
-                    </div>
-
-                    <div class="result-card">
-                        <small>Resistor power</small>
-                        <b id="powerResult">—</b>
-                    </div>
-
-                    <div class="result-card">
-                        <small>LED voltage</small>
-                        <b id="ledVoltageResult">—</b>
-                    </div>
+                    <article class="metric-card">
+                        <small>Status</small>
+                        <b id="convergenceStatus">—</b>
+                    </article>
                 </div>
 
-                <div class="explanation-card">
-                    <b><i class="fa-solid fa-lightbulb"></i> Learning feedback</b>
-                    <p id="explanationText">
-                        Add components and connect a circuit to begin.
-                    </p>
+                <div class="simulation-results-tables">
+                    <div class="result-table-section">
+                        <h4>Node voltages</h4>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Node</th>
+                                        <th>Voltage (V)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="nodeVoltageTable">
+                                    <tr><td colspan="2">Run simulation to see results.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="result-table-section">
+                        <h4>Branch currents</h4>
+                        <div class="table-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Component</th>
+                                        <th>Current (A)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="branchCurrentTable">
+                                    <tr><td colspan="2">Run simulation to see results.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="inspector-section circuit-validation-section">
+                <div class="panel-heading">
+                    <div>
+                        <span class="section-kicker">CIRCUIT CHECK</span>
+                        <h3>Validation</h3>
+                    </div>
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
 
-            </aside>
-        </div>
+                <ul id="circuitValidationList" class="validation-list">
+                    <li class="validation-neutral">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Add components to begin checking your circuit.
+                    </li>
+                </ul>
+            </section>
 
-        <p class="prototype-note">
-            <i class="fa-solid fa-circle-info"></i>
-            Educational low-voltage DC simulator. Simulation results depend on
-            the circuit models implemented in circuit.js. Do not use this tool
-            to validate real hardware.
-        </p>
-
+        </aside>
     </section>
 
-    <!-- LEARNING ZONE -->
-    <section class="learning-zone" id="learn">
-        <div class="circuit-container">
+    <!-- 3D VIEW -->
+    <section class="circuit-container circuit-panel three-d-section" id="threeDSection">
+        <div class="section-heading-row">
+            <div>
+                <span class="section-kicker">03 / VISUALIZATION</span>
+                <h2>3D Circuit View</h2>
+                <p>Inspect component placement and connections in a 3D scene.</p>
+            </div>
 
-            <div class="circuit-section-heading">
+            <div class="three-d-controls">
+                <button type="button" id="open3DButton" class="circuit-button primary-button">
+                    <i class="fa-solid fa-cube"></i> Open 3D view
+                </button>
+
+                <button type="button" id="reset3DButton" class="circuit-button secondary-button">
+                    <i class="fa-solid fa-rotate"></i> Reset camera
+                </button>
+            </div>
+        </div>
+
+        <div class="three-d-viewport" id="threeDViewport">
+            <div class="three-d-placeholder" id="threeDPlaceholder">
+                <i class="fa-solid fa-cubes-stacked"></i>
+                <h3>3D workspace</h3>
+                <p>Add components to your schematic to prepare the 3D view.</p>
+            </div>
+        </div>
+
+        <div class="three-d-footer">
+            <span><i class="fa-solid fa-computer"></i> Interactive 3D viewport</span>
+            <span>Educational visualization · Not a physical manufacturing model</span>
+        </div>
+    </section>
+
+    <!-- LEARNING -->
+    <section class="learning-section" id="learningZone">
+        <div class="circuit-container">
+            <div class="section-heading-row">
                 <div>
-                    <span class="circuit-section-label">02 / LEARN BY DOING</span>
-                    <h2 data-en="Learn electronics by experimenting"
-                        data-si="අත්හදා බැලීම් මගින් ඉලෙක්ට්‍රොනික විද්‍යාව ඉගෙන ගන්න">
-                        Learn electronics by experimenting
-                    </h2>
-                    <p>Learn the concepts behind your circuits.</p>
+                    <span class="section-kicker">04 / LEARN BY DOING</span>
+                    <h2>Understand the science</h2>
+                    <p>Learn the principles behind your circuits.</p>
                 </div>
             </div>
 
-            <div class="learning-cards">
-
+            <div class="learning-card-grid">
                 <article class="learning-card">
-                    <span class="lesson-index">LESSON 01</span>
-                    <div class="lesson-equation">V = I × R</div>
+                    <span class="lesson-number">LESSON 01</span>
+                    <div class="lesson-formula">V = I × R</div>
                     <h3>Ohm's law</h3>
-                    <p>Understand the relationship between voltage, current and resistance.</p>
-                    <button type="button" class="lesson-link" data-lesson="ohm">
-                        Explore lesson →
+                    <p>Understand voltage, current and resistance.</p>
+                    <button type="button" class="lesson-button" data-lesson="ohm">
+                        Open lesson <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </article>
 
                 <article class="learning-card">
-                    <span class="lesson-index">LESSON 02</span>
-                    <div class="lesson-equation">Series / Parallel</div>
-                    <h3>Current paths</h3>
-                    <p>Explore how series and parallel connections change a circuit.</p>
-                    <button type="button" class="lesson-link" data-lesson="series">
-                        Explore lesson →
+                    <span class="lesson-number">LESSON 02</span>
+                    <div class="lesson-formula">ΣI = 0</div>
+                    <h3>Kirchhoff's laws</h3>
+                    <p>Explore current conservation and voltage around loops.</p>
+                    <button type="button" class="lesson-button" data-lesson="kirchhoff">
+                        Open lesson <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </article>
 
                 <article class="learning-card">
-                    <span class="lesson-index">LESSON 03</span>
-                    <div class="lesson-equation">0 / 1</div>
-                    <h3>Digital logic</h3>
-                    <p>Learn how AND, OR and NOT gates process binary inputs.</p>
-                    <button type="button" class="lesson-link" data-lesson="logic">
-                        Explore lesson →
+                    <span class="lesson-number">LESSON 03</span>
+                    <div class="lesson-formula">0 / 1</div>
+                    <h3>Digital electronics</h3>
+                    <p>Understand Boolean logic and digital inputs and outputs.</p>
+                    <button type="button" class="lesson-button" data-lesson="logic">
+                        Open lesson <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </article>
-
             </div>
 
-            <div id="lessonOutput" class="lesson-output" hidden></div>
+            <article class="lesson-content-panel" id="lessonContent" hidden>
+                <button type="button" id="closeLessonButton" class="icon-button"
+                        aria-label="Close lesson">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div id="lessonContentBody"></div>
+            </article>
         </div>
     </section>
 
 </main>
 
-<footer class="circuit-footer">
-    <div class="circuit-container footer-inner">
-        <span>© 2026 AM Digital Studio. All Rights Reserved.</span>
-        <span>Student electronics lab · Low-voltage DC only</span>
-        <a href="index.html">← Back to website</a>
-    </div>
-</footer>
-
-<!-- 3D PREVIEW MODAL -->
-<div class="circuit-modal" id="threeDModal" hidden>
-    <div class="three-d-dialog" role="dialog" aria-modal="true"
-         aria-labelledby="threeDTitle">
-
-        <div class="modal-heading">
-            <div>
-                <span class="circuit-section-label">3D PREVIEW</span>
-                <h2 id="threeDTitle">Circuit 3D view</h2>
-            </div>
-
-            <button type="button" id="close3D"
-                    class="modal-close" aria-label="Close">×</button>
-        </div>
-
-        <p id="threeDDescription">
-            Preview components placed on your circuit board.
-        </p>
-
-        <div class="three-d-scene" id="threeDScene">
-            <div id="threeDContent">
-                Your circuit's 3D preview will appear here.
-            </div>
-        </div>
-
-        <div class="modal-bottom">
-            <span class="dc-label">LOW-VOLTAGE DC</span>
-            <small>Educational preview only.</small>
-        </div>
-    </div>
-</div>
-
-<!-- NOTIFICATION / STATUS -->
+<!-- NOTIFICATIONS -->
 <div id="circuitToast" class="circuit-toast"
      role="status" aria-live="polite" hidden></div>
+
+<!-- ACCESSIBLE FILE ERROR / MESSAGE AREA -->
+<div id="circuitLiveRegion" class="visually-hidden"
+     role="status" aria-live="polite" aria-atomic="true"></div>
+
+<footer class="circuit-footer">
+    <div class="circuit-container circuit-footer-inner">
+        <a class="circuit-footer-brand" href="index.html">AM Digital Studio</a>
+        <span>Student Electronics Lab · DC only</span>
+        <span>© 2026 AM Digital Studio</span>
+    </div>
+</footer>
 
 </body>
 </html>
