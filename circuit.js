@@ -1287,6 +1287,12 @@ function toggleLanguage() {
     });
 
     $("languageToggle")?.addEventListener("click", toggleLanguage);
+     
+    // Open the 3D circuit preview.
+    const threeDButton = document.getElementById("Open 3D view");
+
+    threeDButton?.addEventListener("click", openAMD3DView);
+
     $("saveProjectButton")?.addEventListener("click", saveProject);
     $("downloadProjectButton")?.addEventListener("click", saveProject);
     $("exportSvgButton")?.addEventListener("click", exportSVG);
@@ -1576,3 +1582,346 @@ function toggleLanguage() {
     initialize();
   }
 })();
+
+/* =========================================================
+   AM DIGITAL STUDIO — 3D CIRCUIT VIEW
+   Standalone 3D-style preview using SVG.
+   ========================================================= */
+
+let amd3DOverlay = null;
+let amd3DViewAngle = 0;
+let amd3DZoom = 1;
+
+function closeAMD3DView() {
+  if (amd3DOverlay) {
+    amd3DOverlay.remove();
+    amd3DOverlay = null;
+  }
+
+  document.removeEventListener("keydown", amd3DKeyHandler);
+}
+
+function amd3DKeyHandler(event) {
+  if (event.key === "Escape") closeAMD3DView();
+}
+
+function openAMD3DView() {
+  if (amd3DOverlay) {
+    renderAMD3DView();
+    return;
+  }
+
+  amd3DOverlay = document.createElement("div");
+  amd3DOverlay.id = "amd3DOverlay";
+
+  amd3DOverlay.innerHTML = `
+    <style>
+      #amd3DOverlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        background: #07101f;
+        color: #eaf2ff;
+        display: flex;
+        flex-direction: column;
+        font-family: Arial, sans-serif;
+      }
+
+      #amd3DOverlay * { box-sizing: border-box; }
+
+      #amd3DToolbar {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 9px;
+        padding: 13px;
+        background: #101c30;
+        border-bottom: 1px solid #263955;
+      }
+
+      #amd3DToolbar strong {
+        margin-right: auto;
+        font-size: 16px;
+      }
+
+      #amd3DToolbar button {
+        border: 1px solid #3b5275;
+        border-radius: 8px;
+        padding: 9px 12px;
+        color: #eaf2ff;
+        background: #1b2b44;
+        cursor: pointer;
+      }
+
+      #amd3DToolbar button:hover {
+        background: #285080;
+      }
+
+      #amd3DCanvas {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        touch-action: none;
+        cursor: grab;
+        background:
+          radial-gradient(ellipse at center, #14243d 0%, #07101f 75%);
+      }
+
+      #amd3DSVG {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      #amd3DStatus {
+        padding: 8px 13px;
+        background: #101c30;
+        color: #9db3d4;
+        font-size: 12px;
+      }
+
+      @media (max-width: 600px) {
+        #amd3DToolbar { gap: 6px; padding: 9px; }
+        #amd3DToolbar strong { width: 100%; }
+        #amd3DToolbar button { padding: 8px; font-size: 12px; }
+      }
+    </style>
+
+    <div id="amd3DToolbar">
+      <strong>AM Digital Studio — 3D Circuit View</strong>
+      <button type="button" id="amd3DRefresh">Refresh</button>
+      <button type="button" id="amd3DTop">Top View</button>
+      <button type="button" id="amd3DZoomOut">−</button>
+      <button type="button" id="amd3DZoomIn">+</button>
+      <button type="button" id="amd3DClose">✕ Close</button>
+    </div>
+
+    <div id="amd3DCanvas">
+      <svg id="amd3DSVG"
+           xmlns="http://www.w3.org/2000/svg"
+           role="img"
+           aria-label="3D-style circuit preview">
+      </svg>
+    </div>
+
+    <div id="amd3DStatus">
+      Drag to rotate · Use + / − to zoom · Esc to close
+    </div>
+  `;
+
+  document.body.appendChild(amd3DOverlay);
+
+  amd3DOverlay.querySelector("#amd3DClose")
+    .addEventListener("click", closeAMD3DView);
+
+  amd3DOverlay.querySelector("#amd3DRefresh")
+    .addEventListener("click", renderAMD3DView);
+
+  amd3DOverlay.querySelector("#amd3DTop")
+    .addEventListener("click", () => {
+      amd3DViewAngle = 0;
+      renderAMD3DView();
+    });
+
+  amd3DOverlay.querySelector("#amd3DZoomIn")
+    .addEventListener("click", () => {
+      amd3DZoom = Math.min(2.5, amd3DZoom + 0.15);
+      renderAMD3DView();
+    });
+
+  amd3DOverlay.querySelector("#amd3DZoomOut")
+    .addEventListener("click", () => {
+      amd3DZoom = Math.max(0.5, amd3DZoom - 0.15);
+      renderAMD3DView();
+    });
+
+  const canvas = amd3DOverlay.querySelector("#amd3DCanvas");
+  let dragging = false;
+  let lastX = 0;
+
+  canvas.addEventListener("pointerdown", event => {
+    dragging = true;
+    lastX = event.clientX;
+    canvas.style.cursor = "grabbing";
+    canvas.setPointerCapture(event.pointerId);
+  });
+
+  canvas.addEventListener("pointermove", event => {
+    if (!dragging) return;
+
+    const dx = event.clientX - lastX;
+    lastX = event.clientX;
+
+    amd3DViewAngle += dx * 0.008;
+    renderAMD3DView();
+  });
+
+  function stopDragging() {
+    dragging = false;
+    if (canvas) canvas.style.cursor = "grab";
+  }
+
+  canvas.addEventListener("pointerup", stopDragging);
+  canvas.addEventListener("pointercancel", stopDragging);
+
+  document.addEventListener("keydown", amd3DKeyHandler);
+
+  renderAMD3DView();
+}
+
+function renderAMD3DView() {
+  const svg = document.getElementById("amd3DSVG");
+  if (!svg || !amd3DOverlay) return;
+
+  const NS3D = "http://www.w3.org/2000/svg";
+  const make = (tag, attrs = {}, text = "") => {
+    const el = document.createElementNS(NS3D, tag);
+    Object.entries(attrs).forEach(([key, value]) => {
+      el.setAttribute(key, String(value));
+    });
+    if (text) el.textContent = text;
+    return el;
+  };
+
+  svg.replaceChildren();
+
+  const width = 1200;
+  const height = 800;
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+  const background = make("rect", {
+    width, height, fill: "#091426"
+  });
+  svg.appendChild(background);
+
+  const grid = make("g", {
+    stroke: "#243957",
+    "stroke-width": 1,
+    opacity: 0.6
+  });
+
+  for (let x = 0; x <= width; x += 40) {
+    grid.appendChild(make("line", {
+      x1: x, y1: 0, x2: x, y2: height
+    }));
+  }
+
+  for (let y = 0; y <= height; y += 40) {
+    grid.appendChild(make("line", {
+      x1: 0, y1: y, x2: width, y2: y
+    }));
+  }
+
+  svg.appendChild(grid);
+
+  const angle = amd3DViewAngle;
+  const cos = Math.cos(angle);
+  const sin = Math.sin(angle);
+
+  const project = (x, y, z = 0) => ({
+    x: 600 + ((x - 600) * cos - (y - 400) * sin) * amd3DZoom,
+    y: 400 + ((x - 600) * sin + (y - 400) * cos) * 0.55 * amd3DZoom
+        - z * amd3DZoom
+  });
+
+  const wiresLayer = make("g");
+  const partsLayer = make("g");
+
+  // Draw connected wires first, behind the components.
+  (state.wires || []).forEach(wire => {
+    const start = getPin(wire.from);
+    const end = getPin(wire.to);
+    if (!start || !end) return;
+
+    const points = [
+      start,
+      ...(wire.points || []),
+      end
+    ];
+
+    const projected = points.map(p => project(p.x, p.y, 8));
+
+    const path = projected.map((p, i) =>
+      `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`
+    ).join(" ");
+
+    wiresLayer.appendChild(make("path", {
+      d: path,
+      fill: "none",
+      stroke: wire.color || "#4ea1ff",
+      "stroke-width": 5,
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    }));
+  });
+
+  // Render every circuit component as a raised 3D-style block.
+  (state.parts || []).forEach(part => {
+    const def = partDef(part);
+    const p = project(
+      part.x + def.w / 2,
+      part.y + def.h / 2,
+      20
+    );
+
+    const w = def.w * 0.85 * amd3DZoom;
+    const h = def.h * 0.65 * amd3DZoom;
+    const depth = 16 * amd3DZoom;
+    const color = def.color || "#60a5fa";
+
+    const group = make("g", {
+      transform: `translate(${p.x - w / 2} ${p.y - h / 2})`
+    });
+
+    // Side face.
+    group.appendChild(make("path", {
+      d: `M0 ${h} L${depth} ${h + depth}
+          L${w + depth} ${h + depth} L${w} ${h} Z`,
+      fill: "#111d31",
+      stroke: color,
+      "stroke-width": 1.5
+    }));
+
+    // Right face.
+    group.appendChild(make("path", {
+      d: `M${w} 0 L${w + depth} ${depth}
+          L${w + depth} ${h + depth} L${w} ${h} Z`,
+      fill: "#172844",
+      stroke: color,
+      "stroke-width": 1.5
+    }));
+
+    // Top face.
+    group.appendChild(make("path", {
+      d: `M0 0 L${depth} ${depth}
+          L${w + depth} ${depth} L${w} 0 Z`,
+      fill: color,
+      opacity: 0.95,
+      stroke: color,
+      "stroke-width": 1.5
+    }));
+
+    // Component label.
+    group.appendChild(make("text", {
+      x: w / 2 + depth / 2,
+      y: h * 0.58,
+      fill: "#ffffff",
+      "font-size": Math.max(10, 12 * amd3DZoom),
+      "font-weight": "bold",
+      "text-anchor": "middle"
+    }, part.label || part.type));
+
+    group.appendChild(make("title", {}, partDef(part).name));
+
+    partsLayer.appendChild(group);
+  });
+
+  svg.append(wiresLayer, partsLayer);
+
+  const status = amd3DOverlay.querySelector("#amd3DStatus");
+  if (status) {
+    status.textContent =
+      `3D-style preview · ${state.parts.length} components · ` +
+      `${state.wires.length} wires · Drag to rotate`;
+  }
+}
