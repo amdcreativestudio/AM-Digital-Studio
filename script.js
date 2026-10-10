@@ -1210,3 +1210,67 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
+
+//ඩෙලෙට්ක්ට්//
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("circuitLabComingSoon");
+
+    if (!button) return;
+
+    button.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const popup = document.createElement("div");
+
+        popup.innerHTML = `
+            <div class="coming-soon-box" role="dialog"
+                 aria-modal="true" aria-labelledby="comingSoonTitle">
+                <button class="coming-soon-close"
+                        aria-label="Close popup">&times;</button>
+
+                <div class="coming-soon-icon">⚡</div>
+
+                <h2 id="comingSoonTitle">Coming Soon!</h2>
+
+                <p>
+                    Our Circuit Lab is currently under development.
+                    We're working hard to bring you an amazing
+                    interactive circuit design experience.
+                </p>
+
+                <span class="coming-soon-badge">
+                    🚧 Currently in Development
+                </span>
+
+                <button class="coming-soon-ok">Got it</button>
+            </div>
+        `;
+
+        popup.className = "coming-soon-overlay";
+        document.body.appendChild(popup);
+
+        const closePopup = () => popup.remove();
+
+        popup.querySelector(".coming-soon-close")
+            .addEventListener("click", closePopup);
+
+        popup.querySelector(".coming-soon-ok")
+            .addEventListener("click", closePopup);
+
+        popup.addEventListener("click", (event) => {
+            if (event.target === popup) closePopup();
+        });
+
+        const handleEscape = (event) => {
+            if (event.key === "Escape") {
+                closePopup();
+                document.removeEventListener("keydown", handleEscape);
+            }
+        };
+
+        document.addEventListener("keydown", handleEscape);
+    });
+});
+
