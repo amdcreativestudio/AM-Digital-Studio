@@ -269,13 +269,21 @@
 
     renderAll();
   }
+function toggleLanguage() {
+  state.language = state.language === "en" ? "si" : "en";
 
-  function toggleLanguage() {
-    state.language = state.language === "en" ? "si" : "en";
-    try { localStorage.setItem("amd-circuit-language", state.language); } catch (_) {}
-    translatePage();
-    msg(state.language === "si" ? "සිංහල භාෂාව තෝරා ගත්තා." : "English selected.");
-  }
+  try {
+    localStorage.setItem("amd-circuit-language", state.language);
+  } catch (_) {}
+
+  translatePage();
+
+  msg(
+    state.language === "si"
+      ? "සිංහල භාෂාව තෝරා ගත්තා."
+      : "English selected."
+  );
+}
 
   /* ---------------- Components and pins ---------------- */
 
