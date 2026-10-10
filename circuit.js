@@ -1,0 +1,52 @@
+(() => {
+  'use strict';
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  const svgNS = 'http://www.w3.org/2000/svg';
+  let language = 'en';
+  let addedParts = ['battery','resistor','led'];
+  const labels = {battery:'DC Battery',resistor:'Resistor',led:'LED',switch:'Switch',capacitor:'Capacitor',diode:'Diode',transistor:'Transistor',motor:'DC Motor',arduino:'Arduino Uno',logic:'Logic gates'};
+  const siLabels = {battery:'DC බැටරිය',resistor:'ප්‍රතිරෝධකය',led:'LED',switch:'ස්විචය',capacitor:'ධාරිත්‍රකය',diode:'ඩයෝඩය',transistor:'ට්‍රාන්සිස්ටරය',motor:'DC මෝටරය',arduino:'Arduino Uno',logic:'Logic gates'};
+  const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+  function svg(tag,attrs,parent=$('#schematicDrawing')){const el=document.createElementNS(svgNS,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));parent.appendChild(el);return el;}
+  function txt(x,y,text,attrs={}){const el=svg('text',{x,y,fill:'#64748b','font-size':11,...attrs});el.textContent=text;return el;}
+  function drawCircuit(){
+    const g=$('#schematicDrawing');g.innerHTML='';
+    const closed=$('#switchValue').value==='closed';
+    const v=clamp(Number($('#supplyVoltage').value)||5,1,12),r=clamp(Number($('#resistanceValue').value)||220,100,10000);
+    const current=closed&&v>2?(v-2)/r:0, wire=current>0?'#10b981':'#94a3b8';
+    svg('path',{d:'M 155 130 H 275 M 365 130 H 475 V 285 H 155 V 130',fill:'none',stroke:wire,'stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round','stroke-dasharray':closed?'':'6 5'});
+    svg('line',{x1:145,y1:170,x2:165,y2:170,stroke:'#4f46e5','stroke-width':4});svg('line',{x1:138,y1:185,x2:172,y2:185,stroke:'#4f46e5','stroke-width':4});svg('line',{x1:155,y1:130,x2:155,y2:170,stroke:wire,'stroke-width':3});svg('line',{x1:155,y1:185,x2:155,y2:285,stroke:wire,'stroke-width':3});txt(181,181,`${v} V`,{fill:'#4f46e5','font-weight':700});txt(115,207,'+ / −',{'font-size':10});
+    svg('rect',{x:275,y:119,width:90,height:22,rx:4,fill:'#fff4df',stroke:'#d97706','stroke-width':2});[290,307,324,341,355].forEach((x,i)=>svg('line',{x1:x,y1:120,x2:x,y2:140,stroke:['#92400e','#dc2626','#92400e','#78350f','#92400e'][i],'stroke-width':3}));txt(320,106,`${r} Ω`,{ 'text-anchor':'middle',fill:'#92400e','font-weight':700});
+    const ledOn=current>0;svg('circle',{cx:475,cy:285,r:19,fill:ledOn?'#fb7185':'#f8fafc',stroke:ledOn?'#e11d48':'#64748b','stroke-width':2,style:ledOn?'filter:drop-shadow(0 0 8px #fb7185)':''});svg('path',{d:'M 466 276 L 466 294 L 484 285 Z',fill:ledOn?'#be123c':'#94a3b8'});svg('line',{x1:486,y1:276,x2:486,y2:294,stroke:'#475569','stroke-width':2});txt(475,322,'LED',{'text-anchor':'middle','font-weight':700,fill:'#334155'});
+    svg('circle',{cx:275,cy:130,r:4,fill:'#fff',stroke:'#64748b','stroke-width':2});svg('circle',{cx:365,cy:130,r:4,fill:'#fff',stroke:'#64748b','stroke-width':2});svg('line',{x1:275,y1:130,x2:closed?365:350,y2:closed?130:108,stroke:closed?'#10b981':'#64748b','stroke-width':3,'stroke-linecap':'round'});txt(320,82,closed?'SWITCH · CLOSED':'SWITCH · OPEN',{'text-anchor':'middle','font-size':10});
+    if(closed&&current>0){[205,229,253].forEach(x=>svg('path',{d:`M ${x} 124 l 6 6 l -6 6`,fill:'none',stroke:'#10b981','stroke-width':2}));}
+    txt(360,365,'ILLUSTRATIVE DC LOOP · LEARNING DEMO',{'text-anchor':'middle',fill:'#94a3b8','font-size':11});
+    $('#previewLed').classList.toggle('off',!ledOn);
+  }
+  function simulate(){
+    const v=clamp(Number($('#supplyVoltage').value)||5,1,12),r=clamp(Number($('#resistanceValue').value)||220,100,10000),closed=$('#switchValue').value==='closed';
+    $('#supplyVoltage').value=v;$('#resistanceValue').value=r;
+    // Simplified educational model: LED forward drop assumed to be 2 V.
+    const ledDrop=2,current=closed&&v>ledDrop?(v-ledDrop)/r:0,power=current*current*r;
+    $('#currentResult').innerHTML=`${(current*1000).toFixed(1)} <em>mA</em>`;$('#ledResult').textContent=current>0?'ON':'OFF';$('#ledResult').classList.toggle('result-on',current>0);$('#powerResult').innerHTML=`${power.toFixed(3)} <em>W</em>`;$('#ledVoltageResult').innerHTML=`${current>0?ledDrop.toFixed(1):'0.0'} <em>V</em>`;
+    let explanation;
+    if(language==='si') explanation=!closed?'ස්විචය විවෘතයි. පරිපථය කැඩී ඇති නිසා ධාරාවක් ගලා නොයයි.':current>0?'ස්විචය වැසී ඇත. සරල ආකෘතිය අනුව ධාරාව ප්‍රතිරෝධකය හරහා ගලා LED එක දැල්වේ.':'සැපයුම් වෝල්ටීයතාව 2 V LED ආකෘතියට ප්‍රමාණවත් නැත.';
+    else explanation=!closed?'The switch is open, so the circuit path is broken and no current flows.':current>0?'The switch is closed. In this simplified model, current flows through the resistor and the LED lights.':'The supply voltage is not above the assumed 2 V LED forward drop.';
+    $('#explanationText').textContent=explanation;$('#simulationStatus').textContent=closed&&current>0?(language==='si'?'ධාරාව ගලා යයි':'Current flowing'):(language==='si'?'ධාරාවක් නැත':'No current');drawCircuit();
+  }
+  function updateCount(){const n=addedParts.length;$('#componentCount').textContent=language==='si'?`තෝරාගත් ${n}`:`${n} selected`;}
+  function setLanguage(lang){language=lang;document.documentElement.lang=lang;$$('[data-en]').forEach(el=>{el.textContent=lang==='si'?el.dataset.si:el.dataset.en});$$('[data-en-html]').forEach(el=>{el.innerHTML=lang==='si'?el.dataset.siHtml:el.dataset.enHtml});$('#languageToggle')?.remove();const old=$('#circuitLanguageToggle');if(old)old.textContent=lang==='en'?'සිංහල':'English';const status=$('#simulationStatus');if(status)simulate();updateCount();}
+  // Add language selector into the existing theme button area without changing site-wide theme controls.
+  const themeWrap=$('.circuit-page .theme-toggle-wrap');if(themeWrap){const languageButton=document.createElement('button');languageButton.id='circuitLanguageToggle';languageButton.className='circuit-language-toggle';languageButton.type='button';languageButton.textContent='සිංහල';languageButton.setAttribute('aria-label','Switch language');languageButton.addEventListener('click',()=>setLanguage(language==='en'?'si':'en'));themeWrap.appendChild(languageButton);}
+  $$('.component-choice').forEach(btn=>btn.addEventListener('click',()=>{const part=btn.dataset.part;if(!addedParts.includes(part))addedParts.push(part);$$('.component-choice').forEach(b=>b.classList.toggle('active',b===btn));updateCount();if(part==='logic')showLesson('logic');else if(part!=='battery'&&part!=='resistor'&&part!=='led'&&part!=='switch'){const note=language==='si'?`${siLabels[part]} component එක library එකට තෝරාගෙන ඇත. මෙහි සම්පූර්ණ electrical simulation එක තවම සක්‍රීය නැත.`:`${labels[part]} selected. Full electrical simulation for this component is not enabled in this prototype yet.`;$('#explanationText').textContent=note;}}));
+  ['supplyVoltage','resistanceValue','switchValue'].forEach(id=>$('#'+id).addEventListener('input',simulate));$('#simulateCircuit').addEventListener('click',simulate);
+  $('#resetCircuit').addEventListener('click',()=>{addedParts=['battery','resistor','led'];$('#supplyVoltage').value=5;$('#resistanceValue').value=220;$('#switchValue').value='closed';$$('.component-choice').forEach(b=>b.classList.toggle('active',b.dataset.part==='battery'));updateCount();$('#lessonOutput').hidden=true;simulate();});
+  $('#exportCircuit').addEventListener('click',()=>{const copy=$('#circuitSvg').cloneNode(true);copy.setAttribute('xmlns',svgNS);const blob=new Blob([new XMLSerializer().serializeToString(copy)],{type:'image/svg+xml;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='am-circuit-schematic.svg';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);});
+  $('#open3D').addEventListener('click',()=>$('#threeDModal').hidden=false);$('#close3D').addEventListener('click',()=>$('#threeDModal').hidden=true);$('#threeDModal').addEventListener('click',e=>{if(e.target.id==='threeDModal')e.currentTarget.hidden=true});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#threeDModal').hidden=true});
+  $('#wireMode').addEventListener('click',()=>{const msg=language==='si'?'මෙම prototype එකේ wire ඇඳීම තවම සක්‍රීය නැහැ. දැනට පෙන්වන්නේ ආදර්ශ පරිපථයකි.':'Freehand wire editing is not enabled in this prototype yet. The visible circuit is an illustrative starter circuit.';$('#explanationText').textContent=msg;});
+  const menuButton=$('#circuitMenuToggle'),menu=$('#circuitNavLinks');menuButton.addEventListener('click',()=>{const open=menu.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.innerHTML=open?'<i class="fa-solid fa-xmark"></i>':'<i class="fa-solid fa-bars"></i>';});$$('#circuitNavLinks a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.innerHTML='<i class="fa-solid fa-bars"></i>'}));
+  function showLesson(type){const box=$('#lessonOutput');box.hidden=false;if(type==='ohm')box.innerHTML='<b>Ohm’s law: V = I × R</b><br>For a 5 V supply, 220 Ω resistor and an assumed 2 V LED drop: I = (5 − 2) / 220 ≈ 13.6 mA. Try changing the supply and resistance in the simulator. <br><small>Model is simplified for learning.</small>';else if(type==='series')box.innerHTML='<b>Series and parallel circuits</b><br>Series: the same current flows through each component. Parallel: each branch has the same voltage across it. This prototype does not yet solve multi-branch networks.';else box.innerHTML='<b>Logic gate practice</b><br><label>Input A <select id="logicA"><option value="0">0</option><option value="1">1</option></select></label><label>Input B <select id="logicB"><option value="0">0</option><option value="1">1</option></select></label><label>Gate <select id="logicGate"><option>AND</option><option>OR</option><option>NOT</option></select></label><strong id="logicResult">Output: 0</strong><br>AND is 1 only when both inputs are 1. OR is 1 if at least one input is 1. NOT flips input A.';if(type==='logic'){const update=()=>{const a=+$('#logicA').value,b=+$('#logicB').value,g=$('#logicGate').value;$('#logicResult').textContent='Output: '+(g==='AND'?(a&b):g==='OR'?(a|b):(1-a));};['logicA','logicB','logicGate'].forEach(id=>$('#'+id).addEventListener('change',update));update();}box.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  $$('.lesson-link').forEach(btn=>btn.addEventListener('click',()=>showLesson(btn.dataset.lesson)));
+  simulate();updateCount();
+})();
