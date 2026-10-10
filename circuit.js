@@ -1289,7 +1289,7 @@ function toggleLanguage() {
     $("languageToggle")?.addEventListener("click", toggleLanguage);
      
     // Open the 3D circuit preview.
-    const threeDButton = document.getElementById("Open 3D view");
+    const threeDButton = document.getElementById("open3DButton");
 
     threeDButton?.addEventListener("click", openAMD3DView);
 
